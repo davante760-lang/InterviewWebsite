@@ -6,6 +6,7 @@ import HowIWork from './components/HowIWork'
 import WhatYoullGet from './components/WhatYoullGet'
 import DealStory from './components/DealStory'
 import WhatIveLearned from './components/WhatIveLearned'
+import WorkHistory from './components/WorkHistory'
 import AboutDave from './components/AboutDave'
 import ResumeDownload from './components/ResumeDownload'
 import Footer from './components/Footer'
@@ -27,6 +28,8 @@ export default function App() {
       <DealStory />
       <SectionDivider />
       <WhatIveLearned />
+      <SectionDivider />
+      <WorkHistory />
       <SectionDivider />
       <AboutDave />
       <SectionDivider />
