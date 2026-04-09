@@ -1,12 +1,12 @@
 import StickyNav from './components/StickyNav'
 import Hero from './components/Hero'
 import NumbersBar from './components/NumbersBar'
-import WhyOutmarket from './components/WhyOutmarket'
-import HowIWork from './components/HowIWork'
-import WhatYoullGet from './components/WhatYoullGet'
-import DealStory from './components/DealStory'
-import WhatIveLearned from './components/WhatIveLearned'
 import WorkHistory from './components/WorkHistory'
+import WhatImBuiltFor from './components/WhatImBuiltFor'
+import HowIWork from './components/HowIWork'
+import FounderSignal from './components/FounderSignal'
+import DealStory from './components/DealStory'
+import WhatYoullGet from './components/WhatYoullGet'
 import AboutDave from './components/AboutDave'
 import ResumeDownload from './components/ResumeDownload'
 import Footer from './components/Footer'
@@ -17,22 +17,15 @@ export default function App() {
     <>
       <StickyNav />
       <Hero />
-      <WorkHistory />
-      <SectionDivider />
       <NumbersBar />
       <SectionDivider />
-      <WhyOutmarket />
-      <SectionDivider />
+      <WorkHistory />
+      <WhatImBuiltFor />
       <HowIWork />
-      <SectionDivider />
-      <WhatYoullGet />
-      <SectionDivider />
+      <FounderSignal />
       <DealStory />
-      <SectionDivider />
-      <WhatIveLearned />
-      <SectionDivider />
+      <WhatYoullGet />
       <AboutDave />
-      <SectionDivider />
       <ResumeDownload />
       <Footer />
     </>

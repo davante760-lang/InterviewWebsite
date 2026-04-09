@@ -3,12 +3,42 @@ import { motion, useInView } from 'framer-motion'
 import { FadeIn, SectionTitle } from './AnimatedSection'
 
 const numbers = [
-  { value: '$1.5M', label: 'Annual Quota', prefix: '$', number: 1.5, suffix: 'M', decimals: 1 },
-  { value: '124%', label: 'Avg Attainment', prefix: '', number: 124, suffix: '%', decimals: 0 },
-  { value: '$435K', label: 'Largest Deal', prefix: '$', number: 435, suffix: 'K', decimals: 0 },
-  { value: '3.5-5x', label: 'Pipeline Coverage', animated: false },
-  { value: '60%+', label: 'Self-Sourced Pipeline', prefix: '', number: 60, suffix: '%+', decimals: 0 },
-  { value: '$130K+', label: 'Avg Deal Size', prefix: '$', number: 130, suffix: 'K+', decimals: 0 },
+  {
+    value: '124%',
+    label: 'Avg Attainment',
+    context: 'Over-performance against a $1.5M+ annual quota',
+    prefix: '',
+    number: 124,
+    suffix: '%',
+    decimals: 0,
+  },
+  {
+    value: '$435K',
+    label: 'Largest Deal',
+    context: 'Full competitive displacement of a legacy incumbent',
+    prefix: '$',
+    number: 435,
+    suffix: 'K',
+    decimals: 0,
+  },
+  {
+    value: '60%+',
+    label: 'Self-Sourced',
+    context: 'Pipeline built via trigger-based outbound discipline',
+    prefix: '',
+    number: 60,
+    suffix: '%+',
+    decimals: 0,
+  },
+  {
+    value: '6 Years',
+    label: 'Market Tenure',
+    context: 'Deep focus in insurtech and operational SaaS',
+    prefix: '',
+    number: 6,
+    suffix: ' Years',
+    decimals: 0,
+  },
 ]
 
 function AnimatedNumber({ prefix = '', number, suffix = '', decimals = 0, animated = true, value }) {
@@ -50,21 +80,20 @@ function AnimatedNumber({ prefix = '', number, suffix = '', decimals = 0, animat
 
 export default function NumbersBar() {
   return (
-    <section id="numbers" className="bg-surface-1 border-b border-border py-16 md:py-20 px-6">
+    <section id="numbers" className="bg-surface-1 border-b border-border py-24 md:py-28 px-6">
       <div className="max-w-[860px] mx-auto">
-        <div className="text-center mb-10">
-          <div className="text-[11px] uppercase tracking-[0.2em] font-medium text-accent mb-3">Stats</div>
-          <h2 className="font-heading text-[26px] md:text-[32px] font-semibold tracking-[-0.03em] text-text-primary">By the Numbers</h2>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-10">
+        <FadeIn>
+          <SectionTitle eyebrow="STATS" title="Track Record" />
+        </FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
           {numbers.map((item, i) => (
             <FadeIn key={item.label} delay={i * 0.08}>
               <motion.div
-                className="text-center"
-                whileHover={{ scale: 1.05 }}
+                className="text-center md:text-left"
+                whileHover={{ y: -2 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               >
-                <div className="font-heading text-accent text-[28px] md:text-[34px] font-semibold tracking-[-0.03em] leading-none tabular-nums">
+                <div className="font-heading text-accent text-[32px] md:text-[40px] font-semibold tracking-[-0.03em] leading-none tabular-nums">
                   <AnimatedNumber
                     prefix={item.prefix}
                     number={item.number}
@@ -74,9 +103,12 @@ export default function NumbersBar() {
                     value={item.value}
                   />
                 </div>
-                <div className="text-[10px] md:text-[11px] uppercase tracking-[0.15em] text-text-tertiary mt-2 font-medium">
+                <div className="text-[10px] md:text-[11px] uppercase tracking-[0.15em] text-text-tertiary mt-3 font-medium">
                   {item.label}
                 </div>
+                <p className="text-[13px] leading-[1.6] text-text-secondary mt-2 max-w-[320px] mx-auto md:mx-0">
+                  {item.context}
+                </p>
               </motion.div>
             </FadeIn>
           ))}
