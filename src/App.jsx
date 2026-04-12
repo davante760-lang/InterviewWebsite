@@ -1,5 +1,6 @@
 import LandingNav from './components/landing/LandingNav'
 import LandingHero from './components/landing/LandingHero'
+import CinematicDemo from './components/landing/CinematicDemo'
 import ProblemStatement from './components/landing/ProblemStatement'
 import VideoWalkthrough from './components/landing/VideoWalkthrough'
 import HowItWorks from './components/landing/HowItWorks'
@@ -18,6 +19,7 @@ export default function App() {
     <>
       <LandingNav />
       <LandingHero />
+      <CinematicDemo />
       <ProblemStatement />
       <VideoWalkthrough />
       <HowItWorks />

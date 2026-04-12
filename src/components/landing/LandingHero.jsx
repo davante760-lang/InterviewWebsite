@@ -1,39 +1,25 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { motion } from 'framer-motion'
 import ConstellationCanvas from '../ConstellationCanvas'
 import ElectricText from '../ElectricText'
-import HeroDemo from './HeroDemo'
 import { GlowButton } from './ScrollAnimations'
 
 export default function LandingHero() {
-  const sectionRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
-  })
-
-  // Parallax exit — demo shrinks and blurs as user scrolls away
-  const demoScale = useTransform(scrollYProgress, [0, 0.6, 1], [1, 1, 0.88])
-  const demoOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1, 0])
-  const demoY = useTransform(scrollYProgress, [0, 1], [0, -60])
-
   return (
-    <section ref={sectionRef} className="relative min-h-[180vh] overflow-hidden">
+    <section className="relative min-h-screen overflow-hidden">
       {/* One signature background — constellation particles */}
       <div className="absolute inset-0 opacity-50">
         <ConstellationCanvas />
       </div>
 
-      {/* Subtle ambient glow — single, static, not animated blobs */}
+      {/* Subtle ambient glow */}
       <div
         className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full opacity-[0.07] pointer-events-none"
         style={{ background: 'radial-gradient(circle, #7c6aef 0%, transparent 70%)' }}
       />
 
-      {/* Content — sticky while scrolling */}
-      <div className="sticky top-0 min-h-screen flex flex-col items-center justify-center pt-24 pb-8 px-6">
-        <div className="relative z-10 text-center max-w-[900px] mx-auto">
-          {/* Eyebrow */}
+      {/* Content */}
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center pt-24 pb-16 px-6">
+        <div className="text-center max-w-[900px] mx-auto">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -43,7 +29,6 @@ export default function LandingHero() {
             Real-Time Sales Interview Coaching
           </motion.span>
 
-          {/* Headline */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -72,7 +57,6 @@ export default function LandingHero() {
             on Your Biggest Deal.
           </motion.h1>
 
-          {/* Subheadline */}
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -80,10 +64,9 @@ export default function LandingHero() {
             className="text-text-secondary text-[17px] sm:text-[19px] leading-[1.7] max-w-[600px] mx-auto mb-10"
           >
             Interview Coach surfaces your stories, your metrics, and your proof points the moment a
-            question lands — so your best answers show up before you start stalling.
+            question lands &mdash; so your best answers show up before you start stalling.
           </motion.p>
 
-          {/* CTA */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -94,7 +77,6 @@ export default function LandingHero() {
             </GlowButton>
           </motion.div>
 
-          {/* Micro-proof — simple, no staggered letter-spacing gimmick */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -106,22 +88,11 @@ export default function LandingHero() {
             <span>Runs Locally &mdash; No Lag</span>
           </motion.div>
         </div>
-
-        {/* Animated demo — cinematic, parallax exit */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 3.0, ease: [0.25, 0.1, 0.25, 1] }}
-          style={{ scale: demoScale, opacity: demoOpacity, y: demoY }}
-          className="relative z-10 w-full max-w-[900px] mx-auto mt-12"
-        >
-          <HeroDemo />
-        </motion.div>
       </div>
 
-      {/* Bottom gradient — scene transition into next section */}
+      {/* Bottom gradient into cinematic demo */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none z-20"
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-20"
         style={{ background: 'linear-gradient(to bottom, transparent, var(--color-bg))' }}
       />
     </section>
