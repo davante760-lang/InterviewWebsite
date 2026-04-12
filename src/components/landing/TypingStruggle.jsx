@@ -90,7 +90,7 @@ export default function TypingStruggle() {
               color: phase === 6 ? '#00E0CC' : '#FF5C5C',
             }}
           >
-            {phase === 6 ? 'With Interview Coach' : 'Without Interview Coach'}
+            {phase === 6 ? 'With Interview Coach: Same numbers. Now they land.' : 'Without Interview Coach: Rambling. Vague. Trailing off.'}
           </p>
 
           {/* Question — stays visible during attempts, hides on SAY THIS */}
@@ -148,7 +148,7 @@ export default function TypingStruggle() {
                 <p style={{ fontSize: '15px', fontWeight: 400, lineHeight: 1.75, color: '#EDF2F7' }}>{answer}</p>
               </div>
               <p className="mt-6 text-center text-[14px] sm:text-[16px] font-medium" style={{ color: '#8B9BB4' }}>
-                Same track record. Now they hear it.
+                Your track record doesn&apos;t change. How you deliver it does.
               </p>
             </div>
 
