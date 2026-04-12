@@ -3,7 +3,7 @@ import LandingHero from './components/landing/LandingHero'
 import CinematicDemo from './components/landing/CinematicDemo'
 import TypingStruggle from './components/landing/TypingStruggle'
 import VideoWalkthrough from './components/landing/VideoWalkthrough'
-import HowItWorks from './components/landing/HowItWorks'
+import ProductExplainer from './components/landing/ProductExplainer'
 import PrepCards from './components/landing/PrepCards'
 import PracticeMode from './components/landing/PracticeMode'
 import WarRoom from './components/landing/WarRoom'
@@ -22,7 +22,7 @@ export default function App() {
       <CinematicDemo />
       <TypingStruggle />
       <VideoWalkthrough />
-      <HowItWorks />
+      <ProductExplainer />
       <PrepCards />
       <PracticeMode />
       <WarRoom />
