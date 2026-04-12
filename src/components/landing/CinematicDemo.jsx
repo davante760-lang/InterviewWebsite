@@ -217,7 +217,7 @@ function DesktopDemo() {
   const showTrigger = progress > 0.52 && progress < 0.60
   const showAnalyzing = progress > 0.60 && progress < 0.68
   const showSayThis = progress > 0.68
-  const showQuestionCard = progress > 0.72
+  const showQuestionCard = progress > 0.69
   const hideEmpty = progress > 0.52
   const fullQuestion = "Walk me through your biggest competitive displacement."
   const questionFraction = Math.max(0, Math.min(1, (progress - 0.22) / 0.18))
