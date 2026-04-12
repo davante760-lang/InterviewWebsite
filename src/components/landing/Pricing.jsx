@@ -1,6 +1,20 @@
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
-import { TiltCard, CountUp, GlowButton } from './ScrollAnimations'
+import { useRef, useState, useEffect } from 'react'
+
+function useReveal() {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect() } },
+      { threshold: 0.15 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+  return [ref, visible]
+}
 
 const features = [
   'Unlimited live coaching',
@@ -13,88 +27,100 @@ const features = [
 ]
 
 export default function Pricing() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [sectionRef, visible] = useReveal()
 
   return (
-    <section id="pricing" className="py-24 md:py-32 px-6 bg-surface-1/30 relative overflow-hidden">
-      {/* Ambient glow */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(124,106,239,0.06) 0%, transparent 60%)' }}
-      />
+    <>
+      <style>{`
+        @keyframes shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+      `}</style>
 
-      <div className="relative z-10 max-w-[520px] mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-10"
-        >
-          <span className="block text-[11px] uppercase tracking-[0.25em] font-medium text-accent/60 mb-3">
-            Pricing
-          </span>
-          <h2 className="font-heading font-bold text-[28px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.03em] text-text-primary mb-4">
-            Less Than One Hour of the OTE You&apos;re Interviewing For.
-          </h2>
-          <p className="text-text-secondary/60 text-[15px] leading-[1.7]">
-            If your next role pays $250K, that&apos;s $120/hour. One sharper interview is the
-            difference between an offer and &ldquo;we went with someone else.&rdquo;
-          </p>
-        </motion.div>
+      <section id="pricing" ref={sectionRef} className="py-24 sm:py-32 px-5" style={{ background: '#0B0D12' }}>
+        <div className="max-w-[520px] mx-auto text-center">
 
-        <TiltCard className="w-full" maxTilt={3}>
-          <div
-            ref={ref}
-            className="rounded-2xl border border-accent/15 bg-surface-1/95 backdrop-blur-xl p-8 shadow-xl shadow-black/20"
-          >
-              <p className="font-heading font-bold text-[20px] text-text-primary mb-2">
+          {/* Header */}
+          <div className="transition-all duration-700 mb-10" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)' }}>
+            <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#00E0CC', marginBottom: '16px' }}>
+              Pricing
+            </p>
+            <h2 className="font-heading font-bold mb-4" style={{ fontSize: 'clamp(24px, 5vw, 38px)', lineHeight: 1.15, letterSpacing: '-0.025em', color: '#EDF2F7' }}>
+              Less Than One Hour of the OTE You&apos;re Interviewing For.
+            </h2>
+            <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#8B9BB4' }}>
+              If your next role pays $250K, that&apos;s $120/hour. One sharper interview is the difference between an offer and &ldquo;we went with someone else.&rdquo;
+            </p>
+          </div>
+
+          {/* Card */}
+          <div className="transition-all duration-700" style={{
+            opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)', transitionDelay: '0.2s',
+          }}>
+            <div style={{
+              background: 'rgba(16,22,34,0.72)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              borderRadius: '14px',
+              padding: '32px 28px',
+              textAlign: 'center',
+            }}>
+              <p style={{ fontSize: '18px', fontWeight: 700, color: '#EDF2F7', marginBottom: '8px' }}>
                 Interview Coach
               </p>
-              <div className="flex items-baseline gap-1 mb-5">
-                <span className="font-heading font-bold text-[48px] tracking-[-0.04em] text-accent">
-                  {isInView ? (
-                    <CountUp end={99} prefix="$" duration={1.5} className="" />
-                  ) : '$0'}
+
+              {/* Price with shimmer */}
+              <div className="flex items-baseline justify-center gap-2 mb-4">
+                <span style={{
+                  fontFamily: "'Outfit', sans-serif",
+                  fontSize: 'clamp(48px, 10vw, 64px)',
+                  fontWeight: 800,
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1,
+                  background: 'linear-gradient(90deg, #00E0CC 0%, #00E0CC 40%, #5EFFE5 50%, #00E0CC 60%, #00E0CC 100%)',
+                  backgroundSize: '200% 100%',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  animation: 'shimmer 3s ease-in-out infinite',
+                }}>
+                  $99
                 </span>
-                <span className="text-text-tertiary/50 text-[14px]">/month</span>
+                <span style={{ fontSize: '16px', color: '#5A6A82' }}>/month</span>
               </div>
-              <p className="text-text-secondary/60 text-[14px] mb-6 border-b border-border/15 pb-6">
+
+              <p style={{ fontSize: '14px', color: '#8B9BB4', marginBottom: '24px', paddingBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                 Everything. No tiers. No feature gating.
               </p>
 
-              <ul className="space-y-3 mb-8">
+              {/* Features */}
+              <ul className="text-left mb-8" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {features.map((f, i) => (
-                  <motion.li
-                    key={f}
-                    initial={{ opacity: 0, x: -8 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.8 + i * 0.06, duration: 0.3 }}
-                    className="flex items-start gap-3 text-[14px] text-text-secondary/70"
-                  >
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={isInView ? { scale: 1 } : {}}
-                      transition={{ delay: 0.8 + i * 0.06 + 0.1, type: 'spring', stiffness: 300 }}
-                      className="text-accent mt-0.5 text-[12px]"
-                    >
-                      &#10003;
-                    </motion.span>
-                    {f}
-                  </motion.li>
+                  <li key={f} className="flex items-start gap-3 transition-all duration-500"
+                    style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateX(0)' : 'translateX(-8px)', transitionDelay: `${0.5 + i * 0.06}s` }}>
+                    <span style={{ color: '#00E0CC', marginTop: '2px', fontSize: '14px', flexShrink: 0 }}>&#10003;</span>
+                    <span style={{ fontSize: '14px', color: '#CBD5E1' }}>{f}</span>
+                  </li>
                 ))}
               </ul>
 
-              <GlowButton href="#start" className="w-full">
-                <span className="block text-center">Start Your Free Practice Interview &rarr;</span>
-              </GlowButton>
-              <p className="text-text-tertiary/40 text-[11px] mt-4 text-center">
+              {/* CTA */}
+              <a href="#start" className="block w-full text-center font-semibold transition-all duration-200" style={{
+                padding: '16px 32px', borderRadius: '10px',
+                background: '#00E0CC', color: '#080B12',
+                fontSize: '15px', textDecoration: 'none',
+              }}>
+                Start Your Free Practice Interview &rarr;
+              </a>
+              <p style={{ fontSize: '11px', color: '#5A6A82', marginTop: '12px' }}>
                 No credit card required. Cancel anytime.
               </p>
+            </div>
           </div>
-        </TiltCard>
-      </div>
-    </section>
+
+        </div>
+      </section>
+    </>
   )
 }
