@@ -19,36 +19,54 @@ const attempts = [
 
 const answer = "Displaced an 8-year incumbent. $225K ACV, 7-month cycle. They had relationships at every level — I had zero. Started with the ops director, who was living with the pain daily. Mapped his priorities back to a business case, got finance aligned on the ROI, then used both of them to get 30 minutes with the CFO. Ran a structured eval, controlled the criteria, three-year commitment on the close. 124% to quota that year."
 
-// Typing animation that runs at fixed speed, triggered by scroll thresholds
-function useTypingAnimation(text, triggered) {
+/*
+  Scroll zones (400vh total):
+
+  0.00–0.08  Thesis + source card fade in
+  0.08–0.12  Question appears
+
+  0.12–0.18  TRIGGER: Attempt 1 types in
+  0.18–0.24  HOLD: Attempt 1 static, readable
+
+  0.24–0.30  TRIGGER: Attempt 2 types in
+  0.30–0.36  HOLD: 1+2 static, readable
+
+  0.36–0.42  TRIGGER: Attempt 3 types in
+  0.42–0.48  HOLD: 1+2+3 static, readable
+
+  0.48–0.54  TRIGGER: Attempt 4 types in
+  0.54–0.62  HOLD: All 4 static, readable
+
+  0.62–0.70  Transition — failed attempts fade
+  0.70–0.90  SAY THIS card
+  0.90–1.00  Closing line
+*/
+
+const triggers = [0.12, 0.24, 0.36, 0.48]
+
+function useFixedTyping(text, shouldStart) {
   const [displayed, setDisplayed] = useState('')
   const [done, setDone] = useState(false)
+  const startedRef = useRef(false)
 
   useEffect(() => {
-    if (!triggered || done) return
-    setDisplayed('')
-    setDone(false)
-    let i = 0
-    const interval = setInterval(() => {
-      i++
-      setDisplayed(text.slice(0, i))
-      if (i >= text.length) {
-        clearInterval(interval)
-        setDone(true)
-      }
-    }, 25) // Fixed 25ms per character — consistent speed
-    return () => clearInterval(interval)
-  }, [triggered, text, done])
-
-  // Reset if untriggered (scrolling back up)
-  useEffect(() => {
-    if (!triggered) {
+    if (shouldStart && !startedRef.current) {
+      startedRef.current = true
       setDisplayed('')
-      setDone(false)
+      let i = 0
+      const interval = setInterval(() => {
+        i++
+        setDisplayed(text.slice(0, i))
+        if (i >= text.length) {
+          clearInterval(interval)
+          setDone(true)
+        }
+      }, 22)
+      return () => clearInterval(interval)
     }
-  }, [triggered])
+  }, [shouldStart, text])
 
-  return { displayed, done, typing: triggered && !done }
+  return { displayed, done, typing: startedRef.current && !done }
 }
 
 export default function TypingStruggle() {
@@ -57,32 +75,29 @@ export default function TypingStruggle() {
   const [pr, setPr] = useState(0)
   useMotionValueEvent(p, 'change', setPr)
 
-  // Each attempt is triggered by a scroll threshold — animation runs at its own pace
-  const a0 = useTypingAnimation(attempts[0], pr > 0.15)
-  const a1 = useTypingAnimation(attempts[1], a0.done && pr > 0.25)
-  const a2 = useTypingAnimation(attempts[2], a1.done && pr > 0.35)
-  const a3 = useTypingAnimation(attempts[3], a2.done && pr > 0.45)
-
-  const allDone = a3.done
-  const showGoodOutput = pr > 0.65
-  const showClosing = pr > 0.85
+  const a0 = useFixedTyping(attempts[0], pr > triggers[0])
+  const a1 = useFixedTyping(attempts[1], pr > triggers[1])
+  const a2 = useFixedTyping(attempts[2], pr > triggers[2])
+  const a3 = useFixedTyping(attempts[3], pr > triggers[3])
 
   const typingStates = [a0, a1, a2, a3]
+  const showGoodOutput = pr > 0.70
+  const showClosing = pr > 0.90
 
   return (
-    <section ref={ref} className="relative" style={{ height: '350vh' }}>
+    <section ref={ref} className="relative" style={{ height: '400vh' }}>
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-5 overflow-hidden">
         <div className="w-full max-w-[500px]">
 
-          {/* Thesis statement */}
+          {/* Thesis */}
           <p className="text-[14px] sm:text-[16px] text-text-primary/60 font-medium text-center mb-8 transition-opacity duration-700"
-            style={{ opacity: pr > 0.03 && pr < 0.62 ? 1 : 0 }}>
+            style={{ opacity: pr > 0.03 && pr < 0.65 ? 1 : 0 }}>
             You&apos;re not bad at interviewing. You&apos;re bad at translating.
           </p>
 
           {/* Source card */}
           <div className="bg-[#111825] border border-[#1a2030] rounded-lg px-4 py-3 mb-6 transition-all duration-500"
-            style={{ opacity: pr > 0.05 ? 1 : 0, transform: pr > 0.12 ? 'scale(0.92)' : 'scale(1)', transformOrigin: 'top center' }}>
+            style={{ opacity: pr > 0.04 ? 1 : 0, transform: pr > 0.10 ? 'scale(0.92)' : 'scale(1)', transformOrigin: 'top center' }}>
             <p className="text-[10px] sm:text-[11px] text-text-tertiary/40 uppercase tracking-wider mb-2">Your Track Record</p>
             <div className="flex flex-wrap gap-x-4 gap-y-1.5">
               {stats.map((s, i) => (
@@ -94,37 +109,35 @@ export default function TypingStruggle() {
             </div>
           </div>
 
-          {/* Interview question */}
-          <div className="transition-opacity duration-500 mb-2" style={{ opacity: pr > 0.10 && !showGoodOutput ? 0.5 : 0 }}>
+          {/* Question */}
+          <div className="transition-opacity duration-500 mb-2"
+            style={{ opacity: pr > 0.08 && !showGoodOutput ? 0.5 : 0 }}>
             <p className="text-[12px] sm:text-[13px] text-text-tertiary/35 italic">&ldquo;{question}&rdquo;</p>
           </div>
 
-          {/* Translation stream line */}
-          <div className="flex justify-center mb-4 transition-opacity duration-300"
-            style={{ opacity: pr > 0.12 ? 0.3 : 0 }}>
-            <div className="w-px h-6 bg-text-tertiary/20" />
+          {/* Stream line */}
+          <div className="flex justify-center mb-3 transition-opacity duration-300"
+            style={{ opacity: pr > 0.10 && !showGoodOutput ? 0.3 : 0 }}>
+            <div className="w-px h-5 bg-text-tertiary/20" />
           </div>
 
           {/* Stacked failed attempts */}
-          <div className="transition-all duration-500"
-            style={{ opacity: pr > 0.13 && !showGoodOutput ? 1 : 0, maxHeight: !showGoodOutput ? 600 : 0, overflow: 'hidden' }}>
+          <div className="transition-all duration-600"
+            style={{ opacity: pr > 0.11 && !showGoodOutput ? 1 : 0, maxHeight: !showGoodOutput ? 700 : 0, overflow: 'hidden' }}>
             <p className="text-[10px] sm:text-[11px] text-red-soft/50 uppercase tracking-wider mb-2">Without Interview Coach</p>
             <div className="space-y-2 mb-4">
               {typingStates.map((a, i) => {
-                if (!a.displayed && !a.typing) return null
-                const isDone = a.done && (i < 3 || a3.done)
+                if (!a.displayed) return null
                 return (
                   <div key={i} className={`border-l-2 rounded-r-lg px-4 py-2.5 transition-all duration-500 ${
-                    isDone && !a.typing
-                      ? 'border-red-soft/20 bg-red-dim/10'
-                      : 'border-red-soft/30 bg-red-dim/20'
+                    a.done ? 'border-red-soft/20 bg-red-dim/10' : 'border-red-soft/30 bg-red-dim/20'
                   }`}>
-                    <p className={`text-[13px] sm:text-[15px] leading-[1.5] transition-all duration-500 ${
-                      isDone && !a.typing ? 'text-text-primary/30 line-through decoration-red-soft/20' : 'text-text-primary/60'
+                    <p className={`text-[13px] sm:text-[15px] leading-[1.5] transition-all duration-700 ${
+                      a.done ? 'text-text-primary/30 line-through decoration-red-soft/20' : 'text-text-primary/60'
                     }`}>
                       {a.displayed}
                       {a.typing && (
-                        <span className="inline-block w-[2px] h-[1em] ml-[1px] align-middle bg-text-tertiary/60" />
+                        <span className="inline-block w-[2px] h-[1em] ml-[1px] align-middle bg-text-tertiary/60 animate-pulse" />
                       )}
                     </p>
                   </div>
@@ -133,7 +146,7 @@ export default function TypingStruggle() {
             </div>
           </div>
 
-          {/* Good translation */}
+          {/* SAY THIS card */}
           <div className="transition-all duration-700"
             style={{ opacity: showGoodOutput ? 1 : 0, transform: showGoodOutput ? 'translateY(0)' : 'translateY(20px)' }}>
             <p className="text-[10px] sm:text-[11px] text-teal/50 uppercase tracking-wider mb-2">With Interview Coach</p>
