@@ -52,7 +52,7 @@ function MobileDemo() {
 
   return (
     <section ref={ref} className="relative" style={{ height: '350vh' }}>
-      <div className="sticky top-0 h-screen flex flex-col items-center pt-16 px-4 overflow-hidden">
+      <div className="sticky top-0 h-screen flex flex-col items-center pt-28 px-4 overflow-hidden">
 
         {/* Label */}
         <div className="h-4 mb-2">
