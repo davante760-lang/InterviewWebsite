@@ -103,76 +103,69 @@ export default function TypingStruggle() {
             )}
           </AnimatePresence>
 
-          {/* Central zone */}
-          <div className="relative min-h-[260px]">
-            <AnimatePresence mode="wait">
+          {/* Central zone — no AnimatePresence, pure CSS transitions */}
+          <div className="relative min-h-[280px]">
 
-              {/* Phases 2-5: one attempt at a time */}
-              {phase >= 2 && phase <= 5 && (
-                <motion.div
-                  key={`attempt-${phase}`}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <p className="text-[10px] sm:text-[11px] text-red-soft/70 uppercase tracking-wider mb-2">Without Interview Coach</p>
-                  <div className="border-l-2 border-red-soft/40 bg-red-dim/20 rounded-r-lg px-4 sm:px-5 py-3 sm:py-4">
-                    <p className="text-text-primary/75 text-[15px] sm:text-[17px] leading-[1.6] italic">{attempts[phase - 2]}</p>
+            {/* Phases 2-5: one attempt at a time */}
+            {[0, 1, 2, 3].map((i) => (
+              <div
+                key={i}
+                className="absolute inset-x-0 top-0 transition-all duration-500 ease-out"
+                style={{
+                  opacity: phase === i + 2 ? 1 : 0,
+                  transform: phase === i + 2 ? 'translateY(0)' : phase > i + 2 ? 'translateY(-16px)' : 'translateY(16px)',
+                  pointerEvents: phase === i + 2 ? 'auto' : 'none',
+                }}
+              >
+                <p className="text-[10px] sm:text-[11px] text-red-soft/70 uppercase tracking-wider mb-2">Without Interview Coach</p>
+                <div className="border-l-2 border-red-soft/40 bg-red-dim/20 rounded-r-lg px-4 sm:px-5 py-3 sm:py-4">
+                  <p className="text-text-primary/75 text-[15px] sm:text-[17px] leading-[1.6] italic">{attempts[i]}</p>
+                </div>
+              </div>
+            ))}
+
+            {/* Phase 6: all 4 stacked */}
+            <div
+              className="absolute inset-x-0 top-0 transition-all duration-500 ease-out"
+              style={{
+                opacity: phase === 6 ? 1 : 0,
+                transform: phase === 6 ? 'translateY(0)' : phase > 6 ? 'translateY(-16px)' : 'translateY(16px)',
+                pointerEvents: phase === 6 ? 'auto' : 'none',
+              }}
+            >
+              <p className="text-[10px] sm:text-[11px] text-red-soft/70 uppercase tracking-wider mb-2">Without Interview Coach</p>
+              <div className="space-y-2">
+                {attempts.map((a, i) => (
+                  <div key={i} className="border-l-2 border-red-soft/25 bg-red-dim/12 rounded-r-lg px-3 sm:px-4 py-2 sm:py-2.5">
+                    <p className="text-[12px] sm:text-[13px] text-text-primary/50 line-through decoration-red-soft/30 italic leading-[1.5]">{a}</p>
                   </div>
-                </motion.div>
-              )}
+                ))}
+              </div>
+            </div>
 
-              {/* Phase 6: all 4 stacked */}
-              {phase === 6 && (
-                <motion.div
-                  key="all-failed"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <p className="text-[10px] sm:text-[11px] text-red-soft/70 uppercase tracking-wider mb-2">Without Interview Coach</p>
-                  <div className="space-y-2">
-                    {attempts.map((a, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 8 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: i * 0.1 }}
-                        className="border-l-2 border-red-soft/25 bg-red-dim/12 rounded-r-lg px-3 sm:px-4 py-2 sm:py-2.5"
-                      >
-                        <p className="text-[12px] sm:text-[13px] text-text-primary/50 line-through decoration-red-soft/30 italic leading-[1.5]">{a}</p>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
+            {/* Phase 7: SAY THIS */}
+            <div
+              className="absolute inset-x-0 top-0 transition-all duration-500 ease-out"
+              style={{
+                opacity: phase === 7 ? 1 : 0,
+                transform: phase === 7 ? 'translateY(0)' : 'translateY(20px)',
+                pointerEvents: phase === 7 ? 'auto' : 'none',
+              }}
+            >
+              <p className="text-[10px] sm:text-[11px] text-teal/50 uppercase tracking-wider mb-2">With Interview Coach</p>
+              <div className="border-l-[3px] border-teal/60 bg-[#111825] rounded-r-xl p-5 sm:p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="w-2 h-2 rounded-full bg-teal" />
+                  <span className="text-[10px] sm:text-[11px] text-text-tertiary/50 uppercase tracking-wider font-medium">Say This</span>
+                  <span className="text-[9px] sm:text-[10px] text-teal/40 ml-auto">&lt; 500ms</span>
+                </div>
+                <p className="text-text-secondary text-[15px] sm:text-[17px] leading-[1.7]">{answer}</p>
+              </div>
+              <p className="mt-8 text-center text-[14px] sm:text-[16px] text-text-primary/60 font-medium">
+                Same track record. Now they hear it.
+              </p>
+            </div>
 
-              {/* Phase 7: SAY THIS */}
-              {phase === 7 && (
-                <motion.div
-                  key="success"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: 'easeOut' }}
-                >
-                  <p className="text-[10px] sm:text-[11px] text-teal/50 uppercase tracking-wider mb-2">With Interview Coach</p>
-                  <div className="border-l-[3px] border-teal/60 bg-[#111825] rounded-r-xl p-5 sm:p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="w-2 h-2 rounded-full bg-teal" />
-                      <span className="text-[10px] sm:text-[11px] text-text-tertiary/50 uppercase tracking-wider font-medium">Say This</span>
-                      <span className="text-[9px] sm:text-[10px] text-teal/40 ml-auto">&lt; 500ms</span>
-                    </div>
-                    <p className="text-text-secondary text-[15px] sm:text-[17px] leading-[1.7]">{answer}</p>
-                  </div>
-                  <p className="mt-8 text-center text-[14px] sm:text-[16px] text-text-primary/60 font-medium">
-                    Same track record. Now they hear it.
-                  </p>
-                </motion.div>
-              )}
-
-            </AnimatePresence>
           </div>
 
         </div>
