@@ -64,7 +64,7 @@ export default function LandingHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.9 }}
           >
-            <a href="#start" className="inline-block font-semibold transition-all duration-200"
+            <a href="/start" className="inline-block font-semibold transition-all duration-200"
               style={{ padding: '16px 36px', borderRadius: '10px', background: 'rgba(0,224,204,0.15)', border: '1px solid rgba(0,224,204,0.35)', color: '#00E0CC', fontSize: '15px', textDecoration: 'none' }}>
               Start Your Free Practice Interview &rarr;
             </a>

@@ -106,7 +106,7 @@ export default function Pricing() {
               </ul>
 
               {/* CTA */}
-              <a href="#start" className="block w-full text-center font-semibold transition-all duration-200" style={{
+              <a href="/start" className="block w-full text-center font-semibold transition-all duration-200" style={{
                 padding: '16px 32px', borderRadius: '10px',
                 background: 'rgba(0,224,204,0.12)', border: '1px solid rgba(0,224,204,0.3)', color: '#00E0CC',
                 fontSize: '15px', textDecoration: 'none',
