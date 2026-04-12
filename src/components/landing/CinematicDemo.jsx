@@ -204,11 +204,11 @@ function DesktopDemo() {
   const leftX = useTransform(splitGap, (g) => -g / 2)
   const rightX = useTransform(splitGap, (g) => g / 2)
   const rightRotateY = useTransform(p, [0.10, 0.20, 0.22, 0.38, 0.42, 0.55], [0, -8, -25, -25, -8, 0])
-  const rightScale = useTransform(p, [0.10, 0.22, 0.38, 0.42, 0.55], [1, 1.35, 1.35, 1.1, 1])
+  const rightScale = useTransform(p, [0.10, 0.22, 0.38, 0.42, 0.55], [1, 1.15, 1.15, 1.05, 1])
   const rightZ = useTransform(p, [0.10, 0.22, 0.38, 0.42, 0.55], [0, 150, 150, 40, 0])
   const rightBrightness = useTransform(p, [0.22, 0.30, 0.38, 0.50], [1, 1.1, 1.1, 1])
   const leftRotateY = useTransform(p, [0.10, 0.20, 0.42, 0.55, 0.68, 0.72, 0.82], [0, 8, 8, 25, 25, 8, 0])
-  const leftScale = useTransform(p, [0.10, 0.42, 0.55, 0.68, 0.72, 0.82], [1, 1, 1.35, 1.35, 1.1, 1])
+  const leftScale = useTransform(p, [0.10, 0.42, 0.55, 0.68, 0.72, 0.82], [1, 1, 1.15, 1.15, 1.05, 1])
   const leftZ = useTransform(p, [0.10, 0.42, 0.55, 0.68, 0.72, 0.82], [0, 0, 150, 150, 40, 0])
   const leftDim = useTransform(p, [0.22, 0.30, 0.42, 0.50], [1, 0.4, 0.4, 1])
   const leftBrightness = useTransform(p, [0.50, 0.58, 0.68, 0.78], [1, 1.1, 1.1, 1])
@@ -237,7 +237,7 @@ function DesktopDemo() {
               style={{ opacity: labelIdx === i ? 1 : 0 }}>{label}</span>
           ))}
         </div>
-        <motion.div style={{ scale: panelScale, opacity: panelOpacity, y: panelY }} className="w-[92vw] max-w-[1100px] h-[72vh] max-h-[640px]">
+        <motion.div style={{ scale: panelScale, opacity: panelOpacity, y: panelY }} className="w-[92vw] max-w-[1100px] h-[65vh] max-h-[580px]">
           <div className="w-full h-full flex rounded-xl overflow-visible" style={{ perspective: '1200px' }}>
             <motion.div style={{ x: leftX, rotateY: leftRotateY, scale: leftScale, z: leftZ, filter: useTransform(leftDim, (d) => `brightness(${d})`) }}
               className="w-[60%] rounded-l-xl overflow-hidden border border-[#1a2030] bg-[#0c1117] origin-left">
