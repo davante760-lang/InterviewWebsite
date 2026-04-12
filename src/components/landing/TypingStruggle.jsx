@@ -82,7 +82,7 @@ export default function TypingStruggle() {
           <motion.p
             animate={{ opacity: phase >= 2 && phase <= 5 ? 0.45 : 0 }}
             transition={{ duration: 0.4 }}
-            className="text-[12px] sm:text-[13px] text-text-tertiary/35 italic mb-5"
+            className="text-[12px] sm:text-[13px] text-text-tertiary/60 italic mb-5"
           >
             &ldquo;{question}&rdquo;
           </motion.p>
@@ -100,9 +100,9 @@ export default function TypingStruggle() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.4 }}
                 >
-                  <p className="text-[10px] sm:text-[11px] text-red-soft/50 uppercase tracking-wider mb-2">Without Interview Coach</p>
-                  <div className="border-l-2 border-red-soft/30 bg-red-dim/15 rounded-r-lg px-4 sm:px-5 py-3 sm:py-4">
-                    <p className="text-text-primary/50 text-[15px] sm:text-[17px] leading-[1.6] italic">{attempts[phase - 2]}</p>
+                  <p className="text-[10px] sm:text-[11px] text-red-soft/70 uppercase tracking-wider mb-2">Without Interview Coach</p>
+                  <div className="border-l-2 border-red-soft/40 bg-red-dim/20 rounded-r-lg px-4 sm:px-5 py-3 sm:py-4">
+                    <p className="text-text-primary/75 text-[15px] sm:text-[17px] leading-[1.6] italic">{attempts[phase - 2]}</p>
                   </div>
                 </motion.div>
               )}
@@ -116,11 +116,11 @@ export default function TypingStruggle() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <p className="text-[10px] sm:text-[11px] text-red-soft/50 uppercase tracking-wider mb-2">Without Interview Coach</p>
+                  <p className="text-[10px] sm:text-[11px] text-red-soft/70 uppercase tracking-wider mb-2">Without Interview Coach</p>
                   <div className="space-y-2">
                     {attempts.map((a, i) => (
-                      <div key={i} className="border-l-2 border-red-soft/15 bg-red-dim/8 rounded-r-lg px-3 sm:px-4 py-2 sm:py-2.5">
-                        <p className="text-[12px] sm:text-[13px] text-text-primary/25 line-through decoration-red-soft/15 italic leading-[1.5]">{a}</p>
+                      <div key={i} className="border-l-2 border-red-soft/25 bg-red-dim/12 rounded-r-lg px-3 sm:px-4 py-2 sm:py-2.5">
+                        <p className="text-[12px] sm:text-[13px] text-text-primary/50 line-through decoration-red-soft/30 italic leading-[1.5]">{a}</p>
                       </div>
                     ))}
                   </div>
