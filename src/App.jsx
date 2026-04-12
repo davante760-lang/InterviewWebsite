@@ -1,7 +1,7 @@
 import LandingNav from './components/landing/LandingNav'
 import LandingHero from './components/landing/LandingHero'
 import CinematicDemo from './components/landing/CinematicDemo'
-import ProblemStatement from './components/landing/ProblemStatement'
+import TypingStruggle from './components/landing/TypingStruggle'
 import VideoWalkthrough from './components/landing/VideoWalkthrough'
 import HowItWorks from './components/landing/HowItWorks'
 import PrepCards from './components/landing/PrepCards'
@@ -20,7 +20,7 @@ export default function App() {
       <LandingNav />
       <LandingHero />
       <CinematicDemo />
-      <ProblemStatement />
+      <TypingStruggle />
       <VideoWalkthrough />
       <HowItWorks />
       <PrepCards />
