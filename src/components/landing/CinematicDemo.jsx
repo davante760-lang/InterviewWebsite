@@ -130,7 +130,7 @@ function MobileDemo() {
                   <span className="w-1 h-1 rounded-full bg-teal animate-pulse" />AI analyzing...
                 </span>
               </div>
-              <div className="px-3 pt-1.5 transition-all duration-500" style={{ opacity: showTrigger ? 1 : 0, maxHeight: showTrigger ? 32 : 0, overflow: 'hidden' }}>
+              <div className="px-3 pt-2 pb-1.5 transition-all duration-500" style={{ opacity: showTrigger ? 1 : 0, maxHeight: showTrigger ? 44 : 0, overflow: 'hidden' }}>
                 <span className="inline-flex items-center gap-1 text-[8px] bg-teal/10 text-teal/80 px-2 py-1 rounded-full border border-teal/15 font-medium">
                   <span className="w-1 h-1 rounded-full bg-teal" />Trigger detected &mdash; listening...
                 </span>
