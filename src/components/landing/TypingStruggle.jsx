@@ -82,22 +82,36 @@ export default function TypingStruggle() {
             </div>
           </div>
 
-          {/* Question — styled like transcript UI */}
+          {/* Subheading — flips between WITHOUT / WITH */}
+          <p
+            className="text-[12px] sm:text-[13px] uppercase tracking-[0.1em] font-semibold mb-4 transition-all duration-500"
+            style={{
+              opacity: phase >= 2 ? 1 : 0,
+              color: phase === 6 ? '#00E0CC' : '#FF5C5C',
+            }}
+          >
+            {phase === 6 ? 'With Interview Coach' : 'Without Interview Coach'}
+          </p>
+
+          {/* Question — stays visible during attempts, hides on SAY THIS */}
           <div
-            className="rounded-lg mb-5 transition-opacity duration-500"
+            className="rounded-lg mb-5 transition-all duration-500"
             style={{
               opacity: phase >= 2 && phase <= 5 ? 1 : 0,
+              maxHeight: phase >= 2 && phase <= 5 ? '200px' : '0',
+              overflow: 'hidden',
               background: 'rgba(13,17,23,0.75)',
               border: '1px solid rgba(255,255,255,0.07)',
-              padding: '12px 16px',
+              padding: phase >= 2 && phase <= 5 ? '12px 16px' : '0 16px',
+              marginBottom: phase >= 2 && phase <= 5 ? '20px' : '0',
             }}
           >
             <p style={{ fontSize: '14px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00E0CC', marginBottom: '6px' }}>Interviewer</p>
             <p style={{ fontSize: '15px', fontWeight: 400, lineHeight: 1.65, color: '#F1F5F9' }}>{question}</p>
           </div>
 
-          {/* Central zone — no AnimatePresence, pure CSS transitions */}
-          <div className="relative min-h-[280px]">
+          {/* Content zone — attempts and SAY THIS swap in same space */}
+          <div className="relative min-h-[240px]">
 
             {/* Phases 2-5: one attempt at a time */}
             {[0, 1, 2, 3].map((i) => (
@@ -110,14 +124,13 @@ export default function TypingStruggle() {
                   pointerEvents: phase === i + 2 ? 'auto' : 'none',
                 }}
               >
-                <p className="text-[10px] sm:text-[11px] text-red-soft/70 uppercase tracking-wider mb-2">Without Interview Coach</p>
                 <div className="border-l-2 border-red-soft/40 bg-red-dim/20 rounded-r-lg px-4 sm:px-5 py-3 sm:py-4">
                   <p className="text-text-primary/75 text-[15px] sm:text-[17px] leading-[1.6] italic">{attempts[i]}</p>
                 </div>
               </div>
             ))}
 
-            {/* Phase 6: SAY THIS — headline on top */}
+            {/* Phase 6: SAY THIS card — same position as attempts */}
             <div
               className="absolute inset-x-0 top-0 transition-all duration-500 ease-out"
               style={{
@@ -126,18 +139,17 @@ export default function TypingStruggle() {
                 pointerEvents: phase === 6 ? 'auto' : 'none',
               }}
             >
-              <p className="mb-6 text-center text-[14px] sm:text-[16px] text-text-primary/60 font-medium">
+              <div style={{ background: 'rgba(0,224,204,0.04)', border: '1px solid rgba(0,224,204,0.14)', borderLeft: '3px solid #00E0CC', borderRadius: '10px', padding: '12px 16px 12px 20px', boxShadow: '0 0 20px rgba(0,224,204,0.04)' }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00E0CC' }} />
+                  <span style={{ fontSize: '14px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#5A6A82' }}>Say This</span>
+                  <span style={{ fontSize: '13px', color: '#00E0CC', marginLeft: 'auto', opacity: 0.5 }}>&lt; 500ms</span>
+                </div>
+                <p style={{ fontSize: '15px', fontWeight: 400, lineHeight: 1.75, color: '#EDF2F7' }}>{answer}</p>
+              </div>
+              <p className="mt-6 text-center text-[14px] sm:text-[16px] font-medium" style={{ color: '#8B9BB4' }}>
                 Same track record. Now they hear it.
               </p>
-              <p className="text-[10px] sm:text-[11px] text-teal/50 uppercase tracking-wider mb-2">With Interview Coach</p>
-              <div className="border-l-[3px] border-teal/60 bg-[#111825] rounded-r-xl p-5 sm:p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="w-2 h-2 rounded-full bg-teal" />
-                  <span className="text-[10px] sm:text-[11px] text-text-tertiary/50 uppercase tracking-wider font-medium">Say This</span>
-                  <span className="text-[9px] sm:text-[10px] text-teal/40 ml-auto">&lt; 500ms</span>
-                </div>
-                <p className="text-text-secondary text-[15px] sm:text-[17px] leading-[1.7]">{answer}</p>
-              </div>
             </div>
 
           </div>
