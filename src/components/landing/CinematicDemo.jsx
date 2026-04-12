@@ -51,7 +51,7 @@ function MobileDemo() {
   const containerVisible = progress > 0.005 && progress < 0.95
 
   return (
-    <section ref={ref} className="relative" style={{ height: '350vh' }}>
+    <section ref={ref} className="relative" style={{ height: '1200vh' }}>
       <div className="sticky top-0 h-screen flex flex-col items-center pt-28 px-4 overflow-hidden">
 
         {/* Label */}
@@ -229,7 +229,7 @@ function DesktopDemo() {
   const showHint = progress > 0.02 && progress < 0.12
 
   return (
-    <section ref={containerRef} className="relative" style={{ height: '400vh' }}>
+    <section ref={containerRef} className="relative" style={{ height: '1200vh' }}>
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden" style={{ perspective: '1200px' }}>
         <div className="absolute top-[7%] left-1/2 -translate-x-1/2 z-30 h-6">
           {labels.map((label, i) => (
