@@ -48,7 +48,7 @@ function MobileDemo() {
     progress > 0.04 && progress < 0.12 ? 'The interviewer asks a question...' :
     progress >= 0.12 && progress < 0.42 ? 'Your transcript captures every word' : null
 
-  const containerVisible = progress > 0.03 && progress < 0.92
+  const containerVisible = progress > 0.005 && progress < 0.95
 
   return (
     <section ref={ref} className="relative" style={{ height: '350vh' }}>
@@ -174,7 +174,7 @@ function MobileDemo() {
         </div>
 
         {/* Scroll hint */}
-        <div className="mt-5 transition-opacity duration-500" style={{ opacity: progress > 0.01 && progress < 0.04 ? 1 : 0 }}>
+        <div className="mt-5 transition-opacity duration-500" style={{ opacity: progress > 0.001 && progress < 0.02 ? 1 : 0 }}>
           <div className="text-text-tertiary/25 animate-bounce flex justify-center">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
           </div>
