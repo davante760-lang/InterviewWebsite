@@ -1,66 +1,54 @@
-import { motion } from 'framer-motion'
-import ElectricText from '../ElectricText'
-import { GlowButton } from './ScrollAnimations'
+import { useRef, useState, useEffect } from 'react'
+
+function useReveal() {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect() } },
+      { threshold: 0.15 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+  return [ref, visible]
+}
 
 export default function FinalCTA() {
+  const [sectionRef, visible] = useReveal()
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Subtle ambient glow — calmer than hero, focused on conversion */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full opacity-[0.06] pointer-events-none"
-        style={{ background: 'radial-gradient(circle, #7c6aef 0%, transparent 70%)' }}
-      />
+    <section ref={sectionRef} className="py-32 sm:py-40 px-5 relative" style={{ background: '#0B0D12' }}>
+      {/* Subtle ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" style={{ width: 500, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,224,204,0.04) 0%, transparent 70%)' }} />
 
-      <div className="relative z-10 max-w-[700px] mx-auto text-center px-6">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="font-heading font-bold text-[32px] sm:text-[42px] md:text-[52px] leading-[1.1] tracking-[-0.035em] text-text-primary mb-3">
-            Your Next Role Is a Six-Figure Deal.
-          </h2>
-        </motion.div>
+      <div className="relative z-10 max-w-[700px] mx-auto text-center transition-all duration-700"
+        style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)' }}>
+        <h2 className="font-heading font-bold mb-3" style={{ fontSize: 'clamp(28px, 6vw, 48px)', lineHeight: 1.1, letterSpacing: '-0.03em', color: '#EDF2F7' }}>
+          Your Next Role Is a Six-Figure Deal.
+        </h2>
+        <h2 className="font-heading font-bold mb-8" style={{ fontSize: 'clamp(28px, 6vw, 48px)', lineHeight: 1.1, letterSpacing: '-0.03em', color: '#00E0CC' }}>
+          Close It Like One.
+        </h2>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.3, delay: 0.3 }}
-          className="mb-8"
-        >
-          <ElectricText text="Close It Like One." className="flex justify-center" />
-        </motion.div>
+        <p className="mb-10" style={{ fontSize: '17px', lineHeight: 1.7, color: '#8B9BB4', maxWidth: '500px', marginLeft: 'auto', marginRight: 'auto' }}>
+          Your stories. Your metrics. Your frameworks. On screen before you need them. Built by someone who&apos;s been in the chair.
+        </p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 1.4 }}
-          className="text-text-secondary/60 text-[17px] leading-[1.7] max-w-[500px] mx-auto mb-12"
-        >
-          Your stories. Your metrics. Your frameworks. On screen before you need them.
-          Built by someone who&apos;s been in the chair.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 1.7 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-5"
-        >
-          <GlowButton href="#start">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+          <a href="#start" className="inline-block font-semibold transition-all duration-200" style={{
+            padding: '16px 36px', borderRadius: '10px',
+            background: '#00E0CC', color: '#080B12',
+            fontSize: '15px', textDecoration: 'none',
+          }}>
             Start Your Free Practice Interview &rarr;
-          </GlowButton>
-          <a
-            href="#how-it-works"
-            className="text-text-tertiary/50 hover:text-text-secondary text-[14px] transition-colors duration-300"
-          >
+          </a>
+          <a href="#how-it-works" style={{ fontSize: '14px', color: '#5A6A82', textDecoration: 'none', transition: 'color 0.3s' }}>
             See How the Engine Works &rarr;
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

@@ -6,7 +6,6 @@ import VideoWalkthrough from './components/landing/VideoWalkthrough'
 import ProductExplainer from './components/landing/ProductExplainer'
 import QuestionRouting from './components/landing/QuestionRouting'
 import YourPlaybook from './components/landing/YourPlaybook'
-import PrepCards from './components/landing/PrepCards'
 import PracticeMode from './components/landing/PracticeMode'
 import WarRoom from './components/landing/WarRoom'
 import FounderCredibility from './components/landing/FounderCredibility'
@@ -26,7 +25,6 @@ export default function App() {
       <ProductExplainer />
       <QuestionRouting />
       <YourPlaybook />
-      <PrepCards />
       <PracticeMode />
       <WarRoom />
       <FounderCredibility />

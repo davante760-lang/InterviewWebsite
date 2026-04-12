@@ -1,6 +1,20 @@
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { FadeIn, SectionTitle } from '../AnimatedSection'
+import { useState, useRef, useEffect } from 'react'
+
+function useReveal() {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect() } },
+      { threshold: 0.15 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+  return [ref, visible]
+}
 
 const faqs = [
   {
@@ -25,60 +39,51 @@ const faqs = [
   },
 ]
 
-function FAQItem({ faq, isOpen, onToggle }) {
-  return (
-    <div className="border-b border-border">
-      <button
-        onClick={onToggle}
-        className="w-full text-left py-5 flex items-start justify-between gap-4 cursor-pointer"
-      >
-        <span className="text-text-primary font-medium text-[15px]">{faq.q}</span>
-        <span className="text-text-tertiary text-[20px] shrink-0 mt-[-2px]">
-          {isOpen ? '−' : '+'}
-        </span>
-      </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="overflow-hidden"
-          >
-            <p className="text-text-secondary text-[14px] leading-[1.7] pb-5">{faq.a}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
-
 export default function FAQ() {
+  const [sectionRef, visible] = useReveal()
   const [openIdx, setOpenIdx] = useState(null)
 
   return (
-    <section className="py-20 md:py-28 px-6">
-      <div className="max-w-[720px] mx-auto">
-        <FadeIn>
-          <SectionTitle
-            eyebrow="Straight Answers"
-            title="You're Thinking It. Here It Is."
-          />
-        </FadeIn>
+    <section ref={sectionRef} className="py-24 sm:py-32 px-5" style={{ background: '#0B0D12' }}>
+      <div className="max-w-[680px] mx-auto">
 
-        <FadeIn delay={0.1}>
-          <div>
-            {faqs.map((faq, i) => (
-              <FAQItem
-                key={i}
-                faq={faq}
-                isOpen={openIdx === i}
-                onToggle={() => setOpenIdx(openIdx === i ? null : i)}
-              />
-            ))}
-          </div>
-        </FadeIn>
+        {/* Header */}
+        <div className="transition-all duration-700 mb-10" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)' }}>
+          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#00E0CC', marginBottom: '16px' }}>
+            Straight Answers
+          </p>
+          <h2 className="font-heading font-bold" style={{ fontSize: 'clamp(24px, 5vw, 38px)', lineHeight: 1.15, letterSpacing: '-0.025em', color: '#EDF2F7' }}>
+            You&apos;re Thinking It. <span style={{ color: '#00E0CC' }}>Here It Is.</span>
+          </h2>
+        </div>
+
+        {/* Questions */}
+        <div className="transition-all duration-700" style={{ opacity: visible ? 1 : 0, transitionDelay: '0.2s' }}>
+          {faqs.map((faq, i) => {
+            const isOpen = openIdx === i
+            return (
+              <div key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                <button
+                  onClick={() => setOpenIdx(isOpen ? null : i)}
+                  className="w-full text-left cursor-pointer flex items-start justify-between gap-4"
+                  style={{ padding: '20px 0' }}
+                >
+                  <span style={{ fontSize: '15px', fontWeight: 600, color: '#EDF2F7', lineHeight: 1.4 }}>{faq.q}</span>
+                  <span style={{ fontSize: '18px', color: '#5A6A82', flexShrink: 0, marginTop: '-2px', transition: 'transform 0.3s', transform: isOpen ? 'rotate(45deg)' : 'rotate(0)' }}>+</span>
+                </button>
+                <div style={{
+                  maxHeight: isOpen ? '300px' : '0',
+                  overflow: 'hidden',
+                  transition: 'max-height 0.3s ease-out, opacity 0.3s',
+                  opacity: isOpen ? 1 : 0,
+                }}>
+                  <p style={{ fontSize: '14px', lineHeight: 1.7, color: '#8B9BB4', paddingBottom: '20px' }}>{faq.a}</p>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
       </div>
     </section>
   )

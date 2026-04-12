@@ -65,7 +65,7 @@ export default function FounderCredibility() {
         </div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 transition-all duration-700"
+        <div className="grid grid-cols-3 gap-3 max-w-[520px] mx-auto transition-all duration-700"
           style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)', transitionDelay: '0.45s' }}>
           {stats.map((stat, i) => (
             <div key={i} style={{

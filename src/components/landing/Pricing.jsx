@@ -18,7 +18,6 @@ function useReveal() {
 
 const features = [
   'Unlimited live coaching',
-  'Unlimited practice sessions',
   'Unlimited active positions',
   'Full Prep Card system with AI generation',
   'Three-tier coaching engine',
