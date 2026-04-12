@@ -5,6 +5,7 @@ import TypingStruggle from './components/landing/TypingStruggle'
 import VideoWalkthrough from './components/landing/VideoWalkthrough'
 import ProductExplainer from './components/landing/ProductExplainer'
 import QuestionRouting from './components/landing/QuestionRouting'
+import YourPlaybook from './components/landing/YourPlaybook'
 import PrepCards from './components/landing/PrepCards'
 import PracticeMode from './components/landing/PracticeMode'
 import WarRoom from './components/landing/WarRoom'
@@ -25,6 +26,7 @@ export default function App() {
       <VideoWalkthrough />
       <ProductExplainer />
       <QuestionRouting />
+      <YourPlaybook />
       <PrepCards />
       <PracticeMode />
       <WarRoom />
