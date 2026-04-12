@@ -23,30 +23,31 @@ function IconSVG({ type, color }) {
 }
 
 function FlowParticles() {
-  // Pre-calculate start positions since CSS cos/sin aren't widely supported
-  const particles = [...Array(12)].map((_, i) => {
-    const angleRad = ((i / 12) * 360 * Math.PI) / 180
-    const radius = 180 + (i % 3) * 30
+  const particles = [...Array(16)].map((_, i) => {
+    const angleRad = ((i / 16) * 360 * Math.PI) / 180
+    const radius = 120 + (i % 4) * 25
     const startX = Math.cos(angleRad) * radius
     const startY = Math.sin(angleRad) * radius
-    return { startX, startY, delay: i * 0.4, duration: 2.5 + (i % 3) * 0.5, hue: 170 + i * 15 }
+    return { startX, startY, delay: i * 0.3, duration: 3 + (i % 3) * 0.5, hue: 170 + i * 12 }
   })
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div className="pointer-events-none" style={{ position: 'absolute', top: '-150px', left: '-150px', right: '-150px', bottom: '-150px' }}>
       {particles.map((p, i) => (
-        <div key={i} className="absolute top-1/2 left-1/2 w-1 h-1 rounded-full"
-          style={{
-            background: `hsl(${p.hue}, 60%, 55%)`,
-            animation: `flow-${i} ${p.duration}s ${p.delay}s ease-in infinite`,
-          }} />
+        <div key={i} style={{
+          position: 'absolute', top: '50%', left: '50%',
+          width: '5px', height: '5px', borderRadius: '50%',
+          background: `hsl(${p.hue}, 60%, 55%)`,
+          boxShadow: `0 0 6px hsl(${p.hue}, 60%, 55%)`,
+          animation: `flow-${i} ${p.duration}s ${p.delay}s ease-in infinite`,
+        }} />
       ))}
       <style>{particles.map((p, i) => `
         @keyframes flow-${i} {
           0% { opacity: 0; transform: translate(${p.startX}px, ${p.startY}px); }
-          20% { opacity: 0.7; }
-          90% { opacity: 0.3; }
-          100% { opacity: 0; transform: translate(0, 0); }
+          15% { opacity: 0.8; }
+          70% { opacity: 0.5; }
+          100% { opacity: 0; transform: translate(0px, 0px); }
         }
       `).join('')}</style>
     </div>
@@ -91,7 +92,7 @@ export default function YourPlaybook() {
         .ic-input-chip.show { animation: fadeInUp 0.5s ease-out forwards; }
       `}</style>
 
-      <section ref={sectionRef} className="py-24 sm:py-32 px-5 overflow-hidden" style={{ background: '#0B0D12' }}>
+      <section ref={sectionRef} className="py-24 sm:py-32 px-5" style={{ background: '#0B0D12' }}>
 
         {/* Header */}
         <div className="text-center max-w-[620px] mx-auto mb-16 sm:mb-20 transition-all duration-700"
