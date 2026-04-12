@@ -154,8 +154,8 @@ export default function TypingStruggle() {
                 </div>
                 <p style={{ fontSize: '15px', fontWeight: 400, lineHeight: 1.75, color: '#EDF2F7' }}>{answer}</p>
               </div>
-              <p className="mt-6 text-center text-[14px] sm:text-[16px] font-medium" style={{ color: '#8B9BB4' }}>
-                Your track record doesn&apos;t change. How you deliver it does.
+              <p className="mt-8 text-center font-heading font-bold text-[18px] sm:text-[22px] md:text-[26px] tracking-[-0.02em]" style={{ color: '#EDF2F7' }}>
+                Your track record doesn&apos;t change. <span style={{ color: '#00E0CC' }}>How you deliver it does.</span>
               </p>
             </div>
 
