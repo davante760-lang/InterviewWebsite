@@ -33,7 +33,7 @@ function MobileDemo() {
   const showTranscript = progress < 0.44
   const showCoaching = progress >= 0.44
 
-  const fullQ = "Walk me through your biggest competitive win. What was the deal size, who were the stakeholders, and how did you close it?"
+  const fullQ = "Walk me through your biggest competitive displacement."
   const qFrac = Math.max(0, Math.min(1, (progress - 0.12) / 0.28))
   const qText = fullQ.slice(0, Math.floor(qFrac * fullQ.length))
 
@@ -219,7 +219,7 @@ function DesktopDemo() {
   const showSayThis = progress > 0.68
   const showQuestionCard = progress > 0.72
   const hideEmpty = progress > 0.52
-  const fullQuestion = "Walk me through your biggest competitive win. What was the deal size, who were the stakeholders, and how did you close it?"
+  const fullQuestion = "Walk me through your biggest competitive displacement."
   const questionFraction = Math.max(0, Math.min(1, (progress - 0.22) / 0.18))
   const visibleChars = Math.floor(questionFraction * fullQuestion.length)
   const questionText = fullQuestion.slice(0, visibleChars)
