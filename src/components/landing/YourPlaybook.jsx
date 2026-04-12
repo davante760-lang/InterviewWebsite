@@ -23,23 +23,32 @@ function IconSVG({ type, color }) {
 }
 
 function FlowParticles() {
+  // Pre-calculate start positions since CSS cos/sin aren't widely supported
+  const particles = [...Array(12)].map((_, i) => {
+    const angleRad = ((i / 12) * 360 * Math.PI) / 180
+    const radius = 180 + (i % 3) * 30
+    const startX = Math.cos(angleRad) * radius
+    const startY = Math.sin(angleRad) * radius
+    return { startX, startY, delay: i * 0.4, duration: 2.5 + (i % 3) * 0.5, hue: 170 + i * 15 }
+  })
+
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {[...Array(12)].map((_, i) => {
-        const angle = (i / 12) * 360
-        const delay = i * 0.4
-        const duration = 2.5 + (i % 3) * 0.5
-        const startRadius = 180 + (i % 3) * 30
-        return (
-          <div key={i} className="absolute top-1/2 left-1/2 w-1 h-1 rounded-full opacity-0"
-            style={{
-              background: `hsl(${170 + i * 15}, 60%, 55%)`,
-              animation: `flowToCenter ${duration}s ${delay}s ease-in infinite`,
-              '--angle': `${angle}deg`,
-              '--startR': `${startRadius}px`,
-            }} />
-        )
-      })}
+      {particles.map((p, i) => (
+        <div key={i} className="absolute top-1/2 left-1/2 w-1 h-1 rounded-full"
+          style={{
+            background: `hsl(${p.hue}, 60%, 55%)`,
+            animation: `flow-${i} ${p.duration}s ${p.delay}s ease-in infinite`,
+          }} />
+      ))}
+      <style>{particles.map((p, i) => `
+        @keyframes flow-${i} {
+          0% { opacity: 0; transform: translate(${p.startX}px, ${p.startY}px); }
+          20% { opacity: 0.7; }
+          90% { opacity: 0.3; }
+          100% { opacity: 0; transform: translate(0, 0); }
+        }
+      `).join('')}</style>
     </div>
   )
 }
@@ -60,12 +69,7 @@ export default function YourPlaybook() {
   return (
     <>
       <style>{`
-        @keyframes flowToCenter {
-          0% { opacity: 0; transform: translate(calc(cos(var(--angle)) * var(--startR)), calc(sin(var(--angle)) * var(--startR))); }
-          20% { opacity: 0.7; }
-          90% { opacity: 0.3; }
-          100% { opacity: 0; transform: translate(0, 0); }
-        }
+        /* particle keyframes generated inline per particle */
         @keyframes enginePulse {
           0%, 100% { box-shadow: 0 0 30px rgba(0,224,204,0.1), 0 0 60px rgba(0,224,204,0.03); }
           50% { box-shadow: 0 0 40px rgba(0,224,204,0.18), 0 0 80px rgba(0,224,204,0.06); }
