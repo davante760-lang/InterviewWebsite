@@ -130,6 +130,7 @@ export default function TypingStruggle() {
                 }}
               >
                 <div className="border-l-2 border-red-soft/40 bg-red-dim/20 rounded-r-lg px-4 sm:px-5 py-3 sm:py-4">
+                  <p style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#CBD5E1', marginBottom: '8px' }}>Candidate</p>
                   <p className="text-text-primary/75 text-[15px] sm:text-[17px] leading-[1.6] italic">{attempts[i]}</p>
                 </div>
               </div>
