@@ -155,7 +155,7 @@ function MobileDemo() {
                       <span className="text-[10px] text-text-tertiary/50 uppercase tracking-wider font-medium">Say This</span>
                       <span className="text-[10px] text-text-tertiary/30 ml-auto">07:05 AM</span>
                     </div>
-                    <p className="text-text-secondary text-[14px] leading-[1.7]">I displaced a competitor after an 8-year relationship &mdash; $823K deal, 94-day close cycle, 7 stakeholders. Built champion coalition across ops and finance, closed with 3-year commitment after exec alignment with CFO.</p>
+                    <p className="text-text-secondary text-[14px] leading-[1.7]">Displaced an 8-year incumbent. $823K deal, 94-day cycle. The challenge was they had relationships everywhere &mdash; I had to build my own coalition from scratch. Anchored with the ops team first, got finance aligned, then used that momentum to get in front of the CFO. Three-year commitment on the close.</p>
                   </div>
                 </div>
                 <div className="transition-all duration-600 ease-out" style={{ opacity: showQCard ? 1 : 0, transform: showQCard ? 'translateY(0)' : 'translateY(14px)' }}>
@@ -270,7 +270,7 @@ function DesktopDemo() {
                   <div className="transition-all duration-700 ease-out" style={{ opacity: showSayThis ? 1 : 0, transform: showSayThis ? 'translateY(0)' : 'translateY(16px)' }}>
                     <div className="border-l-[3px] border-teal/60 bg-[#111825] rounded-r-lg p-4 mb-4">
                       <div className="flex items-center gap-2 mb-2"><span className="w-2 h-2 rounded-full bg-teal" /><span className="text-[10px] text-text-tertiary/50 uppercase tracking-wider font-medium">Say This</span><span className="text-[10px] text-text-tertiary/30 ml-auto">07:05 AM</span></div>
-                      <p className="text-text-secondary text-[12px] leading-[1.7]">I displaced a competitor after an 8-year relationship &mdash; $823K deal, 94-day close cycle, 7 stakeholders. I built a champion coalition across operations and finance, structured the POC around their highest-pain workflow, and closed with a 3-year commitment after an executive alignment session with the CFO.</p>
+                      <p className="text-text-secondary text-[12px] leading-[1.7]">Displaced an 8-year incumbent. $823K deal, 94-day cycle. The challenge was they had relationships everywhere &mdash; I had to build my own coalition from scratch. Anchored with the ops team first, got finance aligned, then used that momentum to get in front of the CFO. Three-year commitment on the close.</p>
                     </div>
                   </div>
                   <div className="transition-all duration-700 ease-out" style={{ opacity: showQuestionCard ? 1 : 0, transform: showQuestionCard ? 'translateY(0)' : 'translateY(16px)' }}>
