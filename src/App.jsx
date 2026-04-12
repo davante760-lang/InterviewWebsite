@@ -9,6 +9,7 @@ import YourPlaybook from './components/landing/YourPlaybook'
 import PracticeMode from './components/landing/PracticeMode'
 import WarRoom from './components/landing/WarRoom'
 import FounderCredibility from './components/landing/FounderCredibility'
+import Testimonials from './components/landing/Testimonials'
 import Pricing from './components/landing/Pricing'
 import FAQ from './components/landing/FAQ'
 import FinalCTA from './components/landing/FinalCTA'
@@ -28,6 +29,7 @@ export default function App() {
       <PracticeMode />
       <WarRoom />
       <FounderCredibility />
+      <Testimonials />
       <Pricing />
       <FAQ />
       <FinalCTA />
