@@ -150,6 +150,14 @@ export default function Testimonials() {
             </div>
           </div>
 
+          {/* CTA */}
+          <div className="text-center mt-12">
+            <a href="#start" className="inline-block font-semibold transition-all duration-200"
+              style={{ padding: '14px 32px', borderRadius: '10px', background: '#00E0CC', color: '#080B12', fontSize: '14px', textDecoration: 'none' }}>
+              Start Your Free Practice Interview &rarr;
+            </a>
+          </div>
+
         </div>
       </section>
     </>
