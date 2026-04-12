@@ -1,7 +1,7 @@
 // Phase State Machine — discrete scroll phases, AnimatePresence handles transitions
 // Back to sticky scroll (no nested scroll container)
 import { useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion'
+import { useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
 
 const stats = [
   { label: 'Quota Attainment', value: '124%' },
@@ -50,31 +50,21 @@ export default function TypingStruggle() {
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-5 overflow-hidden">
         <div className="w-full max-w-[480px]">
 
-          {/* Thesis */}
-          <AnimatePresence>
-            {phase >= 1 && phase <= 6 && (
-              <motion.p
-                key="thesis"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="text-[14px] sm:text-[16px] text-text-primary/60 font-medium text-center mb-8"
-              >
-                You&apos;re not bad at interviewing. You&apos;re bad at translating.
-              </motion.p>
-            )}
-          </AnimatePresence>
+          {/* Thesis — always in DOM, fades via CSS */}
+          <p
+            className="text-[14px] sm:text-[16px] text-text-primary/60 font-medium text-center mb-8 transition-opacity duration-500"
+            style={{ opacity: phase >= 1 && phase <= 6 ? 1 : 0 }}
+          >
+            You&apos;re not bad at interviewing. You&apos;re bad at translating.
+          </p>
 
-          {/* Source card */}
-          <motion.div
-            animate={{
-              opacity: phase >= 1 ? 1 : 0,
-              scale: phase >= 2 ? 0.90 : 1,
-              y: phase >= 2 ? -16 : 0,
+          {/* Source card — always in DOM */}
+          <div
+            className="bg-[#111825] border border-[#1a2030] rounded-lg px-4 py-3 mb-6 origin-top transition-all duration-500"
+            style={{
+              opacity: phase >= 1 && phase <= 6 ? 1 : phase === 7 ? 0 : 0,
+              transform: phase >= 2 ? 'scale(0.90) translateY(-16px)' : 'scale(1) translateY(0)',
             }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="bg-[#111825] border border-[#1a2030] rounded-lg px-4 py-3 mb-6 origin-top"
           >
             <p className="text-[10px] sm:text-[11px] text-text-tertiary/40 uppercase tracking-wider mb-2">Your Track Record</p>
             <div className="flex flex-wrap gap-x-4 gap-y-1.5">
@@ -85,23 +75,15 @@ export default function TypingStruggle() {
                 </span>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Question */}
-          <AnimatePresence>
-            {phase >= 2 && phase <= 6 && (
-              <motion.p
-                key="question"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.5 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="text-[12px] sm:text-[13px] text-text-tertiary/60 italic mb-5"
-              >
-                &ldquo;{question}&rdquo;
-              </motion.p>
-            )}
-          </AnimatePresence>
+          {/* Question — always in DOM */}
+          <p
+            className="text-[12px] sm:text-[13px] text-text-tertiary/60 italic mb-5 transition-opacity duration-500"
+            style={{ opacity: phase >= 2 && phase <= 6 ? 0.5 : 0 }}
+          >
+            &ldquo;{question}&rdquo;
+          </p>
 
           {/* Central zone — no AnimatePresence, pure CSS transitions */}
           <div className="relative min-h-[280px]">
