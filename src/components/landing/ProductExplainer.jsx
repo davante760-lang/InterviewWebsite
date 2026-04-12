@@ -48,7 +48,7 @@ const blocks = [
   },
   {
     stat: '1-3s',
-    statColor: '#f1f5f9',
+    statColor: '#2dd4bf',
     caption: 'AI generation time. Quick Answers are instant.',
     headline: 'Both hit the screen while the interviewer is still talking.',
     body: 'Before the pause that costs you credibility. Your best answers aren\u2019t missing. They\u2019re just trapped in your head at the worst possible moment. Interview Coach gets them out.',
