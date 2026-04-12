@@ -38,8 +38,8 @@ export default function TypingStruggle() {
   const { scrollYProgress: p } = useScroll({ target: ref, offset: ['start start', 'end end'] })
 
   const activePhase = useTransform(p,
-    [0, 0.04, 0.14, 0.25, 0.36, 0.47, 0.58, 0.72, 1],
-    [0, 1,    2,    3,    4,    5,    6,    7,    7]
+    [0, 0.05, 0.15, 0.28, 0.41, 0.54, 0.70, 1],
+    [0, 1,    2,    3,    4,    5,    6,    6]
   )
 
   const [phase, setPhase] = useState(0)
@@ -53,7 +53,7 @@ export default function TypingStruggle() {
           {/* Thesis — always in DOM, fades via CSS */}
           <p
             className="font-heading font-bold text-[20px] sm:text-[26px] md:text-[32px] tracking-[-0.02em] text-text-primary/80 text-center mb-8 transition-opacity duration-500 px-4"
-            style={{ opacity: phase >= 1 && phase <= 6 ? 1 : 0 }}
+            style={{ opacity: phase >= 1 && phase <= 5 ? 1 : 0 }}
           >
             Being a top AE and interviewing like one aren&apos;t the same thing. <span style={{ color: '#00E0CC' }}>Interview Coach bridges the two.</span>
           </p>
@@ -62,7 +62,7 @@ export default function TypingStruggle() {
           <div
             className="rounded-xl mb-8 origin-top transition-all duration-500"
             style={{
-              opacity: phase >= 1 && phase <= 6 ? 1 : 0,
+              opacity: phase >= 1 && phase <= 5 ? 1 : 0,
               transform: phase >= 2 ? 'scale(0.92) translateY(-12px)' : 'scale(1) translateY(0)',
               background: 'rgba(16,22,34,0.72)',
               border: '1px solid rgba(255,255,255,0.07)',
@@ -82,13 +82,19 @@ export default function TypingStruggle() {
             </div>
           </div>
 
-          {/* Question — always in DOM */}
-          <p
-            className="text-[12px] sm:text-[13px] text-text-tertiary/60 italic mb-5 transition-opacity duration-500"
-            style={{ opacity: phase >= 2 && phase <= 6 ? 0.5 : 0 }}
+          {/* Question — styled like transcript UI */}
+          <div
+            className="rounded-lg mb-5 transition-opacity duration-500"
+            style={{
+              opacity: phase >= 2 && phase <= 5 ? 1 : 0,
+              background: 'rgba(13,17,23,0.75)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              padding: '12px 16px',
+            }}
           >
-            &ldquo;{question}&rdquo;
-          </p>
+            <p style={{ fontSize: '14px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00E0CC', marginBottom: '6px' }}>Interviewer</p>
+            <p style={{ fontSize: '15px', fontWeight: 400, lineHeight: 1.65, color: '#F1F5F9' }}>{question}</p>
+          </div>
 
           {/* Central zone — no AnimatePresence, pure CSS transitions */}
           <div className="relative min-h-[280px]">
@@ -111,32 +117,13 @@ export default function TypingStruggle() {
               </div>
             ))}
 
-            {/* Phase 6: all 4 stacked */}
+            {/* Phase 6: SAY THIS — headline on top */}
             <div
               className="absolute inset-x-0 top-0 transition-all duration-500 ease-out"
               style={{
                 opacity: phase === 6 ? 1 : 0,
-                transform: phase === 6 ? 'translateY(0)' : phase > 6 ? 'translateY(-16px)' : 'translateY(16px)',
+                transform: phase === 6 ? 'translateY(0)' : 'translateY(20px)',
                 pointerEvents: phase === 6 ? 'auto' : 'none',
-              }}
-            >
-              <p className="text-[10px] sm:text-[11px] text-red-soft/70 uppercase tracking-wider mb-2">Without Interview Coach</p>
-              <div className="space-y-2">
-                {attempts.map((a, i) => (
-                  <div key={i} className="border-l-2 border-red-soft/25 bg-red-dim/12 rounded-r-lg px-3 sm:px-4 py-2 sm:py-2.5">
-                    <p className="text-[12px] sm:text-[13px] text-text-primary/50 line-through decoration-red-soft/30 italic leading-[1.5]">{a}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Phase 7: SAY THIS — headline on top */}
-            <div
-              className="absolute inset-x-0 top-0 transition-all duration-500 ease-out"
-              style={{
-                opacity: phase === 7 ? 1 : 0,
-                transform: phase === 7 ? 'translateY(0)' : 'translateY(20px)',
-                pointerEvents: phase === 7 ? 'auto' : 'none',
               }}
             >
               <p className="mb-6 text-center text-[14px] sm:text-[16px] text-text-primary/60 font-medium">
