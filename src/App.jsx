@@ -1,33 +1,35 @@
-import StickyNav from './components/StickyNav'
-import Hero from './components/Hero'
-import NumbersBar from './components/NumbersBar'
-import WorkHistory from './components/WorkHistory'
-import WhatImBuiltFor from './components/WhatImBuiltFor'
-import HowIWork from './components/HowIWork'
-import FounderSignal from './components/FounderSignal'
-import DealStory from './components/DealStory'
-import WhatYoullGet from './components/WhatYoullGet'
-import AboutDave from './components/AboutDave'
-import ResumeDownload from './components/ResumeDownload'
-import Footer from './components/Footer'
-import { SectionDivider } from './components/AnimatedSection'
+import LandingNav from './components/landing/LandingNav'
+import LandingHero from './components/landing/LandingHero'
+import ProblemStatement from './components/landing/ProblemStatement'
+import VideoWalkthrough from './components/landing/VideoWalkthrough'
+import HowItWorks from './components/landing/HowItWorks'
+import PrepCards from './components/landing/PrepCards'
+import PracticeMode from './components/landing/PracticeMode'
+import WarRoom from './components/landing/WarRoom'
+import FounderCredibility from './components/landing/FounderCredibility'
+import Competitive from './components/landing/Competitive'
+import Pricing from './components/landing/Pricing'
+import FAQ from './components/landing/FAQ'
+import FinalCTA from './components/landing/FinalCTA'
+import LandingFooter from './components/landing/LandingFooter'
 
 export default function App() {
   return (
     <>
-      <StickyNav />
-      <Hero />
-      <NumbersBar />
-      <SectionDivider />
-      <WorkHistory />
-      <WhatImBuiltFor />
-      <HowIWork />
-      <FounderSignal />
-      <DealStory />
-      <WhatYoullGet />
-      <AboutDave />
-      <ResumeDownload />
-      <Footer />
+      <LandingNav />
+      <LandingHero />
+      <ProblemStatement />
+      <VideoWalkthrough />
+      <HowItWorks />
+      <PrepCards />
+      <PracticeMode />
+      <WarRoom />
+      <FounderCredibility />
+      <Competitive />
+      <Pricing />
+      <FAQ />
+      <FinalCTA />
+      <LandingFooter />
     </>
   )
 }
