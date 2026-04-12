@@ -52,10 +52,10 @@ export default function TypingStruggle() {
 
           {/* Thesis — always in DOM, fades via CSS */}
           <p
-            className="text-[14px] sm:text-[16px] text-text-primary/60 font-medium text-center mb-8 transition-opacity duration-500"
+            className="font-heading font-bold text-[20px] sm:text-[26px] md:text-[32px] tracking-[-0.02em] text-text-primary/80 text-center mb-8 transition-opacity duration-500 px-4"
             style={{ opacity: phase >= 1 && phase <= 6 ? 1 : 0 }}
           >
-            Being a top AE and interviewing like one aren&apos;t the same thing. Interview Coach bridges the two.
+            Being a top AE and interviewing like one aren&apos;t the same thing. <span style={{ color: '#00E0CC' }}>Interview Coach bridges the two.</span>
           </p>
 
           {/* Source card — always in DOM */}
