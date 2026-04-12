@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  appType: 'spa',
   preview: {
     host: true,
     port: Number(process.env.PORT) || 4173,
