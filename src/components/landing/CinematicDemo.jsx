@@ -289,7 +289,7 @@ function DesktopDemo() {
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 overflow-y-auto relative" style={{ padding: '14px 18px 16px' }}>
+                <div className="flex-1 overflow-hidden relative" style={{ padding: '14px 18px 16px' }}>
                   {!hideEmpty && <div className="absolute inset-0 flex items-center justify-center"><p style={{ fontSize: '14px', fontWeight: 600, color: '#8B9BB4' }}>Select a position to load your coaching brief</p></div>}
                   <div className="transition-all duration-700 ease-out" style={{ opacity: showSayThis ? 1 : 0, transform: showSayThis ? 'translateY(0)' : 'translateY(16px)' }}>
                     <div style={{ background: 'rgba(0,224,204,0.04)', border: '1px solid rgba(0,224,204,0.14)', borderLeft: '3px solid #00E0CC', borderRadius: '10px', padding: '12px 16px 12px 20px', marginBottom: '16px', boxShadow: '0 0 20px rgba(0,224,204,0.04)' }}>
