@@ -5,12 +5,11 @@ import TypingStruggle from './components/landing/TypingStruggle'
 import VideoWalkthrough from './components/landing/VideoWalkthrough'
 import ProductExplainer from './components/landing/ProductExplainer'
 import QuestionRouting from './components/landing/QuestionRouting'
-import YourPlaybook from './components/landing/YourPlaybook'
+import YourPlaybook from './components/landing/YourPlaybookSection'
 import PrepCards from './components/landing/PrepCards'
 import PracticeMode from './components/landing/PracticeMode'
 import WarRoom from './components/landing/WarRoom'
 import FounderCredibility from './components/landing/FounderCredibility'
-import Competitive from './components/landing/Competitive'
 import Pricing from './components/landing/Pricing'
 import FAQ from './components/landing/FAQ'
 import FinalCTA from './components/landing/FinalCTA'
@@ -31,7 +30,6 @@ export default function App() {
       <PracticeMode />
       <WarRoom />
       <FounderCredibility />
-      <Competitive />
       <Pricing />
       <FAQ />
       <FinalCTA />

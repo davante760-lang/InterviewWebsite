@@ -1,98 +1,91 @@
-import { motion, useInView } from 'framer-motion'
-import { useRef } from 'react'
-import { CountUp } from './ScrollAnimations'
+import { useRef, useState, useEffect } from 'react'
+
+function useReveal() {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect() } },
+      { threshold: 0.15 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+  return [ref, visible]
+}
 
 const stats = [
-  { label: "President's Club", value: 2, suffix: 'x', color: '#7c6aef' },
-  { label: 'Quota Attainment', value: 124, suffix: '%', color: '#5b8def' },
-  { label: 'Annual Targets', value: 1.5, prefix: '$', suffix: 'M', decimals: 1, color: '#4ecdc4' },
-  { label: 'Build Time', value: 125, suffix: ' hrs', color: '#5bbf72' },
+  { value: '2x', label: "President's Club" },
+  { value: '124%', label: 'Avg Quota Attainment' },
+  { value: '$1.5M', label: 'Annual Targets' },
+  { value: '125 hrs', label: 'Build Time' },
 ]
 
 export default function FounderCredibility() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [sectionRef, visible] = useReveal()
 
   return (
-    <section className="py-24 md:py-32 px-6 bg-surface-1/30 relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 sm:py-32 px-5" style={{ background: '#0B0D12' }}>
       <div className="max-w-[720px] mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="block text-[11px] uppercase tracking-[0.25em] font-medium text-accent/60 mb-3">
-            Built in the Arena
-          </span>
-          <h2 className="font-heading font-bold text-[28px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.03em] text-text-primary mb-10">
-            Built During a Real Job Search.{' '}
-            <span className="text-accent">Used on Real Interviews.</span>
-          </h2>
-        </motion.div>
 
-        {/* Quote — frosted glass */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          className="mb-10"
-        >
-          <div className="bg-surface-1/80 border border-border/20 rounded-xl p-8">
-            <div className="border-l-2 border-accent/30 pl-6">
-              <p className="text-text-secondary/80 text-[16px] leading-[1.8] italic">
-                &ldquo;I built Interview Coach because I needed it. I was in an active job search
-                and I kept losing 10% of my sharpness to recall failures. I built the first version
-                in a week. I used it on every interview after that. I got the offer I wanted. This
-                isn&apos;t a product I imagined would be useful. It&apos;s the product I used.&rdquo;
+        {/* Section label */}
+        <div className="transition-all duration-700" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)' }}>
+          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#00E0CC', marginBottom: '16px' }}>
+            Built in the Arena
+          </p>
+          <h2 className="font-heading font-bold mb-10" style={{ fontSize: 'clamp(24px, 5vw, 38px)', lineHeight: 1.15, letterSpacing: '-0.025em', color: '#EDF2F7' }}>
+            Built During a Real Job Search.{' '}
+            <span style={{ color: '#00E0CC' }}>Tested on Real Interviews.</span>
+          </h2>
+        </div>
+
+        {/* Quote */}
+        <div className="transition-all duration-700" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)', transitionDelay: '0.15s' }}>
+          <div style={{
+            background: 'rgba(16,22,34,0.72)',
+            border: '1px solid rgba(255,255,255,0.07)',
+            borderRadius: '14px',
+            padding: '28px 24px',
+            marginBottom: '32px',
+          }}>
+            <div style={{ borderLeft: '3px solid rgba(0,224,204,0.3)', paddingLeft: '20px' }}>
+              <p style={{ fontSize: '16px', lineHeight: 1.8, color: '#CBD5E1', fontStyle: 'italic' }}>
+                &ldquo;I built Interview Coach because I was blanking on metrics I knew cold. Mid-interview, staring at a VP of Sales, trying to remember if my pipeline number was $3.2M or $2.8M. I built the first version in a week. Used it on every round after that &mdash; phone screens through exec panels, across multiple companies. I landed the role. This isn&apos;t a product I think would be useful. It&apos;s the product I used to get the offer I&apos;m working under right now.&rdquo;
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Stats with CountUp */}
-        <div ref={ref} className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {/* Social proof line */}
+        <div className="transition-all duration-700" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)', transitionDelay: '0.3s' }}>
+          <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#8B9BB4', marginBottom: '32px' }}>
+            Since then, hundreds of AEs have used Interview Coach to show up sharper, with less stress and more confidence &mdash; in the rounds that actually determine their income.
+          </p>
+        </div>
+
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 transition-all duration-700"
+          style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)', transitionDelay: '0.45s' }}>
           {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 15 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="bg-surface-2/40 backdrop-blur border border-border/15 rounded-xl p-5 text-center"
-            >
-              {isInView ? (
-                <CountUp
-                  end={stat.value}
-                  prefix={stat.prefix || ''}
-                  suffix={stat.suffix}
-                  decimals={stat.decimals || 0}
-                  duration={2}
-                  className="font-heading font-bold text-[26px] block"
-                  style={{ color: stat.color }}
-                />
-              ) : (
-                <span className="font-heading font-bold text-[26px] block" style={{ color: stat.color }}>
-                  0
-                </span>
-              )}
-              <p className="text-[10px] text-text-tertiary/50 mt-1.5 uppercase tracking-wider">
+            <div key={i} style={{
+              background: 'rgba(16,22,34,0.55)',
+              border: '1px solid rgba(255,255,255,0.05)',
+              borderRadius: '12px',
+              padding: '20px 16px',
+              textAlign: 'center',
+            }}>
+              <p className="font-heading font-bold" style={{ fontSize: 'clamp(24px, 5vw, 32px)', color: '#00E0CC', letterSpacing: '-0.02em', lineHeight: 1 }}>
+                {stat.value}
+              </p>
+              <p style={{ fontSize: '10px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#5A6A82', marginTop: '8px' }}>
                 {stat.label}
               </p>
-
-              {/* Glow pulse on complete */}
-              {isInView && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: [0, 0.15, 0] }}
-                  transition={{ delay: 2 + i * 0.1, duration: 0.8 }}
-                  className="absolute inset-0 rounded-xl pointer-events-none"
-                  style={{ background: `radial-gradient(circle, ${stat.color}30, transparent)` }}
-                />
-              )}
-            </motion.div>
+            </div>
           ))}
         </div>
+
       </div>
     </section>
   )

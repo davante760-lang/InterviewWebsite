@@ -1,5 +1,20 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+
+function useReveal() {
+  const ref = useRef(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect() } },
+      { threshold: 0.15 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+  return [ref, visible]
+}
 
 const stages = ['Applied', 'Screen', 'HM Round', 'VP Round', 'Panel', 'Offer']
 
@@ -7,167 +22,129 @@ const positions = [
   {
     company: 'Datadog', role: 'Enterprise AE', stage: 3, comp: '$280K OTE',
     initials: 'DD', color: '#632ca6', nextInterview: 'Apr 14 · 2:00 PM',
-    stakeholders: [{ initials: 'MK', role: 'VP Sales' }, { initials: 'JL', role: 'Dir Rev Ops' }],
+    stakeholders: [{ initials: 'MK' }, { initials: 'JL' }],
     notes: 'Strong signal from HM. Prep competitive positioning vs. Splunk.',
   },
   {
     company: 'CrowdStrike', role: 'Strategic AE', stage: 4, comp: '$310K OTE',
     initials: 'CS', color: '#e8462e', nextInterview: 'Apr 16 · 10:30 AM',
-    stakeholders: [{ initials: 'RB', role: 'CRO' }, { initials: 'AP', role: 'VP Enterprise' }, { initials: 'TN', role: 'Panel' }],
+    stakeholders: [{ initials: 'RB' }, { initials: 'AP' }, { initials: 'TN' }],
     notes: 'Final panel. CRO attending. Lead with $1.2M deal story.',
   },
   {
     company: 'Snowflake', role: 'Commercial AE', stage: 1, comp: '$250K OTE',
     initials: 'SF', color: '#29b5e8', nextInterview: 'Pending',
-    stakeholders: [{ initials: 'KW', role: 'Recruiter' }],
+    stakeholders: [{ initials: 'KW' }],
     notes: 'Initial screen. Research data cloud positioning.',
   },
 ]
 
 export default function WarRoom() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const [sectionRef, visible] = useReveal()
 
   return (
-    <section className="py-24 md:py-32 px-6 relative">
+    <section ref={sectionRef} className="py-24 sm:py-32 px-5" style={{ background: '#0B0D12' }}>
       <div className="max-w-[760px] mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-10"
-        >
-          <span className="block text-[11px] uppercase tracking-[0.25em] font-medium text-accent/60 mb-3">
+
+        {/* Header */}
+        <div className="transition-all duration-700 mb-10" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)' }}>
+          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#00E0CC', marginBottom: '16px' }}>
             Your Pipeline
-          </span>
-          <h2 className="font-heading font-bold text-[28px] sm:text-[36px] md:text-[42px] leading-[1.1] tracking-[-0.03em] text-text-primary mb-4">
-            Your Job Search Is a Pipeline.{' '}
-            <span className="text-accent">Run It Like One.</span>
-          </h2>
-          <p className="text-text-secondary text-[16px] leading-[1.7] max-w-[520px]">
-            Each opportunity gets a dedicated workspace: intel, stakeholder mapping, comp tracking,
-            and per-round notes.
           </p>
-        </motion.div>
+          <h2 className="font-heading font-bold mb-4" style={{ fontSize: 'clamp(24px, 5vw, 38px)', lineHeight: 1.15, letterSpacing: '-0.025em', color: '#EDF2F7' }}>
+            Your Job Search Is a Pipeline.{' '}
+            <span style={{ color: '#00E0CC' }}>Run It Like One.</span>
+          </h2>
+          <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#8B9BB4', maxWidth: '520px' }}>
+            Each opportunity gets a dedicated workspace: intel, stakeholder mapping, comp tracking, and per-round notes.
+          </p>
+        </div>
 
-        {/* Dashboard reveal */}
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, scale: 0.92, filter: 'blur(10px)' }}
-          animate={isInView ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : {}}
-          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          {/* Scan line effect */}
-          {isInView && (
-            <motion.div
-              initial={{ top: '-100%' }}
-              animate={{ top: '200%' }}
-              transition={{ duration: 1.5, ease: 'linear' }}
-              className="absolute left-0 right-0 h-[1px] z-20 pointer-events-none"
-              style={{
-                background: 'linear-gradient(90deg, transparent, rgba(124,106,239,0.4), transparent)',
-              }}
-            />
-          )}
-
-          <div
-            className="bg-surface-1/90 backdrop-blur-xl border border-border/30 rounded-xl overflow-hidden"
-            style={{ boxShadow: '0 0 60px rgba(124,106,239,0.05), 0 20px 60px rgba(0,0,0,0.3)' }}
-          >
-            {/* Header */}
-            <div className="px-6 py-4 border-b border-border/20 flex items-center justify-between">
+        {/* Dashboard */}
+        <div className="transition-all duration-700" style={{
+          opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(20px)', transitionDelay: '0.2s',
+        }}>
+          <div style={{
+            background: 'rgba(16,22,34,0.72)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255,255,255,0.07)',
+            borderRadius: '14px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
+          }}>
+            {/* Header bar */}
+            <div className="flex items-center justify-between" style={{ padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%)' }}>
               <div>
-                <span className="text-[10px] uppercase tracking-[0.15em] text-accent/60 font-medium">
-                  War Room
-                </span>
-                <p className="text-text-primary font-heading font-semibold text-[15px] mt-0.5">
-                  3 Active Positions
-                </p>
+                <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '10.5px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B9BB4' }}>War Room</p>
+                <p style={{ fontSize: '14px', fontWeight: 600, color: '#EDF2F7', marginTop: '2px' }}>3 Active Positions</p>
               </div>
-              <span className="text-[10px] bg-accent/10 text-accent/80 px-2.5 py-1 rounded-md font-medium border border-accent/10">
+              <span style={{ fontSize: '11px', fontWeight: 600, color: '#00E0CC', background: 'rgba(0,224,204,0.10)', border: '1px solid rgba(0,224,204,0.2)', padding: '4px 12px', borderRadius: '8px' }}>
                 2 Interviews This Week
               </span>
             </div>
 
-            {/* Rows */}
-            <div className="divide-y divide-border/15">
-              {positions.map((pos, posIdx) => (
-                <motion.div
-                  key={pos.company}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.4 + posIdx * 0.15, duration: 0.5 }}
-                  className="px-6 py-4 hover:bg-surface-2/20 transition-colors"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${pos.color}20` }}>
-                        <span className="text-[10px] font-bold" style={{ color: pos.color }}>{pos.initials}</span>
-                      </div>
-                      <div>
-                        <p className="text-text-primary font-medium text-[14px]">{pos.company}</p>
-                        <p className="text-text-tertiary/50 text-[11px]">{pos.role}</p>
-                      </div>
+            {/* Position rows */}
+            {positions.map((pos, posIdx) => (
+              <div key={pos.company} className="transition-all duration-500"
+                style={{
+                  padding: '16px 18px',
+                  borderBottom: posIdx < positions.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+                  opacity: visible ? 1 : 0, transform: visible ? 'translateX(0)' : 'translateX(-10px)',
+                  transitionDelay: `${0.4 + posIdx * 0.12}s`,
+                }}>
+                {/* Company + comp */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-center" style={{ width: 32, height: 32, borderRadius: '8px', backgroundColor: `${pos.color}20` }}>
+                      <span style={{ fontSize: '10px', fontWeight: 700, color: pos.color }}>{pos.initials}</span>
                     </div>
-                    <span className="text-[12px] text-text-tertiary/60 font-medium">{pos.comp}</span>
-                  </div>
-
-                  {/* Stage bar */}
-                  <div className="flex gap-1 mb-2">
-                    {stages.map((_, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ width: 0 }}
-                        animate={isInView ? { width: '100%' } : {}}
-                        transition={{ delay: 0.6 + posIdx * 0.15 + i * 0.05, duration: 0.3 }}
-                        className={`h-1 rounded-full flex-1 ${
-                          i < pos.stage ? 'bg-accent/60' : i === pos.stage ? 'bg-accent/25' : 'bg-surface-3/30'
-                        }`}
-                      />
-                    ))}
-                  </div>
-
-                  <div className="flex items-center justify-between mt-3">
-                    <div className="flex items-center gap-2">
-                      <div className="flex -space-x-1">
-                        {pos.stakeholders.map((sh, i) => (
-                          <motion.div
-                            key={sh.initials}
-                            initial={{ opacity: 0, scale: 0 }}
-                            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                            transition={{ delay: 0.8 + posIdx * 0.15 + i * 0.08 }}
-                            className="w-5 h-5 rounded-full bg-surface-3/60 border border-border/20 flex items-center justify-center"
-                          >
-                            <span className="text-[7px] text-text-tertiary/60 font-medium">{sh.initials}</span>
-                          </motion.div>
-                        ))}
-                      </div>
-                      <span className="text-[9px] text-text-tertiary/40">{pos.stakeholders.length}</span>
+                    <div>
+                      <p style={{ fontSize: '14px', fontWeight: 600, color: '#EDF2F7' }}>{pos.company}</p>
+                      <p style={{ fontSize: '11px', color: '#5A6A82' }}>{pos.role}</p>
                     </div>
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      animate={isInView ? { opacity: 1 } : {}}
-                      transition={{ delay: 0.9 + posIdx * 0.15 }}
-                      className={`text-[11px] font-medium ${pos.nextInterview === 'Pending' ? 'text-text-tertiary/40' : 'text-accent/70'}`}
-                    >
-                      {pos.nextInterview}
-                    </motion.span>
                   </div>
+                  <span style={{ fontSize: '12px', fontWeight: 500, color: '#5A6A82' }}>{pos.comp}</span>
+                </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 1.0 + posIdx * 0.15 }}
-                    className="mt-3 bg-surface-2/30 rounded-lg px-3 py-2 border border-border/10"
-                  >
-                    <p className="text-[10px] text-text-secondary/60 leading-[1.5]">{pos.notes}</p>
-                  </motion.div>
-                </motion.div>
-              ))}
-            </div>
+                {/* Stage bars */}
+                <div className="flex gap-1 mb-2">
+                  {stages.map((_, i) => (
+                    <div key={i} className="flex-1 rounded-full transition-all duration-500" style={{
+                      height: '4px',
+                      background: i < pos.stage ? 'rgba(0,224,204,0.5)' : i === pos.stage ? 'rgba(0,224,204,0.2)' : 'rgba(139,155,180,0.08)',
+                      transitionDelay: `${0.5 + posIdx * 0.12 + i * 0.04}s`,
+                    }} />
+                  ))}
+                </div>
+
+                {/* Bottom row */}
+                <div className="flex items-center justify-between mt-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex -space-x-1">
+                      {pos.stakeholders.map((sh, i) => (
+                        <div key={i} className="flex items-center justify-center" style={{
+                          width: 20, height: 20, borderRadius: '50%',
+                          background: 'rgba(28,38,58,0.65)', border: '1px solid rgba(255,255,255,0.05)',
+                          fontSize: '7px', fontWeight: 600, color: '#5A6A82',
+                        }}>{sh.initials}</div>
+                      ))}
+                    </div>
+                    <span style={{ fontSize: '9px', color: '#5A6A82' }}>{pos.stakeholders.length}</span>
+                  </div>
+                  <span style={{ fontSize: '11px', fontWeight: 500, color: pos.nextInterview === 'Pending' ? '#5A6A82' : '#00E0CC' }}>
+                    {pos.nextInterview}
+                  </span>
+                </div>
+
+                {/* Notes */}
+                <div className="mt-3" style={{ background: 'rgba(13,17,23,0.75)', borderRadius: '8px', padding: '8px 12px', border: '1px solid rgba(255,255,255,0.04)' }}>
+                  <p style={{ fontSize: '11px', color: '#8B9BB4', lineHeight: 1.5 }}>{pos.notes}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        </motion.div>
+        </div>
+
       </div>
     </section>
   )
