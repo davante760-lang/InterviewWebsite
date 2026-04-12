@@ -121,29 +121,41 @@ export default function TypingStruggle() {
             <div className="w-px h-5 bg-text-tertiary/20" />
           </div>
 
-          {/* Stacked failed attempts */}
-          <div className="transition-all duration-600"
+          {/* Failed attempts — one at a time, then all 4 snap in */}
+          <div className="transition-all duration-500"
             style={{ opacity: pr > 0.11 && !showGoodOutput ? 1 : 0, maxHeight: !showGoodOutput ? 700 : 0, overflow: 'hidden' }}>
-            <p className="text-[10px] sm:text-[11px] text-red-soft/50 uppercase tracking-wider mb-2">Without Interview Coach</p>
-            <div className="space-y-2 mb-4">
-              {typingStates.map((a, i) => {
-                if (!a.displayed) return null
-                return (
-                  <div key={i} className={`border-l-2 rounded-r-lg px-4 py-2.5 transition-all duration-500 ${
-                    a.done ? 'border-red-soft/20 bg-red-dim/10' : 'border-red-soft/30 bg-red-dim/20'
-                  }`}>
-                    <p className={`text-[13px] sm:text-[15px] leading-[1.5] transition-all duration-700 ${
-                      a.done ? 'text-text-primary/30 line-through decoration-red-soft/20' : 'text-text-primary/60'
-                    }`}>
-                      {a.displayed}
-                      {a.typing && (
-                        <span className="inline-block w-[2px] h-[1em] ml-[1px] align-middle bg-text-tertiary/60 animate-pulse" />
-                      )}
-                    </p>
+            <p className="text-[10px] sm:text-[11px] text-red-soft/50 uppercase tracking-wider mb-3">Without Interview Coach</p>
+
+            {allDone ? (
+              /* All 4 visible at once after the last one finishes */
+              <div className="space-y-2 mb-4">
+                {attempts.map((text, i) => (
+                  <div key={i} className="border-l-2 border-red-soft/20 bg-red-dim/10 rounded-r-lg px-4 py-2.5">
+                    <p className="text-[13px] sm:text-[15px] leading-[1.5] text-text-primary/30 line-through decoration-red-soft/20">{text}</p>
                   </div>
-                )
-              })}
-            </div>
+                ))}
+              </div>
+            ) : (
+              /* Show only the current one typing */
+              <div className="mb-4">
+                {typingStates.map((a, i) => {
+                  // Only show the one currently typing or the last one that just finished (before next starts)
+                  const isCurrentlyTyping = a.typing
+                  const justFinished = a.done && (i === 3 || !typingStates[i + 1].displayed)
+                  if (!isCurrentlyTyping && !justFinished) return null
+                  return (
+                    <div key={i} className="border-l-2 border-red-soft/30 bg-red-dim/20 rounded-r-lg px-4 py-2.5">
+                      <p className="text-text-primary/60 text-[14px] sm:text-[16px] leading-[1.6]">
+                        {a.displayed}
+                        {a.typing && (
+                          <span className="inline-block w-[2px] h-[1em] ml-[1px] align-middle bg-text-tertiary/60 animate-pulse" />
+                        )}
+                      </p>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           {/* SAY THIS card */}
