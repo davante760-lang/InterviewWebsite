@@ -114,7 +114,7 @@ export default function ProductExplainer() {
           {/* CTA */}
           <div className="text-center mt-12">
             <a href="#start" className="inline-block font-semibold transition-all duration-200"
-              style={{ padding: '14px 32px', borderRadius: '10px', background: '#00E0CC', color: '#080B12', fontSize: '14px', textDecoration: 'none' }}>
+              style={{ padding: '14px 32px', borderRadius: '10px', background: 'rgba(0,224,204,0.12)', border: '1px solid rgba(0,224,204,0.3)', color: '#00E0CC', fontSize: '14px', textDecoration: 'none' }}>
               Start Your Free Practice Interview &rarr;
             </a>
           </div>

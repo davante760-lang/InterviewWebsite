@@ -49,7 +49,7 @@ export default function LandingNav() {
           <a
             href="#start"
             className="text-white text-[13px] font-medium px-5 py-2.5 rounded-lg transition-all duration-300"
-            style={{ background: '#00E0CC', color: '#080B12' }}
+            style={{ background: 'rgba(0,224,204,0.15)', border: '1px solid rgba(0,224,204,0.35)', color: '#00E0CC' }}
           >
             Start Free Practice Interview &rarr;
           </a>
