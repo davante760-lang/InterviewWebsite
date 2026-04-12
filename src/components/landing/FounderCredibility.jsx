@@ -20,7 +20,6 @@ const stats = [
   { value: '2x', label: "President's Club" },
   { value: '124%', label: 'Avg Quota Attainment' },
   { value: '$1.5M', label: 'Annual Targets' },
-  { value: '125 hrs', label: 'Build Time' },
 ]
 
 export default function FounderCredibility() {
