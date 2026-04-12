@@ -58,21 +58,26 @@ export default function TypingStruggle() {
             Being a top AE and interviewing like one aren&apos;t the same thing. <span style={{ color: '#00E0CC' }}>Interview Coach bridges the two.</span>
           </p>
 
-          {/* Source card — always in DOM */}
+          {/* Source card — YOUR numbers */}
           <div
-            className="bg-[#111825] border border-[#1a2030] rounded-lg px-4 py-3 mb-6 origin-top transition-all duration-500"
+            className="rounded-xl mb-8 origin-top transition-all duration-500"
             style={{
-              opacity: phase >= 1 && phase <= 6 ? 1 : phase === 7 ? 0 : 0,
-              transform: phase >= 2 ? 'scale(0.90) translateY(-16px)' : 'scale(1) translateY(0)',
+              opacity: phase >= 1 && phase <= 6 ? 1 : 0,
+              transform: phase >= 2 ? 'scale(0.92) translateY(-12px)' : 'scale(1) translateY(0)',
+              background: 'rgba(16,22,34,0.72)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              padding: '20px 24px',
             }}
           >
-            <p className="text-[10px] sm:text-[11px] text-text-tertiary/40 uppercase tracking-wider mb-2">Your Track Record</p>
-            <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+            <p className="text-[13px] sm:text-[14px] mb-4" style={{ color: '#8B9BB4' }}>
+              This is you. You&apos;re not the problem.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
               {stats.map((s, i) => (
-                <span key={i} className="text-[12px] sm:text-[13px]">
-                  <span className="font-bold text-teal">{s.value}</span>
-                  <span className="text-text-tertiary/40 ml-1.5">{s.label}</span>
-                </span>
+                <div key={i}>
+                  <p className="font-heading font-bold text-[24px] sm:text-[28px] lg:text-[32px] tracking-tight" style={{ color: '#00E0CC' }}>{s.value}</p>
+                  <p className="text-[11px] sm:text-[12px] mt-1" style={{ color: '#5A6A82' }}>{s.label}</p>
+                </div>
               ))}
             </div>
           </div>
