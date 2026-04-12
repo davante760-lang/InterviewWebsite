@@ -238,99 +238,119 @@ function DesktopDemo() {
           ))}
         </div>
         <motion.div style={{ scale: panelScale, opacity: panelOpacity, y: panelY }} className="w-[92vw] max-w-[1100px] h-[65vh] max-h-[580px]">
-          <div className="w-full h-full flex rounded-xl overflow-visible" style={{ perspective: '1200px' }}>
-            <motion.div style={{ x: leftX, rotateY: leftRotateY, scale: leftScale, z: leftZ, filter: useTransform(leftDim, (d) => `brightness(${d})`) }}
-              className="w-[60%] rounded-l-xl overflow-hidden border border-[#1a2030] bg-[#0c1117] origin-left">
-              <div className="h-full flex flex-col">
-                {/* Header — matches product: COACHING label + STANDBY/LIVE pill + icon buttons */}
-                <div className="px-4 py-3 flex items-center gap-3 border-b border-[#1a2030] shrink-0">
-                  <span className="text-[11px] text-text-tertiary/50 uppercase tracking-[0.15em] font-medium">Coaching</span>
-                  <span className={`text-[10px] px-2.5 py-1 rounded font-medium border transition-all duration-500 ${isLive ? 'bg-teal/15 text-teal border-teal/30' : 'bg-transparent text-teal border-teal/25'}`}>{isLive ? 'LIVE' : 'STANDBY'}</span>
+          <div className="w-full h-full flex overflow-visible" style={{ perspective: '1200px', borderRadius: '14px', background: '#0D1117', boxShadow: '0 4px 24px rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.07)' }}>
+
+            {/* ══ LEFT: Coaching Panel ══ */}
+            <motion.div style={{ x: leftX, rotateY: leftRotateY, scale: leftScale, z: leftZ, filter: useTransform(leftDim, (d) => `brightness(${d})`), flex: '1.55', minWidth: '300px', background: 'rgba(16,22,34,0.72)', backdropFilter: 'blur(20px)', borderRadius: '14px 0 0 14px' }}
+              className="origin-left overflow-hidden">
+              <div className="h-full flex flex-col relative">
+
+                {/* Header */}
+                <div className="flex items-center gap-3 shrink-0" style={{ padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%)' }}>
+                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10.5px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B9BB4' }}>Coaching</span>
+                  <span className="transition-all duration-500" style={{
+                    fontFamily: "'JetBrains Mono', monospace", fontSize: '14px', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.07em',
+                    padding: '2px 8px', borderRadius: '4px',
+                    background: isLive ? 'rgba(0,224,204,0.15)' : 'rgba(139,155,180,0.15)',
+                    color: isLive ? '#00E0CC' : '#8B9BB4',
+                  }}>{isLive ? 'LIVE' : 'STANDBY'}</span>
                   <div className="ml-auto flex items-center gap-2">
-                    <span className="text-[10px] bg-teal/15 text-teal px-3 py-1 rounded-full font-medium border border-teal/20 flex items-center gap-1.5 transition-all duration-400"
-                      style={{ opacity: showAnalyzing ? 1 : 0, transform: showAnalyzing ? 'translateY(0)' : 'translateY(-4px)' }}>
-                      <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse" />AI analyzing...
+                    <span className="flex items-center gap-1.5 transition-all duration-300" style={{
+                      opacity: showAnalyzing ? 1 : 0, transform: showAnalyzing ? 'translateY(0)' : 'translateY(-4px)',
+                      fontSize: '13.5px', fontWeight: 600, color: '#00E0CC', background: 'rgba(0,224,204,0.10)', border: '1px solid rgba(0,224,204,0.28)',
+                      padding: '8px 16px', borderRadius: '8px',
+                    }}>
+                      <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00E0CC' }} className="animate-pulse" />AI analyzing...
                     </span>
-                    {/* Clipboard + external link icons */}
-                    <div className="w-6 h-6 rounded bg-[#1a2030]/60 flex items-center justify-center">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-text-tertiary/30">
-                        <rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
-                      </svg>
+                    <div style={{ padding: '4px 6px', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '6px' }} className="flex items-center justify-center">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5A6A82" strokeWidth="1.5"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
                     </div>
-                    <div className="w-6 h-6 rounded bg-[#1a2030]/60 flex items-center justify-center">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-text-tertiary/30">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
+                    <div style={{ padding: '4px 6px', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '6px' }} className="flex items-center justify-center">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5A6A82" strokeWidth="1.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
                     </div>
                   </div>
                 </div>
+
                 {/* Trigger detected */}
-                <div className="px-4 pt-2 shrink-0 transition-all duration-500" style={{ opacity: showTrigger ? 1 : 0, maxHeight: showTrigger ? 40 : 0, overflow: 'hidden' }}>
-                  <span className="inline-flex items-center gap-1.5 text-[10px] bg-teal/10 text-teal/80 px-3 py-1.5 rounded-full border border-teal/15 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-teal" />Trigger detected &mdash; listening...
+                <div className="shrink-0 transition-all duration-500" style={{ opacity: showTrigger ? 1 : 0, maxHeight: showTrigger ? 44 : 0, overflow: 'hidden', padding: '8px 20px' }}>
+                  <span className="inline-flex items-center gap-1.5" style={{ fontSize: '14px', fontWeight: 500, color: '#00E0CC', background: 'transparent', border: '1px solid rgba(0,224,204,0.35)', padding: '4px 12px', borderRadius: '20px' }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00E0CC' }} />Trigger detected &mdash; listening...
                   </span>
                 </div>
-                {/* Override phrases — matching product exactly */}
-                <div className="px-4 py-2.5 border-b border-[#1a2030] flex items-start gap-3 flex-wrap shrink-0">
-                  <span className="text-[9px] text-text-tertiary/35 uppercase tracking-[0.12em] shrink-0 mt-0.5">Override phrases:</span>
-                  <div className="flex flex-wrap gap-x-4 gap-y-1">
-                    <span className="text-[10px] text-teal/70">&ldquo;Just to be clear, you&apos;re asking me about ___&rdquo;</span>
-                    <span className="text-[10px] text-teal/70">&ldquo;Just so I understand, ___&rdquo;</span>
-                    <span className="text-[10px] text-teal/70">&ldquo;If I&apos;m hearing you right, you want to know about ___&rdquo;</span>
+
+                {/* Override phrases */}
+                <div className="flex items-start gap-1.5 flex-wrap shrink-0" style={{ padding: '8px 20px', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '9.5px', fontWeight: 600, color: '#5A6A82', textTransform: 'uppercase', letterSpacing: '0.09em', marginTop: '4px', flexShrink: 0 }}>Override phrases:</span>
+                  <div className="flex flex-wrap gap-2">
+                    {['"Just to be clear, you\'re asking me about ___"', '"Just so I understand, ___"', '"If I\'m hearing you right, you want to know about ___"'].map((ph) => (
+                      <span key={ph} style={{ fontSize: '14px', fontWeight: 500, color: '#00E0CC', background: 'transparent', border: '1px solid rgba(0,224,204,0.35)', padding: '4px 12px', borderRadius: '20px' }}>{ph}</span>
+                    ))}
                   </div>
                 </div>
-                {/* Content area */}
-                <div className="flex-1 overflow-y-auto px-4 py-4 relative">
-                  {!hideEmpty && <div className="absolute inset-0 flex items-center justify-center"><p className="text-text-tertiary/25 text-[13px]">Select a position to load your coaching brief</p></div>}
+
+                {/* Content */}
+                <div className="flex-1 overflow-y-auto relative" style={{ padding: '14px 18px 16px' }}>
+                  {!hideEmpty && <div className="absolute inset-0 flex items-center justify-center"><p style={{ fontSize: '14px', fontWeight: 600, color: '#8B9BB4' }}>Select a position to load your coaching brief</p></div>}
                   <div className="transition-all duration-700 ease-out" style={{ opacity: showSayThis ? 1 : 0, transform: showSayThis ? 'translateY(0)' : 'translateY(16px)' }}>
-                    <div className="border-l-[3px] border-teal/60 bg-[#111825] rounded-r-lg p-4 mb-4">
-                      <div className="flex items-center gap-2 mb-2"><span className="w-2 h-2 rounded-full bg-teal" /><span className="text-[10px] text-text-tertiary/50 uppercase tracking-wider font-medium">Say This</span><span className="text-[10px] text-text-tertiary/30 ml-auto">07:05 AM</span></div>
-                      <p className="text-text-secondary text-[12px] leading-[1.7]">Displaced an 8-year incumbent. $225K ACV, 7-month cycle. The challenge was they had relationships everywhere &mdash; I had to build my own coalition from scratch. Anchored with the ops team first, got finance aligned, then used that momentum to get in front of the CFO. Three-year commitment on the close.</p>
+                    <div style={{ background: 'rgba(0,224,204,0.04)', border: '1px solid rgba(0,224,204,0.14)', borderLeft: '3px solid #00E0CC', borderRadius: '10px', padding: '12px 16px 12px 20px', marginBottom: '16px', boxShadow: '0 0 20px rgba(0,224,204,0.04)' }}>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00E0CC' }} />
+                        <span style={{ fontSize: '14px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#5A6A82' }}>Say This</span>
+                        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '14px', color: '#5A6A82', marginLeft: 'auto' }}>07:05 AM</span>
+                      </div>
+                      <p style={{ fontSize: '15px', fontWeight: 400, lineHeight: 1.75, color: '#EDF2F7' }}>Displaced an 8-year incumbent. $225K ACV, 7-month cycle. The challenge was they had relationships everywhere &mdash; I had to build my own coalition from scratch. Anchored with the ops team first, got finance aligned, then used that momentum to get in front of the CFO. Three-year commitment on the close.</p>
                     </div>
                   </div>
                   <div className="transition-all duration-700 ease-out" style={{ opacity: showQuestionCard ? 1 : 0, transform: showQuestionCard ? 'translateY(0)' : 'translateY(16px)' }}>
-                    <div className="bg-[#111825] border border-[#1a2030] rounded-lg p-4">
-                      <span className="text-[10px] text-text-tertiary/50 uppercase tracking-wider font-medium block mb-2">Question</span>
-                      <p className="text-teal/60 text-[11px] leading-[1.6] italic">The interviewer just asked: &ldquo;walk me through your biggest competitive displacement.&rdquo; Give the candidate a direct, confident response with specific metrics...</p>
+                    <div style={{ background: 'rgba(139,122,255,0.03)', border: '1px solid rgba(139,122,255,0.08)', borderRadius: '10px', padding: '8px 12px' }}>
+                      <span style={{ fontSize: '14px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#5A6A82', display: 'block', marginBottom: '4px' }}>Question</span>
+                      <p style={{ fontSize: '13.5px', fontStyle: 'italic', color: '#CBD5E1', lineHeight: 1.5 }}>The interviewer just asked: &ldquo;walk me through your biggest competitive displacement.&rdquo; Give the candidate a direct, confident response with specific metrics...</p>
                     </div>
                   </div>
                 </div>
-                {/* Bottom bar — Ask AI pill + input matching product */}
-                <div className="px-4 py-2.5 border-t border-[#1a2030] shrink-0">
-                  <span className="text-[10px] bg-teal/10 text-teal border border-teal/20 px-2.5 py-1 rounded font-medium inline-flex items-center gap-1">
-                    <span className="text-[11px]">✦</span> Ask AI
+
+                {/* Ask AI bar */}
+                <div className="shrink-0" style={{ padding: '10px 16px 14px', borderTop: '1px solid rgba(255,255,255,0.04)', background: 'linear-gradient(0deg, rgba(255,255,255,0.01) 0%, transparent 100%)' }}>
+                  <span style={{ fontSize: '13.5px', fontWeight: 600, color: '#00E0CC', background: 'rgba(0,224,204,0.10)', border: '1px solid rgba(0,224,204,0.28)', padding: '8px 16px', borderRadius: '8px', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                    <span style={{ fontSize: '11px' }}>✦</span> Ask AI
                   </span>
-                  <div className="mt-2 flex items-center bg-[#111825] rounded-lg border border-[#1a2030] px-3 py-2.5">
-                    <span className="text-[12px] text-text-tertiary/25 flex items-center gap-2 flex-1">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-text-tertiary/20 shrink-0"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
-                      Ask AI
-                    </span>
-                    <div className="w-6 h-6 rounded-full bg-teal flex items-center justify-center">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M22 2L11 13" /><path d="M22 2L15 22L11 13L2 9L22 2Z" /></svg>
+                  <div className="mt-2 flex items-center" style={{ background: 'rgba(8,11,18,0.65)', border: '1px solid rgba(0,224,204,0.28)', borderRadius: '24px', padding: '0 14px', height: '44px', gap: '10px' }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(0,224,204,0.5)" strokeWidth="1.5" className="shrink-0"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" /></svg>
+                    <span style={{ fontSize: '14px', color: '#5A6A82', flex: 1 }}>Ask AI</span>
+                    <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#00E0CC', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#080B12" strokeWidth="2"><path d="M22 2L11 13" /><path d="M22 2L15 22L11 13L2 9L22 2Z" /></svg>
                     </div>
                   </div>
                 </div>
               </div>
             </motion.div>
-            {/* RIGHT: Transcript — matching product */}
-            <motion.div style={{ x: rightX, rotateY: rightRotateY, scale: rightScale, z: rightZ, filter: useTransform(rightBrightness, (b) => `brightness(${b})`) }}
-              className="w-[40%] rounded-r-xl overflow-hidden border-l border-[#1a2030] bg-[#0c1117] origin-right">
+
+            {/* ══ DIVIDER ══ */}
+            <div style={{ width: '2px', margin: '20px 0', borderRadius: '1px', background: 'linear-gradient(to bottom, transparent 5%, rgba(0,224,204,0.35) 30%, rgba(139,122,255,0.25) 70%, transparent 95%)' }} />
+
+            {/* ══ RIGHT: Transcript Panel ══ */}
+            <motion.div style={{ x: rightX, rotateY: rightRotateY, scale: rightScale, z: rightZ, filter: useTransform(rightBrightness, (b) => `brightness(${b})`), flex: 1, minWidth: '240px', background: 'rgba(13,17,23,0.75)', borderRadius: '0 14px 14px 0' }}
+              className="origin-right overflow-hidden">
               <div className="h-full flex flex-col">
-                <div className="px-4 py-3 flex items-center justify-between border-b border-[#1a2030] shrink-0">
-                  <span className="text-[11px] text-text-tertiary/50 uppercase tracking-[0.15em] font-medium">Live Transcript</span>
-                  <span className="text-[10px] bg-teal/15 text-teal px-2 py-0.5 rounded font-medium border border-teal/20">{questionText.split(/\s+/).filter(Boolean).length} words</span>
+                <div className="flex items-center justify-between shrink-0" style={{ padding: '14px 18px', borderBottom: '1px solid rgba(255,255,255,0.04)', background: 'linear-gradient(180deg, rgba(255,255,255,0.015) 0%, transparent 100%)' }}>
+                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10.5px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8B9BB4' }}>Live Transcript</span>
+                  <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '11px', fontWeight: 600, padding: '2px 8px', borderRadius: '9999px', background: 'rgba(28,38,58,0.65)', color: '#5A6A82' }}>{questionText.split(/\s+/).filter(Boolean).length} words</span>
                 </div>
-                <div className="flex-1 px-5 py-6 relative">
-                  {showTranscriptEmpty && <div className="absolute inset-0 flex items-center justify-center"><p className="text-text-tertiary/20 text-[13px]">Transcript starts with session</p></div>}
-                  {questionFraction > 0 && <p className="text-[10px] text-teal/50 font-medium uppercase tracking-wider mb-2">Interviewer</p>}
-                  <p className="text-text-secondary text-[14px] leading-[1.9]">{questionText}{questionFraction > 0 && questionFraction < 1 && <span className="text-teal animate-pulse">|</span>}</p>
+                <div className="flex-1 relative" style={{ padding: '14px 18px 16px' }}>
+                  {showTranscriptEmpty && <div className="absolute inset-0 flex items-center justify-center"><p style={{ fontSize: '14px', fontWeight: 600, color: '#CBD5E1' }}>Transcript starts with session</p></div>}
+                  {questionFraction > 0 && <p style={{ fontSize: '14px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00E0CC', marginBottom: '8px' }}>Interviewer</p>}
+                  <p style={{ fontSize: '14px', fontWeight: 400, lineHeight: 1.65, letterSpacing: '0.01em', color: '#F1F5F9' }}>{questionText}{questionFraction > 0 && questionFraction < 1 && <span className="animate-pulse" style={{ color: '#00E0CC' }}>|</span>}</p>
                 </div>
-                <div className="px-4 py-3 border-t border-[#1a2030] shrink-0">
-                  <div className="flex items-center justify-between mb-1.5"><span className="text-[9px] text-text-tertiary/40 uppercase tracking-wider font-medium">Talk Ratio</span><span className="text-[9px] text-text-tertiary/25">Target</span></div>
-                  <div className="h-2 bg-[#1a2030] rounded-full overflow-hidden flex"><div className="h-full bg-teal rounded-full" style={{ width: '40%' }} /></div>
-                  <div className="flex gap-4 mt-1.5">
-                    <span className="text-[9px] text-text-tertiary/50 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-teal inline-block" /> You: 40%</span>
-                    <span className="text-[9px] text-text-tertiary/25 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-text-tertiary/20 inline-block" /> Them: 60%</span>
+                {/* Talk Ratio */}
+                <div className="shrink-0" style={{ padding: '12px 16px 14px', borderTop: '1px solid rgba(139,155,180,0.1)' }}>
+                  <div className="flex items-center justify-between" style={{ marginBottom: '6px' }}>
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '10px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.07em', color: '#5A6A82' }}>Talk Ratio</span>
+                    <span style={{ fontSize: '11px', color: '#5A6A82' }}>Target</span>
+                  </div>
+                  <div style={{ height: '6px', borderRadius: '999px', background: 'rgba(139,155,180,0.1)', overflow: 'hidden' }}><div style={{ height: '100%', width: '40%', borderRadius: '999px', background: '#00E0CC' }} /></div>
+                  <div className="flex" style={{ gap: '16px', marginTop: '6px' }}>
+                    <span className="flex items-center" style={{ gap: '4px', fontSize: '12px', color: '#8B9BB4' }}><span style={{ width: 8, height: 8, borderRadius: '50%', background: '#00E0CC', display: 'inline-block' }} /> You: 40%</span>
+                    <span className="flex items-center" style={{ gap: '4px', fontSize: '12px', color: '#8B9BB4' }}><span style={{ width: 8, height: 8, borderRadius: '50%', background: 'rgba(139,155,180,0.4)', display: 'inline-block' }} /> Them: 60%</span>
                   </div>
                 </div>
               </div>
