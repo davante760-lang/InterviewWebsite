@@ -125,7 +125,7 @@ export default function TypingStruggle() {
               </div>
             </div>
 
-            {/* Phase 7: SAY THIS */}
+            {/* Phase 7: SAY THIS — headline on top */}
             <div
               className="absolute inset-x-0 top-0 transition-all duration-500 ease-out"
               style={{
@@ -134,6 +134,9 @@ export default function TypingStruggle() {
                 pointerEvents: phase === 7 ? 'auto' : 'none',
               }}
             >
+              <p className="mb-6 text-center text-[14px] sm:text-[16px] text-text-primary/60 font-medium">
+                Same track record. Now they hear it.
+              </p>
               <p className="text-[10px] sm:text-[11px] text-teal/50 uppercase tracking-wider mb-2">With Interview Coach</p>
               <div className="border-l-[3px] border-teal/60 bg-[#111825] rounded-r-xl p-5 sm:p-6">
                 <div className="flex items-center gap-2 mb-3">
@@ -143,9 +146,6 @@ export default function TypingStruggle() {
                 </div>
                 <p className="text-text-secondary text-[15px] sm:text-[17px] leading-[1.7]">{answer}</p>
               </div>
-              <p className="mt-8 text-center text-[14px] sm:text-[16px] text-text-primary/60 font-medium">
-                Same track record. Now they hear it.
-              </p>
             </div>
 
           </div>
