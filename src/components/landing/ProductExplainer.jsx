@@ -80,19 +80,19 @@ export default function ProductExplainer() {
               borderRadius: '14px',
               padding: '28px 24px',
             }}>
-              {/* Label */}
-              <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(241,245,249,0.3)', marginBottom: '16px' }}>
+              {/* Label — bold, teal */}
+              <p style={{ fontFamily: "'Outfit', sans-serif", fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#2dd4bf', marginBottom: '16px' }}>
                 {block.label}
               </p>
 
-              {/* Stat + caption */}
-              <div className="flex items-baseline gap-4 mb-5">
+              {/* Stat + caption — vertically centered */}
+              <div className="flex items-center gap-5 mb-5">
                 <p style={{
                   fontFamily: "'Outfit', sans-serif", fontSize: 'clamp(40px, 8vw, 56px)', fontWeight: 800,
-                  color: block.statColor, lineHeight: 1, letterSpacing: '-0.03em',
+                  color: block.statColor, lineHeight: 1, letterSpacing: '-0.03em', flexShrink: 0,
                   textShadow: block.statColor === '#2dd4bf' ? '0 0 40px rgba(45,212,191,0.12)' : '0 0 40px rgba(241,245,249,0.05)',
                 }}>{block.stat}</p>
-                <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: '12px', color: 'rgba(241,245,249,0.3)', lineHeight: 1.5, maxWidth: '240px' }}>
+                <p style={{ fontSize: '14px', color: 'rgba(241,245,249,0.4)', lineHeight: 1.5, maxWidth: '280px' }}>
                   {block.caption}
                 </p>
               </div>
