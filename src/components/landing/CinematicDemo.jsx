@@ -52,10 +52,10 @@ function MobileDemo() {
 
   return (
     <section ref={ref} className="relative" style={{ height: '350vh' }}>
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
+      <div className="sticky top-0 h-screen flex flex-col items-center pt-16 px-4 overflow-hidden">
 
         {/* Label */}
-        <div className="h-5 mb-3">
+        <div className="h-4 mb-2">
           <span className="text-[11px] tracking-wide text-text-tertiary/40 transition-opacity duration-500"
             style={{ opacity: label ? 1 : 0 }}>{label || '\u00A0'}</span>
         </div>
@@ -76,7 +76,7 @@ function MobileDemo() {
               pointerEvents: showTranscript ? 'auto' : 'none',
             }}
           >
-            <div className="flex flex-col" style={{ minHeight: 420 }}>
+            <div className="flex flex-col" style={{ minHeight: '70vh' }}>
               <div className="px-3 py-2.5 flex items-center justify-between border-b border-[#1a2030]">
                 <span className="text-[10px] text-text-tertiary/60 uppercase tracking-wider font-medium">Live Transcript</span>
                 <span className="text-[9px] text-teal/50 font-medium">{qText.split(/\s+/).filter(Boolean).length} words</span>
@@ -119,7 +119,7 @@ function MobileDemo() {
               pointerEvents: showCoaching ? 'auto' : 'none',
             }}
           >
-            <div className="flex flex-col" style={{ minHeight: 420 }}>
+            <div className="flex flex-col" style={{ minHeight: '70vh' }}>
               <div className="px-3 py-2.5 flex items-center gap-2 border-b border-[#1a2030]">
                 <span className="text-[10px] text-text-tertiary/60 uppercase tracking-wider font-medium">Coaching</span>
                 <span className={`text-[9px] px-2 py-0.5 rounded font-medium border transition-all duration-500 ${
