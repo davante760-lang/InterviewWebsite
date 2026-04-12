@@ -36,21 +36,21 @@ export default function TypingStruggle() {
   const { scrollYProgress: p } = useScroll({ target: ref, offset: ['start start', 'end end'] })
 
   const activePhase = useTransform(p,
-    [0, 0.06, 0.16, 0.28, 0.40, 0.52, 0.64, 0.78, 1],
-    [0, 1,    2,    3,    4,    5,    6,    6,    6]
+    [0, 0.05, 0.13, 0.23, 0.33, 0.43, 0.55, 0.67, 0.80, 1],
+    [0, 1,    2,    3,    4,    5,    6,    7,    7,    7]
   )
 
   const [phase, setPhase] = useState(0)
   useMotionValueEvent(activePhase, 'change', (v) => setPhase(Math.round(v)))
 
   return (
-    <section ref={ref} className="relative" style={{ height: '450vh' }}>
+    <section ref={ref} className="relative" style={{ height: '500vh' }}>
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-5 overflow-hidden">
         <div className="w-full max-w-[480px]">
 
           {/* Thesis */}
           <motion.p
-            animate={{ opacity: phase >= 1 && phase <= 5 ? 1 : 0 }}
+            animate={{ opacity: phase >= 1 && phase <= 6 ? 1 : 0 }}
             transition={{ duration: 0.5 }}
             className="text-[14px] sm:text-[16px] text-text-primary/60 font-medium text-center mb-8"
           >
@@ -80,7 +80,7 @@ export default function TypingStruggle() {
 
           {/* Question */}
           <motion.p
-            animate={{ opacity: phase >= 2 && phase <= 5 ? 0.45 : 0 }}
+            animate={{ opacity: phase >= 2 && phase <= 6 ? 0.45 : 0 }}
             transition={{ duration: 0.4 }}
             className="text-[12px] sm:text-[13px] text-text-tertiary/60 italic mb-5"
           >
@@ -92,7 +92,7 @@ export default function TypingStruggle() {
             <AnimatePresence mode="wait">
 
               {/* Phases 2-4: one attempt at a time */}
-              {phase >= 2 && phase <= 4 && (
+              {phase >= 2 && phase <= 5 && (
                 <motion.div
                   key={`attempt-${phase}`}
                   initial={{ opacity: 0, y: 14 }}
@@ -108,7 +108,7 @@ export default function TypingStruggle() {
               )}
 
               {/* Phase 5: all 4 stacked */}
-              {phase === 5 && (
+              {phase === 6 && (
                 <motion.div
                   key="all-failed"
                   initial={{ opacity: 0 }}
@@ -128,7 +128,7 @@ export default function TypingStruggle() {
               )}
 
               {/* Phase 6: SAY THIS */}
-              {phase === 6 && (
+              {phase === 7 && (
                 <motion.div
                   key="success"
                   initial={{ opacity: 0, y: 20 }}
