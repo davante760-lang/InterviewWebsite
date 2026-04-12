@@ -55,7 +55,7 @@ export default function TypingStruggle() {
             className="text-[14px] sm:text-[16px] text-text-primary/60 font-medium text-center mb-8 transition-opacity duration-500"
             style={{ opacity: phase >= 1 && phase <= 6 ? 1 : 0 }}
           >
-            You&apos;re not bad at interviewing. You&apos;re bad at translating.
+            Being a top AE and interviewing like one aren&apos;t the same thing. Interview Coach bridges the two.
           </p>
 
           {/* Source card — always in DOM */}
