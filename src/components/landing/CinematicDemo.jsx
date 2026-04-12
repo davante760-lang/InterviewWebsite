@@ -81,11 +81,11 @@ export default function CinematicDemo() {
 
   // ── Content state (React state for reliable rendering) ──
   const isLive = progress > 0.25
-  const showTrigger = progress > 0.55
-  const showAnalyzing = progress > 0.58 && progress < 0.66
-  const showSayThis = progress > 0.62
-  const showQuestionCard = progress > 0.66
-  const hideEmpty = progress > 0.56
+  const showTrigger = progress > 0.52 && progress < 0.60   // appears, then disappears
+  const showAnalyzing = progress > 0.60 && progress < 0.68 // appears after trigger gone
+  const showSayThis = progress > 0.68                       // appears after analyzing gone
+  const showQuestionCard = progress > 0.72
+  const hideEmpty = progress > 0.52
 
   // Question typing — synced to the "right pane forward" phase
   const fullQuestion = "Walk me through your biggest competitive win. What was the deal size, who were the stakeholders, and how did you close it?"
