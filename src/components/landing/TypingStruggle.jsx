@@ -46,7 +46,7 @@ export default function TypingStruggle() {
   useMotionValueEvent(activePhase, 'change', (v) => setPhase(Math.round(v)))
 
   return (
-    <section ref={ref} className="relative" style={{ height: '600vh' }}>
+    <section ref={ref} className="relative" style={{ height: '1200vh' }}>
       <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-5 overflow-hidden">
         <div className="w-full max-w-[480px]">
 
