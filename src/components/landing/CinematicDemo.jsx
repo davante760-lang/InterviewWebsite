@@ -230,14 +230,24 @@ function DesktopDemo() {
 
   return (
     <section ref={containerRef} className="relative" style={{ height: '1200vh' }}>
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden" style={{ perspective: '1200px' }}>
-        <div className="absolute top-[7%] left-1/2 -translate-x-1/2 z-30 h-6">
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden" style={{ perspective: '1200px' }}>
+        {/* Headline */}
+        <motion.h2
+          style={{ opacity: panelOpacity }}
+          className="font-heading font-bold text-[20px] sm:text-[26px] md:text-[32px] tracking-[-0.02em] text-text-primary/80 text-center mb-6 px-4"
+        >
+          Real question. Real answer. <span style={{ color: '#00E0CC' }}>500 milliseconds.</span>
+        </motion.h2>
+
+        {/* Phase labels */}
+        <div className="relative h-6 mb-4">
           {labels.map((label, i) => (
             <span key={i} className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[12px] tracking-wide transition-opacity duration-500 text-text-tertiary/40"
               style={{ opacity: labelIdx === i ? 1 : 0 }}>{label}</span>
           ))}
         </div>
-        <motion.div style={{ scale: panelScale, opacity: panelOpacity, y: panelY }} className="w-[92vw] max-w-[1100px] h-[65vh] max-h-[580px]">
+
+        <motion.div style={{ scale: panelScale, opacity: panelOpacity, y: panelY }} className="w-[92vw] max-w-[1100px] h-[58vh] max-h-[520px]">
           <div className="w-full h-full flex overflow-visible" style={{ perspective: '1200px', borderRadius: '14px', background: '#0D1117', boxShadow: '0 4px 24px rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.07)' }}>
 
             {/* ══ LEFT: Coaching Panel ══ */}
