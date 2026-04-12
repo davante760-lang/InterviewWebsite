@@ -123,45 +123,45 @@ function MobileDemo() {
             }}
           >
             <div className="flex flex-col" style={{ minHeight: '70vh' }}>
-              <div className="px-3 py-2.5 flex items-center gap-2 border-b border-[#1a2030]">
-                <span className="text-[10px] text-text-tertiary/60 uppercase tracking-wider font-medium">Coaching</span>
-                <span className={`text-[9px] px-2 py-0.5 rounded font-medium border transition-all duration-500 ${
+              <div className="px-4 py-3 flex items-center gap-2 border-b border-[#1a2030]">
+                <span className="text-[12px] text-text-tertiary/60 uppercase tracking-wider font-medium">Coaching</span>
+                <span className={`text-[11px] px-2.5 py-1 rounded font-medium border transition-all duration-500 ${
                   isLive ? 'bg-teal/15 text-teal border-teal/30' : 'bg-[#1a2030] text-teal border-teal/20'
                 }`}>{isLive ? 'LIVE' : 'STANDBY'}</span>
-                <span className="text-[8px] bg-teal/15 text-teal px-2 py-0.5 rounded-full font-medium border border-teal/20 flex items-center gap-1 ml-auto transition-all duration-300"
+                <span className="text-[10px] bg-teal/15 text-teal px-2.5 py-1 rounded-full font-medium border border-teal/20 flex items-center gap-1.5 ml-auto transition-all duration-300"
                   style={{ opacity: showAnalyzing ? 1 : 0 }}>
-                  <span className="w-1 h-1 rounded-full bg-teal animate-pulse" />AI analyzing...
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal animate-pulse" />AI analyzing...
                 </span>
               </div>
-              <div className="px-3 pt-2 pb-1.5 transition-all duration-500" style={{ opacity: showTrigger ? 1 : 0, maxHeight: showTrigger ? 44 : 0, overflow: 'hidden' }}>
-                <span className="inline-flex items-center gap-1 text-[8px] bg-teal/10 text-teal/80 px-2 py-1 rounded-full border border-teal/15 font-medium">
-                  <span className="w-1 h-1 rounded-full bg-teal" />Trigger detected &mdash; listening...
+              <div className="px-4 pt-2.5 pb-2 transition-all duration-500" style={{ opacity: showTrigger ? 1 : 0, maxHeight: showTrigger ? 48 : 0, overflow: 'hidden' }}>
+                <span className="inline-flex items-center gap-1.5 text-[10px] bg-teal/10 text-teal/80 px-3 py-1.5 rounded-full border border-teal/15 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal" />Trigger detected &mdash; listening...
                 </span>
               </div>
-              <div className="px-3 py-1.5 border-b border-[#1a2030]">
-                <span className="text-[7px] text-text-tertiary/40 uppercase tracking-wider block mb-0.5">Override phrases:</span>
-                <div className="flex flex-wrap gap-x-1.5 gap-y-0.5">
+              <div className="px-4 py-2 border-b border-[#1a2030]">
+                <span className="text-[9px] text-text-tertiary/40 uppercase tracking-wider block mb-1">Override phrases:</span>
+                <div className="flex flex-wrap gap-x-2 gap-y-1">
                   {['"Just to be clear, ___"', '"Just so I understand, ___"'].map((ph) => (
-                    <span key={ph} className="text-[8px] text-teal/60">{ph}</span>
+                    <span key={ph} className="text-[10px] text-teal/60">{ph}</span>
                   ))}
                 </div>
               </div>
-              <div className="flex-1 overflow-y-auto px-3 py-3">
-                {!hideEmpty && <p className="text-text-tertiary/20 text-[11px] text-center mt-12">Select a position to load your coaching brief</p>}
+              <div className="flex-1 overflow-y-auto px-4 py-4">
+                {!hideEmpty && <p className="text-text-tertiary/20 text-[13px] text-center mt-16">Select a position to load your coaching brief</p>}
                 <div className="transition-all duration-600 ease-out" style={{ opacity: showSayThis ? 1 : 0, transform: showSayThis ? 'translateY(0)' : 'translateY(14px)' }}>
-                  <div className="border-l-2 border-teal/60 bg-[#111825] rounded-r-lg p-3 mb-3">
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-teal" />
-                      <span className="text-[8px] text-text-tertiary/50 uppercase tracking-wider font-medium">Say This</span>
-                      <span className="text-[8px] text-text-tertiary/30 ml-auto">07:05 AM</span>
+                  <div className="border-l-2 border-teal/60 bg-[#111825] rounded-r-lg p-4 mb-4">
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <span className="w-2 h-2 rounded-full bg-teal" />
+                      <span className="text-[10px] text-text-tertiary/50 uppercase tracking-wider font-medium">Say This</span>
+                      <span className="text-[10px] text-text-tertiary/30 ml-auto">07:05 AM</span>
                     </div>
-                    <p className="text-text-secondary text-[11px] leading-[1.6]">I displaced a competitor after an 8-year relationship &mdash; $823K deal, 94-day close cycle, 7 stakeholders. Built champion coalition across ops and finance, closed with 3-year commitment after exec alignment with CFO.</p>
+                    <p className="text-text-secondary text-[14px] leading-[1.7]">I displaced a competitor after an 8-year relationship &mdash; $823K deal, 94-day close cycle, 7 stakeholders. Built champion coalition across ops and finance, closed with 3-year commitment after exec alignment with CFO.</p>
                   </div>
                 </div>
                 <div className="transition-all duration-600 ease-out" style={{ opacity: showQCard ? 1 : 0, transform: showQCard ? 'translateY(0)' : 'translateY(14px)' }}>
-                  <div className="bg-[#111825] border border-[#1a2030] rounded-lg p-3">
-                    <span className="text-[8px] text-text-tertiary/50 uppercase tracking-wider font-medium block mb-1">Question</span>
-                    <p className="text-teal/60 text-[9px] leading-[1.5] italic">The interviewer just asked: &ldquo;walk me through your biggest competitive win.&rdquo; Give a direct, confident response with specific metrics...</p>
+                  <div className="bg-[#111825] border border-[#1a2030] rounded-lg p-4">
+                    <span className="text-[10px] text-text-tertiary/50 uppercase tracking-wider font-medium block mb-1.5">Question</span>
+                    <p className="text-teal/60 text-[12px] leading-[1.6] italic">The interviewer just asked: &ldquo;walk me through your biggest competitive win.&rdquo; Give a direct, confident response with specific metrics...</p>
                   </div>
                 </div>
               </div>
