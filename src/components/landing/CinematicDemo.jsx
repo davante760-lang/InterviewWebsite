@@ -87,6 +87,9 @@ function MobileDemo() {
                     <p className="text-text-tertiary/20 text-[11px]">Transcript starts with session</p>
                   </div>
                 )}
+                {qFrac > 0 && (
+                  <p className="text-[10px] text-teal/50 font-medium uppercase tracking-wider mb-2">Interviewer</p>
+                )}
                 <p className="text-text-secondary text-[15px] leading-[1.9]">
                   {qText}
                   {qFrac > 0 && qFrac < 1 && <span className="text-teal animate-pulse">|</span>}
@@ -295,6 +298,7 @@ function DesktopDemo() {
                 </div>
                 <div className="flex-1 px-5 py-6 relative">
                   {showTranscriptEmpty && <div className="absolute inset-0 flex items-center justify-center"><p className="text-text-tertiary/20 text-[13px]">Transcript starts with session</p></div>}
+                  {questionFraction > 0 && <p className="text-[10px] text-teal/50 font-medium uppercase tracking-wider mb-2">Interviewer</p>}
                   <p className="text-text-secondary text-[14px] leading-[1.9]">{questionText}{questionFraction > 0 && questionFraction < 1 && <span className="text-teal animate-pulse">|</span>}</p>
                 </div>
                 <div className="px-4 py-3 border-t border-[#1a2030] shrink-0">
