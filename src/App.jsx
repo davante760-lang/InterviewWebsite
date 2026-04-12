@@ -4,6 +4,7 @@ import CinematicDemo from './components/landing/CinematicDemo'
 import TypingStruggle from './components/landing/TypingStruggle'
 import VideoWalkthrough from './components/landing/VideoWalkthrough'
 import ProductExplainer from './components/landing/ProductExplainer'
+import QuestionRouting from './components/landing/QuestionRouting'
 import PrepCards from './components/landing/PrepCards'
 import PracticeMode from './components/landing/PracticeMode'
 import WarRoom from './components/landing/WarRoom'
@@ -23,6 +24,7 @@ export default function App() {
       <TypingStruggle />
       <VideoWalkthrough />
       <ProductExplainer />
+      <QuestionRouting />
       <PrepCards />
       <PracticeMode />
       <WarRoom />
