@@ -35,10 +35,6 @@ export default function Pricing() {
           0% { background-position: -100% center; }
           100% { background-position: 200% center; }
         }
-        @keyframes shimmer-glow {
-          0%, 100% { text-shadow: 0 0 20px rgba(0,224,204,0.2), 0 0 40px rgba(0,224,204,0.05); }
-          50% { text-shadow: 0 0 30px rgba(0,224,204,0.4), 0 0 60px rgba(0,224,204,0.15), 0 0 80px rgba(0,224,204,0.05); }
-        }
       `}</style>
 
       <section id="pricing" ref={sectionRef} className="py-24 sm:py-32 px-5" style={{ background: '#0B0D12' }}>
@@ -81,13 +77,13 @@ export default function Pricing() {
                   fontWeight: 800,
                   letterSpacing: '-0.03em',
                   lineHeight: 1,
-                  background: 'linear-gradient(90deg, #00E0CC 0%, #00E0CC 30%, #ffffff 48%, #5EFFE5 52%, #00E0CC 70%, #00E0CC 100%)',
-                  backgroundSize: '250% 100%',
+                  background: 'linear-gradient(90deg, #00E0CC 0%, #00E0CC 35%, #5EFFE5 48%, #00E0CC 52%, #00E0CC 65%, #00E0CC 100%)',
+                  backgroundSize: '200% 100%',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
-                  animation: 'shimmer 2.5s ease-in-out infinite, shimmer-glow 2.5s ease-in-out infinite',
-                  filter: 'drop-shadow(0 0 12px rgba(0,224,204,0.3))',
+                  animation: 'shimmer 4s ease-in-out infinite',
+                  filter: 'drop-shadow(0 0 8px rgba(0,224,204,0.15))',
                 }}>
                   $99
                 </span>
