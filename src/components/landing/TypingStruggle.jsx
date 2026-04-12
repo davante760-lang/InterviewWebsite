@@ -15,8 +15,6 @@ const question = "Walk me through your biggest competitive displacement."
 const attempts = [
   "So we were up against the incumbent — they'd been in there for years — and I basically had to find a way to...",
   "It was a solid displacement, like two-and-a-quarter maybe, and the key was getting to the right people, the, uh...",
-  "My biggest one was this account where they were locked in with [competitor] and I started by going to the ops team — or actually, I think I went to finance first and then...",
-  "Yeah so this was a — it was a long cycle, like seven months? And the incumbent had all the relationships so I had to kind of build from scratch, which meant...",
 ]
 
 const answer = "Displaced an 8-year incumbent. $225K ACV, 7-month cycle. They had relationships at every level — I had zero. Started with the ops director, who was living with the pain daily. Mapped his priorities back to a business case, got finance aligned on the ROI, then used both of them to get 30 minutes with the CFO. Ran a structured eval, controlled the criteria, three-year commitment on the close. 124% to quota that year."
@@ -38,15 +36,15 @@ export default function TypingStruggle() {
   const { scrollYProgress: p } = useScroll({ target: ref, offset: ['start start', 'end end'] })
 
   const activePhase = useTransform(p,
-    [0, 0.05, 0.15, 0.28, 0.41, 0.54, 0.70, 1],
-    [0, 1,    2,    3,    4,    5,    6,    6]
+    [0, 0.06, 0.22, 0.44, 0.68, 1],
+    [0, 1,    2,    3,    4,    4]
   )
 
   const [phase, setPhase] = useState(0)
   useMotionValueEvent(activePhase, 'change', (v) => setPhase(Math.round(v)))
 
   return (
-    <section ref={ref} className="relative" style={{ height: '1200vh' }}>
+    <section ref={ref} className="relative" style={{ height: '800vh' }}>
       <div className="sticky top-0 h-screen flex flex-col items-center pt-20 sm:pt-8 sm:justify-center px-5 overflow-hidden">
         <div className="w-full max-w-[480px] lg:max-w-[720px]">
 
@@ -87,7 +85,7 @@ export default function TypingStruggle() {
             className="mb-4 transition-all duration-500"
             style={{ opacity: phase >= 2 ? 1 : 0 }}
           >
-            {phase === 6 ? (
+            {phase === 4 ? (
               <p className="text-[14px] sm:text-[16px] font-semibold">
                 <span style={{ color: '#00E0CC' }}>With Interview Coach:</span>
                 <span style={{ color: '#CBD5E1', marginLeft: '8px' }}>Same numbers. Now they land.</span>
@@ -104,13 +102,13 @@ export default function TypingStruggle() {
           <div
             className="rounded-lg mb-5 transition-all duration-500"
             style={{
-              opacity: phase >= 2 && phase <= 5 ? 1 : 0,
-              maxHeight: phase >= 2 && phase <= 5 ? '200px' : '0',
+              opacity: phase >= 2 && phase <= 3 ? 1 : 0,
+              maxHeight: phase >= 2 && phase <= 3 ? '200px' : '0',
               overflow: 'hidden',
               background: 'rgba(13,17,23,0.75)',
               border: '1px solid rgba(255,255,255,0.07)',
-              padding: phase >= 2 && phase <= 5 ? '12px 16px' : '0 16px',
-              marginBottom: phase >= 2 && phase <= 5 ? '20px' : '0',
+              padding: phase >= 2 && phase <= 3 ? '12px 16px' : '0 16px',
+              marginBottom: phase >= 2 && phase <= 3 ? '20px' : '0',
             }}
           >
             <p style={{ fontSize: '14px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#00E0CC', marginBottom: '6px' }}>Interviewer</p>
@@ -120,8 +118,8 @@ export default function TypingStruggle() {
           {/* Content zone — attempts and SAY THIS swap in same space */}
           <div className="relative min-h-[240px]">
 
-            {/* Phases 2-5: one attempt at a time */}
-            {[0, 1, 2, 3].map((i) => (
+            {/* Phases 2-3: one attempt at a time */}
+            {[0, 1].map((i) => (
               <div
                 key={i}
                 className="absolute inset-x-0 top-0 transition-all duration-500 ease-out"
@@ -141,9 +139,9 @@ export default function TypingStruggle() {
             <div
               className="absolute inset-x-0 top-0 transition-all duration-500 ease-out"
               style={{
-                opacity: phase === 6 ? 1 : 0,
-                transform: phase === 6 ? 'translateY(0)' : 'translateY(20px)',
-                pointerEvents: phase === 6 ? 'auto' : 'none',
+                opacity: phase === 4 ? 1 : 0,
+                transform: phase === 4 ? 'translateY(0)' : 'translateY(20px)',
+                pointerEvents: phase === 4 ? 'auto' : 'none',
               }}
             >
               <div style={{ background: 'rgba(0,224,204,0.04)', border: '1px solid rgba(0,224,204,0.14)', borderLeft: '3px solid #00E0CC', borderRadius: '10px', padding: '12px 16px 12px 20px', boxShadow: '0 0 20px rgba(0,224,204,0.04)' }}>

@@ -198,8 +198,8 @@ export default function YourPlaybook() {
             <p className="mb-6" style={{ fontSize: 'clamp(15px, 3.8vw, 18px)', fontWeight: 500, color: '#8B9BB4', fontStyle: 'italic' }}>
               AI writes the structure. You&apos;re the source material.
             </p>
-            <a href="#start" className="inline-block font-semibold transition-all duration-200"
-              style={{ padding: '14px 32px', borderRadius: '8px', background: '#00E0CC', color: '#080B12', fontSize: '14px', letterSpacing: '0.01em', textDecoration: 'none' }}>
+            <a href="#start" className="inline-block font-bold transition-all duration-200"
+              style={{ padding: '14px 32px', borderRadius: '10px', background: 'rgba(0,224,204,0.15)', border: '1px solid rgba(0,224,204,0.3)', color: '#00E0CC', fontSize: '14px', letterSpacing: '0.01em', textDecoration: 'none' }}>
               Build Your Playbook — Free
             </a>
           </div>
