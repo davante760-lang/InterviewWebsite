@@ -97,13 +97,11 @@ export default function CinematicDemo() {
   // Labels
   const labelIdx =
     progress > 0.12 && progress < 0.22 ? 0 :
-    progress >= 0.22 && progress < 0.42 ? 1 :
-    progress >= 0.55 && progress < 0.75 ? 2 : -1
+    progress >= 0.22 && progress < 0.42 ? 1 : -1
 
   const labels = [
     'The interviewer asks a question...',
     'Your transcript captures every word',
-    'Your answer appears in under 500ms',
   ]
 
   const showHint = progress > 0.02 && progress < 0.12
@@ -117,9 +115,7 @@ export default function CinematicDemo() {
           {labels.map((label, i) => (
             <span
               key={i}
-              className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[12px] tracking-wide transition-opacity duration-500 ${
-                i === 2 ? 'text-teal/60 font-medium' : 'text-text-tertiary/40'
-              }`}
+              className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-[12px] tracking-wide transition-opacity duration-500 text-text-tertiary/40"
               style={{ opacity: labelIdx === i ? 1 : 0 }}
             >
               {label}
