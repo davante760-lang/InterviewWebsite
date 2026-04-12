@@ -66,7 +66,7 @@ export default function TypingStruggle() {
       style={{ scrollSnapType: 'y mandatory' }}
     >
       {/* Section 0: Thesis + Source card */}
-      <div className="h-screen flex flex-col items-center justify-center px-5" style={{ scrollSnapAlign: 'start' }}>
+      <div className="h-screen flex flex-col items-center justify-center px-5" style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}>
         <div className="w-full max-w-[480px]">
           <p className="text-[14px] sm:text-[16px] text-text-primary/60 font-medium text-center mb-8">
             You&apos;re not bad at interviewing. You&apos;re bad at translating.
@@ -87,7 +87,7 @@ export default function TypingStruggle() {
 
       {/* Sections 1-4: Individual attempts */}
       {attempts.map((attempt, i) => (
-        <div key={i} className="h-screen flex flex-col items-center justify-center px-5" style={{ scrollSnapAlign: 'start' }}>
+        <div key={i} className="h-screen flex flex-col items-center justify-center px-5" style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}>
           <div className="w-full max-w-[480px]">
             {/* Shrunk source card */}
             <div className="bg-[#111825] border border-[#1a2030] rounded-lg px-3 py-2 mb-4 scale-[0.88] origin-top-left">
@@ -119,7 +119,7 @@ export default function TypingStruggle() {
       ))}
 
       {/* Section 5: All 4 stacked */}
-      <div className="h-screen flex flex-col items-center justify-center px-5" style={{ scrollSnapAlign: 'start' }}>
+      <div className="h-screen flex flex-col items-center justify-center px-5" style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}>
         <div className="w-full max-w-[480px]">
           <div className="bg-[#111825] border border-[#1a2030] rounded-lg px-3 py-2 mb-4 scale-[0.88] origin-top-left">
             <div className="flex flex-wrap gap-x-3 gap-y-1">
@@ -154,7 +154,7 @@ export default function TypingStruggle() {
       </div>
 
       {/* Section 6: SAY THIS */}
-      <div className="h-screen flex flex-col items-center justify-center px-5" style={{ scrollSnapAlign: 'start' }}>
+      <div className="h-screen flex flex-col items-center justify-center px-5" style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}>
         <div className="w-full max-w-[480px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -178,7 +178,7 @@ export default function TypingStruggle() {
       </div>
 
       {/* Section 7: Spacer for exit */}
-      <div className="h-screen" style={{ scrollSnapAlign: 'start' }} />
+      <div className="h-screen" style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }} />
     </div>
   )
 }
