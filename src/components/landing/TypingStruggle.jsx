@@ -20,31 +20,39 @@ const attempts = [
 
 const answer = "Displaced an 8-year incumbent. $225K ACV, 7-month cycle. They had relationships at every level — I had zero. Started with the ops director, who was living with the pain daily. Mapped his priorities back to a business case, got finance aligned on the ROI, then used both of them to get 30 minutes with the CFO. Ran a structured eval, controlled the criteria, three-year commitment on the close. 124% to quota that year."
 
-function getTypingState(progress, startAt, endAt) {
-  if (progress < startAt || progress > endAt) return { text: '', cursor: false, phase: 'none' }
+// Returns which attempts are visible and how much of the current one is typed
+function getStackState(progress, startAt, endAt) {
+  if (progress < startAt) return { lines: [], typingIndex: -1, typingText: '', cursor: false }
+  if (progress > endAt) return { lines: attempts.map((a) => a), typingIndex: -1, typingText: '', cursor: false }
+
   const span = endAt - startAt
   const local = (progress - startAt) / span
 
+  const lines = []
+  let typingIndex = -1
+  let typingText = ''
+  let cursor = false
+
   for (let i = 0; i < attempts.length; i++) {
     const aStart = i / attempts.length
-    const typeEnd = aStart + 0.6 / attempts.length
-    const delStart = aStart + 0.75 / attempts.length
-    const delEnd = (i + 1) / attempts.length
+    const typeEnd = aStart + 0.8 / attempts.length
 
-    if (local >= aStart && local < typeEnd) {
+    if (local >= typeEnd) {
+      // Fully typed — stays in the stack
+      lines.push(attempts[i])
+    } else if (local >= aStart) {
+      // Currently typing
       const frac = (local - aStart) / (typeEnd - aStart)
-      return { text: attempts[i].slice(0, Math.floor(frac * attempts[i].length)), cursor: true, phase: 'typing' }
-    }
-    if (local >= typeEnd && local < delStart) {
-      return { text: attempts[i], cursor: true, phase: 'pause' }
-    }
-    if (local >= delStart && local < delEnd) {
-      const frac = (local - delStart) / (delEnd - delStart)
-      const remaining = Math.floor((1 - frac) * attempts[i].length)
-      return { text: attempts[i].slice(0, Math.max(0, remaining)), cursor: true, phase: 'deleting' }
+      typingIndex = i
+      typingText = attempts[i].slice(0, Math.floor(frac * attempts[i].length))
+      cursor = true
+      break
+    } else {
+      break
     }
   }
-  return { text: '', cursor: true, phase: 'empty' }
+
+  return { lines, typingIndex, typingText, cursor }
 }
 
 export default function TypingStruggle() {
@@ -53,7 +61,7 @@ export default function TypingStruggle() {
   const [pr, setPr] = useState(0)
   useMotionValueEvent(p, 'change', setPr)
 
-  const { text, cursor, phase } = getTypingState(pr, 0.28, 0.55)
+  const { lines, typingIndex, typingText, cursor } = getStackState(pr, 0.28, 0.55)
   const showBadOutput = pr > 0.26 && pr < 0.62
   const showGoodOutput = pr > 0.65
   const showClosing = pr > 0.88
@@ -94,24 +102,28 @@ export default function TypingStruggle() {
             <div className="w-px h-6 bg-text-tertiary/20" />
           </div>
 
-          {/* Bad translation — without Interview Coach */}
+          {/* Bad translation — stacked failed attempts */}
           <div className="transition-all duration-500"
-            style={{ opacity: showBadOutput ? 1 : 0, maxHeight: showBadOutput ? 280 : 0, overflow: 'hidden' }}>
+            style={{ opacity: showBadOutput ? 1 : 0, maxHeight: showBadOutput ? 500 : 0, overflow: 'hidden' }}>
             <p className="text-[10px] sm:text-[11px] text-red-soft/50 uppercase tracking-wider mb-2">Without Interview Coach</p>
-            <div className="border-l-2 border-red-soft/30 bg-red-dim/20 rounded-r-lg px-4 sm:px-5 py-3 sm:py-4 mb-4">
-              <div className="min-h-[70px]">
-                <p className="text-text-primary/60 text-[15px] sm:text-[17px] leading-[1.6]">
-                  {text}
-                  {cursor && (
-                    <span className="inline-block w-[2px] h-[1em] ml-[1px] align-middle"
-                      style={{
-                        backgroundColor: phase === 'deleting' ? 'var(--color-red-soft)' : 'var(--color-text-tertiary)',
-                        opacity: phase === 'pause' ? 0.4 : 0.8,
-                        animation: phase === 'pause' ? 'pulse 1s ease-in-out infinite' : 'none',
-                      }} />
-                  )}
-                </p>
-              </div>
+            <div className="space-y-2 mb-4">
+              {/* Completed attempts — stay stacked */}
+              {lines.map((line, i) => (
+                <div key={i} className="border-l-2 border-red-soft/20 bg-red-dim/10 rounded-r-lg px-4 py-2.5">
+                  <p className="text-text-primary/40 text-[13px] sm:text-[15px] leading-[1.5] line-through decoration-red-soft/20">{line}</p>
+                </div>
+              ))}
+              {/* Currently typing attempt */}
+              {typingIndex >= 0 && (
+                <div className="border-l-2 border-red-soft/30 bg-red-dim/20 rounded-r-lg px-4 py-2.5">
+                  <p className="text-text-primary/60 text-[14px] sm:text-[16px] leading-[1.5]">
+                    {typingText}
+                    {cursor && (
+                      <span className="inline-block w-[2px] h-[1em] ml-[1px] align-middle bg-text-tertiary/60" />
+                    )}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
