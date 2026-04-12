@@ -81,6 +81,7 @@ export default function TypingStruggle() {
   const a3 = useFixedTyping(attempts[3], pr > triggers[3])
 
   const typingStates = [a0, a1, a2, a3]
+  const allDone = a3.done
   const showGoodOutput = pr > 0.70
   const showClosing = pr > 0.90
 
