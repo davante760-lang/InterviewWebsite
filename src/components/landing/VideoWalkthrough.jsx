@@ -31,6 +31,13 @@ export default function VideoWalkthrough() {
           See It in Action
         </p>
 
+        <h2 className="font-heading font-bold text-center mb-8 transition-all duration-700" style={{
+          opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(12px)',
+          fontSize: 'clamp(22px, 5vw, 36px)', lineHeight: 1.15, letterSpacing: '-0.025em', color: '#EDF2F7',
+        }}>
+          Watch the Full System <span style={{ color: '#00E0CC' }}>in 90 Seconds.</span>
+        </h2>
+
         <div className="transition-all duration-700" style={{ opacity: visible ? 1 : 0, transform: visible ? 'scale(1)' : 'scale(0.95)' }}>
           <div style={{
             position: 'relative', borderRadius: '14px', overflow: 'hidden',
