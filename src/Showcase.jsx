@@ -9,18 +9,28 @@ import Option7 from './components/showcase/Option7'
 import Option8 from './components/showcase/Option8'
 import Option9 from './components/showcase/Option9'
 import Option10 from './components/showcase/Option10'
+import Option11 from './components/showcase/Option11'
+import Option12 from './components/showcase/Option12'
+import Option13 from './components/showcase/Option13'
+import Option14 from './components/showcase/Option14'
+import Option15 from './components/showcase/Option15'
 
 const options = [
-  { component: Option1, label: 'Ghost in the Machine — Stats blur behind the struggle' },
-  { component: Option2, label: 'Deconstruction — Bento grid breaks under pressure' },
-  { component: Option3, label: 'Pulse & Flatline — Heartbeat dies at interview' },
-  { component: Option4, label: 'Trophy Stack Choke — Stats compress and crush' },
-  { component: Option5, label: 'Numbers Morph to Broken Speech — Stats degrade into vague language' },
-  { component: Option6, label: 'Confidence Meter Flip — Same card, meter drains' },
-  { component: Option7, label: 'Same Person / Two Outputs — Source card, bad then good translation' },
-  { component: Option8, label: 'The Redaction — Stats get blacked out by pressure' },
-  { component: Option9, label: 'Interrogation Transcript — Formal document, evidence vs testimony' },
-  { component: Option10, label: 'The Split Self — Top half compresses as bottom grows' },
+  { component: Option11, label: 'Signal-to-Noise — Stats crisp, noise crowds in, scan bar clears to answer' },
+  { component: Option12, label: 'Defragmentation — Messy cards converge, fuse into spark, SAY THIS expands' },
+  { component: Option13, label: 'Structural Blueprint — All failures appear at once as wall, dim+blur, answer rises' },
+  { component: Option14, label: 'Redaction Reveal — Rambling text block, teal highlights gold, rest redacts away' },
+  { component: Option15, label: 'Phase State Machine — Discrete scroll phases, AnimatePresence swaps, one-at-a-time then stack' },
+  { component: Option1, label: '(OLD) Ghost in the Machine — Stats blur behind the struggle' },
+  { component: Option2, label: '(OLD) Deconstruction — Bento grid breaks under pressure' },
+  { component: Option3, label: '(OLD) Pulse & Flatline — Heartbeat dies at interview' },
+  { component: Option4, label: '(OLD) Trophy Stack Choke — Stats compress and crush' },
+  { component: Option5, label: '(OLD) Numbers Morph to Broken Speech' },
+  { component: Option6, label: '(OLD) Confidence Meter Flip' },
+  { component: Option7, label: '(OLD) Same Person / Two Outputs' },
+  { component: Option8, label: '(OLD) The Redaction' },
+  { component: Option9, label: '(OLD) Interrogation Transcript' },
+  { component: Option10, label: '(OLD) The Split Self' },
 ]
 
 export default function Showcase() {
