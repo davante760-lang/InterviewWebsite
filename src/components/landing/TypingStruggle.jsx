@@ -38,7 +38,7 @@ export default function TypingStruggle() {
   const { scrollYProgress: p } = useScroll({ target: ref, offset: ['start start', 'end end'] })
 
   const activePhase = useTransform(p,
-    [0, 0.04, 0.12, 0.22, 0.32, 0.42, 0.52, 0.65, 1],
+    [0, 0.04, 0.14, 0.25, 0.36, 0.47, 0.58, 0.72, 1],
     [0, 1,    2,    3,    4,    5,    6,    7,    7]
   )
 
