@@ -197,8 +197,8 @@ function DesktopDemo() {
   const [progress, setProgress] = useState(0)
   useMotionValueEvent(p, 'change', (v) => setProgress(v))
 
-  const panelScale = useTransform(p, [0, 0.10, 0.82, 1.0], [0.7, 1, 1, 0.85])
-  const panelOpacity = useTransform(p, [0, 0.06, 0.90, 1.0], [0, 1, 1, 0.4])
+  const panelScale = useTransform(p, [0, 0.10, 0.82, 1.0], [0.7, 1, 1, 0.97])
+  const panelOpacity = useTransform(p, [0, 0.06, 0.85, 0.95], [0, 1, 1, 0])
   const panelY = useTransform(p, [0, 0.10], [120, 0])
   const splitGap = useTransform(p, [0.10, 0.20, 0.72, 0.82], [0, 100, 100, 0])
   const leftX = useTransform(splitGap, (g) => -g / 2)
