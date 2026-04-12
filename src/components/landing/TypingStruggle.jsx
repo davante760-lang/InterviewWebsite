@@ -47,51 +47,58 @@ export default function TypingStruggle() {
 
   return (
     <section ref={ref} className="relative" style={{ height: '1200vh' }}>
-      <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-5 overflow-hidden">
+      <div className="sticky top-0 h-screen flex flex-col items-center pt-12 sm:pt-16 px-5 overflow-hidden">
         <div className="w-full max-w-[480px] lg:max-w-[720px]">
 
-          {/* Thesis — always in DOM, fades via CSS */}
+          {/* Thesis — stays visible always */}
           <p
-            className="font-heading font-bold text-[20px] sm:text-[26px] md:text-[32px] tracking-[-0.02em] text-text-primary/80 text-center mb-8 transition-opacity duration-500 px-4"
-            style={{ opacity: phase >= 1 && phase <= 5 ? 1 : 0 }}
+            className="font-heading font-bold text-[18px] sm:text-[24px] md:text-[28px] tracking-[-0.02em] text-text-primary/80 text-center mb-6 transition-opacity duration-500 px-4"
+            style={{ opacity: phase >= 1 ? 1 : 0 }}
           >
             Being a top AE and interviewing like one aren&apos;t the same thing. <span style={{ color: '#00E0CC' }}>Interview Coach bridges the two.</span>
           </p>
 
-          {/* Source card — YOUR numbers */}
+          {/* Source card — stays visible always */}
           <div
-            className="rounded-xl mb-8 origin-top transition-all duration-500"
+            className="rounded-xl mb-6 origin-top transition-all duration-500"
             style={{
-              opacity: phase >= 1 && phase <= 5 ? 1 : 0,
-              transform: phase >= 2 ? 'scale(0.92) translateY(-12px)' : 'scale(1) translateY(0)',
+              opacity: phase >= 1 ? 1 : 0,
+              transform: phase >= 2 ? 'scale(0.92) translateY(-8px)' : 'scale(1) translateY(0)',
               background: 'rgba(16,22,34,0.72)',
               border: '1px solid rgba(255,255,255,0.07)',
-              padding: '20px 24px',
+              padding: '16px 20px',
             }}
           >
-            <p className="text-[13px] sm:text-[14px] mb-4" style={{ color: '#8B9BB4' }}>
+            <p className="text-[12px] sm:text-[13px] mb-3" style={{ color: '#8B9BB4' }}>
               This is you. You&apos;re not the problem.
             </p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5">
               {stats.map((s, i) => (
                 <div key={i}>
-                  <p className="font-heading font-bold text-[24px] sm:text-[28px] lg:text-[32px] tracking-tight" style={{ color: '#00E0CC' }}>{s.value}</p>
-                  <p className="text-[11px] sm:text-[12px] mt-1" style={{ color: '#5A6A82' }}>{s.label}</p>
+                  <p className="font-heading font-bold text-[20px] sm:text-[24px] lg:text-[28px] tracking-tight" style={{ color: '#00E0CC' }}>{s.value}</p>
+                  <p className="text-[10px] sm:text-[11px] mt-1" style={{ color: '#5A6A82' }}>{s.label}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Subheading — flips between WITHOUT / WITH */}
-          <p
-            className="text-[12px] sm:text-[13px] uppercase tracking-[0.1em] font-semibold mb-4 transition-all duration-500"
-            style={{
-              opacity: phase >= 2 ? 1 : 0,
-              color: phase === 6 ? '#00E0CC' : '#FF5C5C',
-            }}
+          <div
+            className="mb-4 transition-all duration-500"
+            style={{ opacity: phase >= 2 ? 1 : 0 }}
           >
-            {phase === 6 ? 'With Interview Coach: Same numbers. Now they land.' : 'Without Interview Coach: Rambling. Vague. Trailing off.'}
-          </p>
+            {phase === 6 ? (
+              <p className="text-[14px] sm:text-[16px] font-semibold">
+                <span style={{ color: '#00E0CC' }}>With Interview Coach:</span>
+                <span style={{ color: '#CBD5E1', marginLeft: '8px' }}>Same numbers. Now they land.</span>
+              </p>
+            ) : (
+              <p className="text-[14px] sm:text-[16px] font-semibold">
+                <span style={{ color: '#8B9BB4' }}>Without Interview Coach:</span>
+                <span style={{ color: '#5A6A82', marginLeft: '8px', fontStyle: 'italic' }}>Rambling. Vague. Trailing off.</span>
+              </p>
+            )}
+          </div>
 
           {/* Question — stays visible during attempts, hides on SAY THIS */}
           <div
