@@ -5,7 +5,7 @@ const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@interviewcoach.ai
 const appUrl = process.env.APP_URL || 'http://localhost:4173'
 
 export async function sendWelcomeEmail(email, bridgeToken, downloadUrl) {
-  const IC_SERVER = process.env.IC_SERVER_URL || 'https://interviewcoach-production.up.railway.app'
+  const IC_SERVER = process.env.IC_SERVER_URL || 'https://interview-coach-production-9c63.up.railway.app'
   const practiceUrl = `${IC_SERVER}/auth/bridge?token=${bridgeToken}&client=browser`
   const deepLink = `interviewcoach://activate?token=${bridgeToken}`
 
