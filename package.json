@@ -8,16 +8,19 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "vite preview --host 0.0.0.0 --port ${PORT:-4173}"
+    "start": "node server/index.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
+    "express": "^5.2.1",
     "framer-motion": "^12.38.0",
     "geist": "^1.7.0",
     "lucide-react": "^1.8.0",
+    "pg": "^8.20.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "recharts": "^3.8.0",
+    "resend": "^6.10.0",
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
