@@ -5,6 +5,19 @@ import { sendWelcomeEmail } from '../email.js'
 
 const router = Router()
 
+const BRIDGE_SECRET = process.env.BRIDGE_JWT_SECRET || 'dev-bridge-secret'
+
+function createBridgeJWT(payload) {
+  const header = { alg: 'HS256', typ: 'JWT' }
+  const headerB64 = Buffer.from(JSON.stringify(header)).toString('base64url')
+  const payloadB64 = Buffer.from(JSON.stringify(payload)).toString('base64url')
+  const signature = crypto
+    .createHmac('sha256', BRIDGE_SECRET)
+    .update(`${headerB64}.${payloadB64}`)
+    .digest('base64url')
+  return `${headerB64}.${payloadB64}.${signature}`
+}
+
 function hashToken(token) {
   return crypto.createHash('sha256').update(token).digest('hex')
 }
@@ -80,17 +93,30 @@ router.post('/signup', async (req, res) => {
     // Detect platform
     const platform = detectPlatform(req.headers['user-agent'])
 
+    // Generate bridge JWT for Interview Coach server auth
+    const bridgeToken = createBridgeJWT({
+      email: email.toLowerCase(),
+      role,
+      stage,
+      user_id: userId,
+      exp: Math.floor(Date.now() / 1000) + 15 * 60 // 15 minutes
+    })
+
+    const IC_SERVER = process.env.IC_SERVER_URL || 'https://interviewcoach-production.up.railway.app'
+
     // Send welcome email async (don't block response)
-    sendWelcomeEmail(email, rawToken, platform.downloadUrl || 'https://download.interviewcoach.ai').catch(() => {})
+    sendWelcomeEmail(email, bridgeToken, platform.downloadUrl || 'https://download.interviewcoach.ai').catch(() => {})
 
     res.json({
       success: true,
       user_id: userId,
       magic_token: rawToken,
+      bridge_token: bridgeToken,
       download_url: platform.downloadUrl,
       download_button_text: platform.buttonText,
       platform: platform.os,
-      deep_link: `interviewcoach://activate?token=${rawToken}`,
+      deep_link: `interviewcoach://activate?token=${bridgeToken}`,
+      practice_url: `${IC_SERVER}/auth/bridge?token=${bridgeToken}&client=browser`,
     })
   } catch (err) {
     console.error('[signup] Error:', err.message, err.stack)
@@ -183,8 +209,20 @@ router.post('/send-magic-link', async (req, res) => {
       [userId, tokenHash, expiresAt]
     )
 
+    // Generate bridge JWT for browser-first flow
+    const user = await query('SELECT email, role, stage FROM users WHERE id = $1', [userId])
+    const { email: userEmail, role: userRole, stage: userStage } = user.rows[0]
+
+    const bridgeToken = createBridgeJWT({
+      email: userEmail,
+      role: userRole,
+      stage: userStage,
+      user_id: userId,
+      exp: Math.floor(Date.now() / 1000) + 15 * 60
+    })
+
     // Send email
-    sendWelcomeEmail(email, rawToken, 'https://download.interviewcoach.ai').catch(() => {})
+    sendWelcomeEmail(email, bridgeToken, 'https://download.interviewcoach.ai').catch(() => {})
 
     res.json({ success: true })
   } catch (err) {

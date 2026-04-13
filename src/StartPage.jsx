@@ -109,39 +109,27 @@ export default function StartPage() {
             <motion.div key="success" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
               style={{ width: '100%', maxWidth: 480, background: 'rgba(16,22,34,0.72)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '14px', padding: '32px 28px' }}>
 
-              <h2 style={{ fontSize: 22, fontWeight: 700, color: '#EDF2F7', marginBottom: 6 }}>You&apos;re in. Your app is downloading now.</h2>
-              <p style={{ fontSize: 13, color: '#5A6A82', marginBottom: 24 }}>If the download didn&apos;t start, use the button below.</p>
+              <h2 style={{ fontSize: 22, fontWeight: 700, color: '#EDF2F7', marginBottom: 6 }}>You&apos;re in.</h2>
+              <p style={{ fontSize: 13, color: '#8B9BB4', marginBottom: 24, lineHeight: 1.6 }}>
+                Step 1: Download the companion app. Step 2: Start practicing in your browser.
+              </p>
 
-              {/* Manual download */}
+              {/* Primary CTA: Download */}
               <a href={signupData.download_url || '#'}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: '14px 0', borderRadius: 10, background: 'rgba(0,224,204,0.12)', border: '1px solid rgba(0,224,204,0.3)', color: '#00E0CC', fontSize: 14, fontWeight: 600, textDecoration: 'none', marginBottom: 20 }}>
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: '14px 0', borderRadius: 10, background: 'rgba(0,224,204,0.12)', border: '1px solid rgba(0,224,204,0.3)', color: '#00E0CC', fontSize: 14, fontWeight: 600, textDecoration: 'none', marginBottom: 16 }}>
                 <Download size={16} />
                 {signupData.download_button_text || platform.buttonText || 'Download Interview Coach'}
               </a>
 
-              {/* Progress tracker */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 24, padding: '16px 0', borderTop: '1px solid rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                <div style={{ flex: 1, textAlign: 'center' }}>
-                  <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'rgba(0,224,204,0.15)', border: '2px solid #00E0CC', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 6px' }}>
-                    <Check size={12} style={{ color: '#00E0CC' }} />
-                  </div>
-                  <p style={{ fontSize: 11, color: '#00E0CC', fontWeight: 600 }}>Account created</p>
-                </div>
-                <div style={{ width: 32, height: 1, background: 'rgba(255,255,255,0.08)' }} />
-                <div style={{ flex: 1, textAlign: 'center' }}>
-                  <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'rgba(0,224,204,0.08)', border: '1px solid rgba(0,224,204,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 6px' }}>
-                    <span style={{ fontSize: 10, color: '#00E0CC' }}>2</span>
-                  </div>
-                  <p style={{ fontSize: 11, color: '#8B9BB4' }}>Install the app</p>
-                </div>
-                <div style={{ width: 32, height: 1, background: 'rgba(255,255,255,0.04)' }} />
-                <div style={{ flex: 1, textAlign: 'center' }}>
-                  <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 6px' }}>
-                    <span style={{ fontSize: 10, color: '#5A6A82' }}>3</span>
-                  </div>
-                  <p style={{ fontSize: 11, color: '#5A6A82' }}>First practice</p>
-                </div>
-              </div>
+              {/* Secondary CTA: Start practicing in browser */}
+              <a href={signupData.practice_url || '#'}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: '14px 0', borderRadius: 10, background: 'linear-gradient(135deg, rgba(0,224,204,0.2), rgba(0,224,204,0.1))', border: '1px solid rgba(0,224,204,0.4)', color: '#00E0CC', fontSize: 15, fontWeight: 700, textDecoration: 'none', marginBottom: 12 }}>
+                <ExternalLink size={16} /> Start Your First Practice
+              </a>
+
+              <p style={{ fontSize: 12, color: '#5A6A82', textAlign: 'center', marginBottom: 20 }}>
+                The companion app runs silently in your menu bar and captures audio during practice.
+              </p>
 
               {/* Role teaser */}
               {signupData.roleKey && roleTeasers[signupData.roleKey] && (
@@ -153,14 +141,8 @@ export default function StartPage() {
                 </div>
               )}
 
-              {/* Deep link */}
-              <a href={signupData.deep_link || '#'}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: '14px 0', borderRadius: 10, background: 'rgba(0,224,204,0.12)', border: '1px solid rgba(0,224,204,0.3)', color: '#00E0CC', fontSize: 14, fontWeight: 600, textDecoration: 'none', marginBottom: 12 }}>
-                <ExternalLink size={16} /> Open Interview Coach
-              </a>
-
               <p style={{ fontSize: 11, color: '#5A6A82', textAlign: 'center' }}>
-                We also sent setup instructions to <span style={{ color: '#8B9BB4' }}>{email}</span>. You probably won&apos;t need them.
+                We also sent setup instructions to <span style={{ color: '#8B9BB4' }}>{email}</span>.
               </p>
             </motion.div>
           )}
