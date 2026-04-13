@@ -235,12 +235,16 @@ router.get('/health', async (req, res) => {
       users: parseInt(usersResult.rows[0].count),
       active_tokens: parseInt(tokensResult.rows[0].count),
       has_database_url: !!process.env.DATABASE_URL,
+      has_private_url: !!process.env.DATABASE_PRIVATE_URL,
+      has_public_url: !!process.env.DATABASE_PUBLIC_URL,
     })
   } catch (err) {
     res.status(500).json({
       status: 'error',
       error: err.message,
       has_database_url: !!process.env.DATABASE_URL,
+      has_private_url: !!process.env.DATABASE_PRIVATE_URL,
+      has_public_url: !!process.env.DATABASE_PUBLIC_URL,
     })
   }
 })

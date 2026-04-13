@@ -2,12 +2,17 @@ import pg from 'pg'
 
 const { Pool } = pg
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL?.includes('localhost') ? false : { rejectUnauthorized: false },
-})
+const connectionString = process.env.DATABASE_URL || process.env.DATABASE_PRIVATE_URL || process.env.DATABASE_PUBLIC_URL
+console.log('[DB] Connection string available:', !!connectionString)
+console.log('[DB] DATABASE_URL:', !!process.env.DATABASE_URL, '| DATABASE_PRIVATE_URL:', !!process.env.DATABASE_PRIVATE_URL, '| DATABASE_PUBLIC_URL:', !!process.env.DATABASE_PUBLIC_URL)
+
+const pool = connectionString ? new Pool({
+  connectionString,
+  ssl: connectionString.includes('localhost') ? false : { rejectUnauthorized: false },
+}) : null
 
 export async function query(text, params) {
+  if (!pool) throw new Error('No database connection — DATABASE_URL not set')
   return pool.query(text, params)
 }
 

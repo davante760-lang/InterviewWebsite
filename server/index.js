@@ -36,7 +36,8 @@ app.use((err, req, res, next) => {
 // Start
 async function start() {
   try {
-    if (process.env.DATABASE_URL) {
+    const hasDb = process.env.DATABASE_URL || process.env.DATABASE_PRIVATE_URL || process.env.DATABASE_PUBLIC_URL
+    if (hasDb) {
       await initialize()
     } else {
       console.log('[server] No DATABASE_URL — running without database (API endpoints will fail)')
