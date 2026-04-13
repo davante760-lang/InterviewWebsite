@@ -116,7 +116,7 @@ router.post('/signup', async (req, res) => {
       download_button_text: platform.buttonText,
       platform: platform.os,
       deep_link: `interviewcoach://activate?token=${bridgeToken}`,
-      practice_url: `${IC_SERVER}/auth/bridge?token=${bridgeToken}&client=browser`,
+      practice_url: `${IC_SERVER}/practice/first?token=${bridgeToken}`,
     })
   } catch (err) {
     console.error('[signup] Error:', err.message, err.stack)
