@@ -93,8 +93,8 @@ router.post('/signup', async (req, res) => {
       deep_link: `interviewcoach://activate?token=${rawToken}`,
     })
   } catch (err) {
-    console.error('[signup] Error:', err.message)
-    res.status(500).json({ success: false, error: 'server_error', message: 'Something went wrong. Try again.' })
+    console.error('[signup] Error:', err.message, err.stack)
+    res.status(500).json({ success: false, error: 'server_error', message: 'Something went wrong. Try again.', debug: err.message })
   }
 })
 
@@ -149,8 +149,8 @@ router.post('/validate-token', async (req, res) => {
       session_expires_at: sessionExpires.toISOString(),
     })
   } catch (err) {
-    console.error('[validate-token] Error:', err.message)
-    res.status(500).json({ success: false, error: 'server_error' })
+    console.error('[validate-token] Error:', err.message, err.stack)
+    res.status(500).json({ success: false, error: 'server_error', debug: err.message })
   }
 })
 
@@ -220,6 +220,28 @@ router.get('/me', async (req, res) => {
   } catch (err) {
     console.error('[me] Error:', err.message)
     res.status(500).json({ error: 'server_error' })
+  }
+})
+
+// GET /api/auth/health — diagnostic endpoint (remove in production)
+router.get('/health', async (req, res) => {
+  try {
+    const dbResult = await query('SELECT now() as time, current_database() as db')
+    const usersResult = await query('SELECT count(*) as count FROM users')
+    const tokensResult = await query('SELECT count(*) as count FROM magic_tokens WHERE used_at IS NULL AND expires_at > now()')
+    res.json({
+      status: 'ok',
+      database: dbResult.rows[0],
+      users: parseInt(usersResult.rows[0].count),
+      active_tokens: parseInt(tokensResult.rows[0].count),
+      has_database_url: !!process.env.DATABASE_URL,
+    })
+  } catch (err) {
+    res.status(500).json({
+      status: 'error',
+      error: err.message,
+      has_database_url: !!process.env.DATABASE_URL,
+    })
   }
 })
 
