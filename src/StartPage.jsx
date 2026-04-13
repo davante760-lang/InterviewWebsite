@@ -120,12 +120,13 @@ export default function StartPage() {
                 type="submit"
                 disabled={!ready}
                 style={{
-                  width: '100%', padding: '14px 0', borderRadius: '8px', border: 'none',
-                  background: ready ? 'rgba(0,224,204,0.15)' : 'rgba(0,224,204,0.06)',
-                  border: `1px solid ${ready ? 'rgba(0,224,204,0.35)' : 'rgba(0,224,204,0.1)'}`,
-                  color: ready ? '#00E0CC' : 'rgba(0,224,204,0.3)',
-                  fontSize: 15, fontWeight: 700, cursor: ready ? 'pointer' : 'default',
+                  width: '100%', padding: '16px 0', borderRadius: '10px',
+                  background: ready ? 'rgba(0,224,204,0.12)' : 'rgba(0,224,204,0.04)',
+                  border: `1px solid ${ready ? 'rgba(0,224,204,0.3)' : 'rgba(0,224,204,0.08)'}`,
+                  color: ready ? '#00E0CC' : 'rgba(0,224,204,0.25)',
+                  fontSize: 14, fontWeight: 600, cursor: ready ? 'pointer' : 'default',
                   transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+                  textDecoration: 'none',
                   animation: submitting ? 'pulse 1s ease-in-out infinite' : 'none',
                 }}
               >
