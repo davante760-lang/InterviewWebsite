@@ -1,14 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
-
-const BG = '#0A0A0F'
-const SURFACE = '#12121A'
-const GREEN = '#00FF88'
-const MUTED = '#94A3B8'
-const WHITE = '#F8FAFC'
-const INPUT_BG = '#1A1A2E'
-const BORDER = 'rgba(255,255,255,0.08)'
+import LandingNav from './components/landing/LandingNav'
 
 const stages = ['Actively Interviewing', 'Starting to Look', 'Just Exploring']
 const roles = ['SDR / BDR', 'Mid-Market AE', 'Enterprise AE', 'SE / CSM / AM', 'Sales Manager / Director', 'VP+']
@@ -31,64 +24,65 @@ export default function StartPage() {
   }
 
   return (
-    <div style={{ background: BG, minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif" }}>
+    <div style={{ background: '#0B0D12', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
 
-      {/* Logo */}
-      <div style={{ padding: '20px 24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ width: 7, height: 7, borderRadius: '50%', background: GREEN, boxShadow: `0 0 6px ${GREEN}` }} />
-          <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: WHITE }}>Interview Coach</span>
-        </div>
-      </div>
+      <LandingNav />
 
       {/* Centered card */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0 20px 60px' }}>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '80px 20px 60px' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          style={{ width: '100%', maxWidth: 440, background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 4, padding: 32 }}
+          style={{
+            width: '100%', maxWidth: 460,
+            background: 'rgba(16,22,34,0.72)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255,255,255,0.07)',
+            borderRadius: '14px',
+            padding: '36px 32px',
+          }}
         >
           {done ? (
-            /* ── Success state ── */
             <div style={{ textAlign: 'center', padding: '40px 0' }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: `${GREEN}20`, border: `2px solid ${GREEN}`, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
-                <Check size={24} style={{ color: GREEN }} />
+              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(0,224,204,0.12)', border: '2px solid #00E0CC', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px' }}>
+                <Check size={24} style={{ color: '#00E0CC' }} />
               </div>
-              <p style={{ fontSize: 18, fontWeight: 700, color: WHITE, marginBottom: 8 }}>You&apos;re in.</p>
-              <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.6 }}>Check your email to start your first practice interview.</p>
+              <p style={{ fontSize: 18, fontWeight: 700, color: '#EDF2F7', marginBottom: 8 }}>You&apos;re in.</p>
+              <p style={{ fontSize: 14, color: '#8B9BB4', lineHeight: 1.6 }}>Check your email to start your first practice interview.</p>
             </div>
           ) : (
-            /* ── Form ── */
             <form onSubmit={handleSubmit}>
-              <h1 style={{ fontSize: 22, fontWeight: 700, color: WHITE, marginBottom: 6 }}>Get Your Playbook Running</h1>
-              <p style={{ fontSize: 13, color: MUTED, marginBottom: 28 }}>Free practice interview. No credit card. Built for quota carriers.</p>
+              <h1 style={{ fontSize: 24, fontWeight: 700, color: '#EDF2F7', marginBottom: 8, letterSpacing: '-0.02em' }}>Get Your Playbook Running</h1>
+              <p style={{ fontSize: 14, color: '#5A6A82', marginBottom: 28 }}>Free practice interview. No credit card. Built for quota carriers.</p>
 
               {/* Email */}
-              <div style={{ marginBottom: 16 }}>
+              <div style={{ marginBottom: 14 }}>
                 <input
                   type="email"
                   placeholder="you@company.com"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   style={{
-                    width: '100%', padding: '12px 14px', borderRadius: 4, border: `1px solid ${BORDER}`,
-                    background: INPUT_BG, color: WHITE, fontSize: 14, outline: 'none', boxSizing: 'border-box',
+                    width: '100%', padding: '13px 16px', borderRadius: '8px',
+                    border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(8,11,18,0.65)',
+                    color: '#EDF2F7', fontSize: 14, outline: 'none', boxSizing: 'border-box',
                     transition: 'border-color 0.2s',
                   }}
-                  onFocus={e => e.target.style.borderColor = `${GREEN}66`}
-                  onBlur={e => e.target.style.borderColor = BORDER}
+                  onFocus={e => e.target.style.borderColor = 'rgba(0,224,204,0.4)'}
+                  onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.07)'}
                 />
               </div>
 
               {/* Role */}
-              <div style={{ marginBottom: 16 }}>
+              <div style={{ marginBottom: 14 }}>
                 <select
                   value={role}
                   onChange={e => setRole(e.target.value)}
                   style={{
-                    width: '100%', padding: '12px 14px', borderRadius: 4, border: `1px solid ${BORDER}`,
-                    background: INPUT_BG, color: role ? WHITE : MUTED, fontSize: 14, outline: 'none',
+                    width: '100%', padding: '13px 16px', borderRadius: '8px',
+                    border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(8,11,18,0.65)',
+                    color: role ? '#EDF2F7' : '#5A6A82', fontSize: 14, outline: 'none',
                     boxSizing: 'border-box', appearance: 'none', cursor: 'pointer',
                   }}
                 >
@@ -99,7 +93,7 @@ export default function StartPage() {
 
               {/* Stage pills */}
               <div style={{ marginBottom: 24 }}>
-                <p style={{ fontSize: 13, color: MUTED, marginBottom: 10 }}>Where are you in your search?</p>
+                <p style={{ fontSize: 13, color: '#5A6A82', marginBottom: 10 }}>Where are you in your search?</p>
                 <div style={{ display: 'flex', gap: 8 }}>
                   {stages.map(s => (
                     <button
@@ -107,11 +101,12 @@ export default function StartPage() {
                       type="button"
                       onClick={() => setStage(s)}
                       style={{
-                        flex: 1, padding: '10px 8px', borderRadius: 4, fontSize: 12, fontWeight: 500,
-                        cursor: 'pointer', border: `1px solid ${stage === s ? GREEN + '55' : BORDER}`,
-                        background: stage === s ? `${GREEN}12` : INPUT_BG,
-                        color: stage === s ? GREEN : MUTED, transition: 'all 0.2s',
-                        whiteSpace: 'nowrap',
+                        flex: 1, padding: '10px 8px', borderRadius: '8px', fontSize: 12, fontWeight: 500,
+                        cursor: 'pointer',
+                        border: `1px solid ${stage === s ? 'rgba(0,224,204,0.35)' : 'rgba(255,255,255,0.07)'}`,
+                        background: stage === s ? 'rgba(0,224,204,0.1)' : 'rgba(8,11,18,0.65)',
+                        color: stage === s ? '#00E0CC' : '#5A6A82',
+                        transition: 'all 0.2s', whiteSpace: 'nowrap',
                       }}
                     >
                       {s}
@@ -125,18 +120,19 @@ export default function StartPage() {
                 type="submit"
                 disabled={!ready}
                 style={{
-                  width: '100%', padding: '14px 0', borderRadius: 4, border: 'none',
-                  background: ready ? GREEN : `${GREEN}44`, color: BG,
+                  width: '100%', padding: '14px 0', borderRadius: '8px', border: 'none',
+                  background: ready ? 'rgba(0,224,204,0.15)' : 'rgba(0,224,204,0.06)',
+                  border: `1px solid ${ready ? 'rgba(0,224,204,0.35)' : 'rgba(0,224,204,0.1)'}`,
+                  color: ready ? '#00E0CC' : 'rgba(0,224,204,0.3)',
                   fontSize: 15, fontWeight: 700, cursor: ready ? 'pointer' : 'default',
                   transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                  boxShadow: ready ? `0 0 20px ${GREEN}22` : 'none',
                   animation: submitting ? 'pulse 1s ease-in-out infinite' : 'none',
                 }}
               >
                 {submitting ? 'Setting up your session...' : <>Start Free Practice Interview <ArrowRight size={16} /></>}
               </button>
 
-              <p style={{ fontSize: 11, color: `${MUTED}88`, textAlign: 'center', marginTop: 12 }}>
+              <p style={{ fontSize: 11, color: '#5A6A82', textAlign: 'center', marginTop: 12 }}>
                 Your first practice session starts immediately after signup.
               </p>
             </form>
@@ -145,8 +141,8 @@ export default function StartPage() {
       </div>
 
       {/* Footer */}
-      <div style={{ padding: '16px 24px', textAlign: 'center' }}>
-        <p style={{ fontSize: 11, color: `${MUTED}66` }}>Interview Coach · Built by a 2x President&apos;s Club AE</p>
+      <div style={{ padding: '16px 24px', textAlign: 'center', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
+        <p style={{ fontSize: 11, color: '#5A6A82' }}>Interview Coach · Built by a 2x President&apos;s Club AE</p>
       </div>
 
       <style>{`
@@ -154,8 +150,8 @@ export default function StartPage() {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.7; }
         }
-        ::placeholder { color: ${MUTED}88; }
-        select option { background: ${SURFACE}; color: ${WHITE}; }
+        ::placeholder { color: #5A6A82; }
+        select option { background: #12121A; color: #EDF2F7; }
       `}</style>
     </div>
   )
