@@ -41,17 +41,17 @@ export default function StartPage() {
   const validEmail = email.includes('@') && email.includes('.')
   const ready = validEmail && roleIdx >= 0 && stageIdx >= 0 && !submitting
 
-  // Auto-trigger download on successful signup
-  useEffect(() => {
-    if (signupData?.download_url) {
-      const link = document.createElement('a')
-      link.href = signupData.download_url
-      link.download = ''
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-    }
-  }, [signupData])
+  // Auto-download disabled until download.interviewcoach.ai is live
+  // useEffect(() => {
+  //   if (signupData?.download_url) {
+  //     const link = document.createElement('a')
+  //     link.href = signupData.download_url
+  //     link.download = ''
+  //     document.body.appendChild(link)
+  //     link.click()
+  //     document.body.removeChild(link)
+  //   }
+  // }, [signupData])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
