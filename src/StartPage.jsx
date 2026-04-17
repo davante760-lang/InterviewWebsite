@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Check, Download, ExternalLink } from 'lucide-react'
+import { ArrowRight, Check, ExternalLink } from 'lucide-react'
 import LandingNav from './components/landing/LandingNav'
 
 const stages = ['Actively Interviewing', 'Starting to Look', 'Just Exploring']
@@ -111,25 +111,14 @@ export default function StartPage() {
 
               <h2 style={{ fontSize: 22, fontWeight: 700, color: '#EDF2F7', marginBottom: 6 }}>You&apos;re in.</h2>
               <p style={{ fontSize: 13, color: '#8B9BB4', marginBottom: 24, lineHeight: 1.6 }}>
-                Step 1: Download the companion app. Step 2: Start practicing in your browser.
+                Your first practice runs in the browser. 4 minutes. No install.
               </p>
 
-              {/* Primary CTA: Download */}
-              <a href={signupData.download_url || '#'}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: '14px 0', borderRadius: 10, background: 'rgba(0,224,204,0.12)', border: '1px solid rgba(0,224,204,0.3)', color: '#00E0CC', fontSize: 14, fontWeight: 600, textDecoration: 'none', marginBottom: 16 }}>
-                <Download size={16} />
-                {signupData.download_button_text || platform.buttonText || 'Download Interview Coach'}
-              </a>
-
-              {/* Secondary CTA: Start practicing in browser */}
+              {/* Primary CTA: Start practicing in browser */}
               <a href={signupData.practice_url || '#'}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: '14px 0', borderRadius: 10, background: 'linear-gradient(135deg, rgba(0,224,204,0.2), rgba(0,224,204,0.1))', border: '1px solid rgba(0,224,204,0.4)', color: '#00E0CC', fontSize: 15, fontWeight: 700, textDecoration: 'none', marginBottom: 12 }}>
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: '14px 0', borderRadius: 10, background: 'linear-gradient(135deg, rgba(0,224,204,0.2), rgba(0,224,204,0.1))', border: '1px solid rgba(0,224,204,0.4)', color: '#00E0CC', fontSize: 15, fontWeight: 700, textDecoration: 'none', marginBottom: 20 }}>
                 <ExternalLink size={16} /> Start Your First Practice
               </a>
-
-              <p style={{ fontSize: 12, color: '#5A6A82', textAlign: 'center', marginBottom: 20 }}>
-                The companion app runs silently in your menu bar and captures audio during practice.
-              </p>
 
               {/* Role teaser */}
               {signupData.roleKey && roleTeasers[signupData.roleKey] && (
@@ -153,11 +142,6 @@ export default function StartPage() {
               style={{ width: '100%', maxWidth: 460, background: 'rgba(16,22,34,0.72)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '14px', padding: '36px 32px', textAlign: 'center' }}>
               <h2 style={{ fontSize: 20, fontWeight: 700, color: '#EDF2F7', marginBottom: 8 }}>Looks like you already have an account.</h2>
               <p style={{ fontSize: 14, color: '#5A6A82', marginBottom: 24 }}>We&apos;ll send a link to <span style={{ color: '#8B9BB4' }}>{email}</span> to sign you into the app.</p>
-
-              <a href={platform.os === 'macos' ? 'https://download.interviewcoach.ai/InterviewCoach-latest.dmg' : platform.os === 'windows' ? 'https://download.interviewcoach.ai/InterviewCoach-latest.exe' : '#'}
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: '13px 0', borderRadius: 10, background: 'rgba(0,224,204,0.12)', border: '1px solid rgba(0,224,204,0.3)', color: '#00E0CC', fontSize: 14, fontWeight: 600, textDecoration: 'none', marginBottom: 12 }}>
-                <Download size={16} /> {platform.buttonText || 'Download Interview Coach'}
-              </a>
 
               <button onClick={handleResend} disabled={resending || resent}
                 style={{ width: '100%', padding: '13px 0', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', color: resent ? '#00E0CC' : '#8B9BB4', fontSize: 14, fontWeight: 500, cursor: resending ? 'default' : 'pointer', marginBottom: 16 }}>

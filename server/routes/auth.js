@@ -102,7 +102,7 @@ router.post('/signup', async (req, res) => {
       exp: Math.floor(Date.now() / 1000) + 15 * 60 // 15 minutes
     })
 
-    const IC_SERVER = process.env.IC_SERVER_URL || 'https://interview-coach-production-9c63.up.railway.app'
+    const IC_SERVER = process.env.IC_SERVER_URL || 'https://app.noruma.ai'
 
     // Send welcome email async (don't block response)
     sendWelcomeEmail(email, bridgeToken, platform.downloadUrl || 'https://download.interviewcoach.ai').catch(() => {})
