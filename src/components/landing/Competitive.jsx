@@ -52,7 +52,7 @@ function ContrastRow({ them, us, index }) {
 
 export default function Competitive() {
   return (
-    <section className="py-24 md:py-32 px-6 relative">
+    <section id="compare" className="py-24 md:py-32 px-6 relative">
       <div className="max-w-[720px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -69,7 +69,7 @@ export default function Testimonials() {
         }
       `}</style>
 
-      <section ref={sectionRef} className="py-24 sm:py-32 px-5" style={{ background: '#0B0D12' }}>
+      <section id="compare" ref={sectionRef} className="py-24 sm:py-32 px-5" style={{ background: '#0B0D12' }}>
         <div className="max-w-[900px] mx-auto">
 
           {/* Header */}

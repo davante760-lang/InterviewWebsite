@@ -92,7 +92,7 @@ export default function YourPlaybook() {
         .ic-input-chip.show { animation: fadeInUp 0.5s ease-out forwards; }
       `}</style>
 
-      <section ref={sectionRef} className="py-24 sm:py-32 px-5" style={{ background: '#0B0D12' }}>
+      <section id="features" ref={sectionRef} className="py-24 sm:py-32 px-5" style={{ background: '#0B0D12' }}>
 
         {/* Header */}
         <div className="text-center max-w-[620px] mx-auto mb-16 sm:mb-20 transition-all duration-700"
